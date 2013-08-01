@@ -1,0 +1,270 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:com.google.gwt.user.datepicker.client">
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel height="500" width="400">
+		<g:AbsolutePanel height="850px" width="450" ui:field="catalogue_search_absolute_panel">
+			<g:at left="10" top="10">
+				<g:TextBox text="OpenLayer url here..." ui:field="catalogue_search_panel_os_textbox"/>
+			</g:at>
+			<g:at left="183" top="10">
+				<g:Button width="50" ui:field="catalogue_search_send_button">Send</g:Button>
+			</g:at>
+			<g:at left="-10" top="68">
+				<g:AbsolutePanel width="450px" height="782px" ui:field="catalogue_search_param_panel">
+					<g:at left="10" top="10">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Area of Interest"/>
+					</g:at>
+					<g:at left="43" top="35">
+						<g:Label width="71px" height="18px" text="Upper (N/W)"/>
+					</g:at>
+					<g:at left="43" top="59">
+						<g:Label width="68px" height="18px" text="Lower (S/E)"/>
+					</g:at>
+					<g:at left="133" top="35">
+						<g:DoubleBox width="86px" height="16px" ui:field="catalogue_search_panel_nwlon" name="bbox"/>
+					</g:at>
+					<g:at left="133" top="59">
+						<g:DoubleBox width="86px" height="16px" ui:field="catalogue_search_panel_selon" name="bbox"/>
+					</g:at>
+					<g:at left="229" top="35">
+						<g:DoubleBox width="86px" height="16px" ui:field="catalogue_search_panel_nwlat" name="bbox"/>
+					</g:at>
+					<g:at left="229" top="59">
+						<g:DoubleBox width="86px" height="16px" ui:field="catalogue_search_panel_selat" name="bbox"/>
+					</g:at>
+					<g:at left="345" top="35">
+						<g:Button width="71px" height="30px" ui:field="catalogue_search_draw_aoi_button">Draw AOI</g:Button>
+					</g:at>
+					<g:at left="10" top="99">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Date"/>
+					</g:at>
+					<g:at left="43" top="120">
+						<g:Label width="60px" height="18px" text="Begin/End"/>
+					</g:at>
+					<g:at left="130" top="119">
+						<g:TextBox width="100px" height="7px" ui:field="catalogue_search_begin" name="time:start"/>
+					</g:at>
+					<g:at left="286" top="120">
+						<g:TextBox width="100px" height="7px" ui:field="catalogue_search_end" name="time:end"/>
+					</g:at>
+					<g:at left="248" top="119">
+						<g:Button width="16px" height="19px" ui:field="catalogue_search_datepicker1_button"/>
+					</g:at>
+					<g:at left="402" top="120">
+						<g:Button width="16px" height="19px" ui:field="catalogue_search_datepicker2_button"/>
+					</g:at>
+					<g:at left="10" top="162">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Platform"/>
+					</g:at>
+					<g:at left="107" top="159">
+						<g:ListBox visibleItemCount="1" width="71px" height="22px" ui:field="catalogue_search_panel_platform" name="eo:platform"/>
+					</g:at>
+					<g:at left="251" top="162">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Instrument"/>
+					</g:at>
+					<g:at left="345" top="162">
+						<g:ListBox width="71px" height="22px" visibleItemCount="1" ui:field="catalogue_search_panel_sensor" name="eo:instrument"/>
+					</g:at>
+					<g:at left="107" top="200">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Sensor Type"/>
+					</g:at>
+					<g:at left="232" top="197">
+						<g:ListBox width="71px" height="22px" visibleItemCount="1" ui:field="catalogue_search_panel_sensortype" name="eo:sensorType"/>
+					</g:at>
+					<g:at left="107" top="251">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Resolution"/>
+					</g:at>
+					<g:at left="232" top="250">
+						<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_resolutionMin" name="eo:resolution"/>
+					</g:at>
+					<g:at left="309" top="250">
+						<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_resolutionMax" name="eo:resolution"/>
+					</g:at>
+					<g:at left="107" top="355">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Orbit Number"/>
+					</g:at>
+					<g:at left="234" top="355">
+						<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_orbitMin" name="eo:orbitNumber"/>
+					</g:at>
+					<g:at left="311" top="355">
+						<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_orbitMax" name="eo:orbitNumber"/>
+					</g:at>
+					<g:at left="107" top="406">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Direction"/>
+					</g:at>
+					<g:at left="229" top="407">
+						<g:RadioButton name="eo:orbitDirection" text="ASCENDING" ui:field="catalogue_search_panel_orbitDirection1"/>
+					</g:at>
+					<g:at left="229" top="431">
+						<g:RadioButton name="eo:orbitDirection" width="107px" height="18px" text="DESCENDING" ui:field="catalogue_search_panel_orbitDirection2"/>
+					</g:at>
+					<g:at left="107" top="457">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Track"/>
+					</g:at>
+					<g:at left="184" top="458">
+						<g:Label width="71px" height="18px" text="Along"/>
+					</g:at>
+					<g:at left="229" top="456">
+						<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_trackAlong" name="eo:track"/>
+					</g:at>
+					<g:at left="318" top="456">
+						<g:Label width="71px" height="18px" text="Across"/>
+					</g:at>
+					<g:at left="369" top="456">
+						<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_trackAccross" name="eo:track"/>
+					</g:at>
+					<g:at left="345" top="35">
+						<g:Button width="71px" height="30px" text="Stop " ui:field="catalogue_search_stop_drawing_button"/>
+					</g:at>
+					<g:at left="393" top="907">
+						<g:Button ui:field="catalogue_search_submit_button">Submit</g:Button>
+					</g:at>
+					<g:at left="107" top="810">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Cloud Coverage"/>
+					</g:at>
+					<g:at left="107" top="835">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Snow Coverage"/>
+					</g:at>
+					<g:at left="107" top="557">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Entry type"/>
+					</g:at>
+					<g:at left="229" top="556">
+						<g:TextBox width="141px" height="8px" ui:field="catalogue_search_panel_entryType" name="eo:type"/>
+					</g:at>
+					<g:at left="355" top="907">
+						<g:Button width="95px" height="30px" text="Send request" ui:field="catalogue_search_panel_send_request_button">Submit</g:Button>
+					</g:at>
+					<g:at left="107" top="381">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Orbit Type"/>
+					</g:at>
+					<g:at left="107" top="225">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Sensor Mode"/>
+					</g:at>
+					<g:at left="229" top="225">
+						<g:TextBox width="141px" height="8px" ui:field="catalogue_search_panel_sensorMode" name="eo:sensorMode"/>
+					</g:at>
+					<g:at left="107" top="279">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Swath Id"/>
+					</g:at>
+					<g:at left="229" top="276">
+						<g:TextBox width="141px" height="8px" ui:field="catalogue_search_panel_swathId" name="eo:swathId"/>
+					</g:at>
+					<g:at left="107" top="304">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Wave Lenght"/>
+					</g:at>
+					<g:at left="229" top="303">
+						<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_waveLenght1" name="eo:wavelength"/>
+					</g:at>
+					<g:at left="306" top="303">
+						<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_waveLenght2" name="eo:wavelength"/>
+					</g:at>
+					<g:at left="107" top="329">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Spectral Range"/>
+					</g:at>
+					<g:at left="229" top="329">
+						<g:ListBox width="71px" height="22px" visibleItemCount="1" ui:field="catalogue_search_panel_spectralRange" name="eo:spectralRange"/>
+					</g:at>
+					<g:at left="107" top="482">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Frame"/>
+					</g:at>
+					<g:at left="229" top="481">
+						<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_frame1" name="eo:frame"/>
+					</g:at>
+					<g:at left="306" top="481">
+						<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_frame2" name="eo:frame"/>
+					</g:at>
+					<g:at left="107" top="507">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Identifier"/>
+					</g:at>
+					<g:at left="229" top="507">
+						<g:TextBox width="141px" height="8px" ui:field="catalogue_search_panel_identifier" name="eo:identifier"/>
+					</g:at>
+					<g:at left="107" top="532">
+						<g:Label width="133px" height="19px" styleName="gwt-Label-main" text="Acquisition Type"/>
+					</g:at>
+					<g:at left="229" top="533">
+						<g:TextBox width="141px" height="8px" ui:field="catalogue_search_panel_acquisitionType" name="eo:acquisitionType"/>
+					</g:at>
+					<g:at left="107" top="582">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Status"/>
+					</g:at>
+					<g:at left="232" top="582">
+						<g:ListBox width="71px" height="22px" visibleItemCount="1" ui:field="catalogue_search_panel_status" name="eo:status"/>
+					</g:at>
+					<g:at left="107" top="607">
+						<g:Label width="133px" height="19px" styleName="gwt-Label-main" text="Archiving Center"/>
+					</g:at>
+					<g:at left="229" top="606">
+						<g:TextBox width="141px" height="8px" ui:field="catalogue_search_panel_archivingCenter" name="eo:archivingCenter"/>
+					</g:at>
+					<g:at left="107" top="632">
+						<g:Label width="133px" height="19px" styleName="gwt-Label-main" text="Acquisition Station"/>
+					</g:at>
+					<g:at left="245" top="632">
+						<g:TextBox width="141px" height="8px" ui:field="catalogue_search_panel_acquisitionStation" name="eo:acquisitionStation"/>
+					</g:at>
+					<g:at left="107" top="657">
+						<g:Label width="133px" height="19px" styleName="gwt-Label-main" text="Processing Center"/>
+					</g:at>
+					<g:at left="248" top="657">
+						<g:ListBox width="71px" height="22px" visibleItemCount="1" ui:field="catalogue_search_panel_processingCenter" name="eo:ProcessingCenter"/>
+					</g:at>
+					<g:at left="107" top="682">
+						<g:Label width="176px" height="19px" styleName="gwt-Label-main" text="Processing Software"/>
+					</g:at>
+					<g:at left="245" top="685">
+						<g:TextBox width="141px" height="8px" ui:field="catalogue_search_panel_processingSoftware" name="eo:processingSoftware"/>
+					</g:at>
+					<g:at left="10" top="707">
+						<g:Label width="176px" height="19px" styleName="gwt-Label-main" text="Processing Date"/>
+					</g:at>
+					<g:at left="107" top="732">
+						<g:Label width="176px" height="19px" styleName="gwt-Label-main" text="Processing Level"/>
+					</g:at>
+					<g:at left="245" top="731">
+						<g:TextBox width="141px" height="8px" ui:field="catalogue_search_panel_processingLevel" name="eo:processingLevel"/>
+					</g:at>
+					<g:at left="107" top="758">
+						<g:Label width="176px" height="19px" styleName="gwt-Label-main" text="Composite Type"/>
+					</g:at>
+					<g:at left="245" top="757">
+						<g:TextBox width="141px" height="8px" ui:field="catalogue_search_panel_compositeType" name="eo:compositeType"/>
+					</g:at>
+					<g:at left="107" top="784">
+						<g:Label width="176px" height="19px" styleName="gwt-Label-main" text="Contents"/>
+					</g:at>
+					<g:at left="245" top="783">
+						<g:TextBox width="141px" height="8px" ui:field="catalogue_search_panel_contents" name="eo:contents"/>
+					</g:at>
+					<g:at left="248" top="810">
+						<g:DoubleBox width="144px" height="16px" ui:field="catalogue_search_panel_cloud" name="eo:cloudCover"/>
+					</g:at>
+					<g:at left="248" top="834">
+						<g:DoubleBox width="144px" height="16px" ui:field="catalogue_search_panel_snow" name="eo:snowCover"/>
+					</g:at>
+					<g:at left="229" top="379">
+						<g:ListBox width="71px" height="22px" visibleItemCount="1" ui:field="catalogue_search_panel_orbitType" name="eo:orbitType"/>
+					</g:at>
+					<g:at left="133" top="706">
+						<g:TextBox width="100px" height="7px" ui:field="catalogue_search_panel_processingDate1" name="eo:processingDate"/>
+					</g:at>
+					<g:at left="251" top="706">
+						<g:Button width="16px" height="19px"/>
+					</g:at>
+					<g:at left="289" top="707">
+						<g:TextBox width="100px" height="7px" ui:field="catalogue_search_panel_processingDate2" name="eo:processingDate"/>
+					</g:at>
+					<g:at left="405" top="707">
+						<g:Button width="16px" height="19px"/>
+					</g:at>
+				</g:AbsolutePanel>
+			</g:at>
+		</g:AbsolutePanel>
+
+	</g:HTMLPanel>
+</ui:UiBinder> 
