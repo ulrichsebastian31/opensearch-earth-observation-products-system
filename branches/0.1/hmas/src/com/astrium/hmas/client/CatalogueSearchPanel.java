@@ -63,7 +63,6 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 	@UiField DoubleBox catalogue_search_panel_trackAlong;
 	@UiField DoubleBox catalogue_search_panel_trackAccross;
 	@UiField TextBox catalogue_search_panel_os_textbox;
-	@UiField Button catalogue_search_panel_send_request_button;
 	@UiField TextBox catalogue_search_panel_sensorMode;
 	@UiField TextBox catalogue_search_panel_swathId;
 	@UiField DoubleBox catalogue_search_panel_waveLenght1;
@@ -89,6 +88,7 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 	@UiField TextBox catalogue_search_panel_processingDate2;
 	@UiField RadioButton catalogue_search_panel_orbitDirection1;
 	@UiField RadioButton catalogue_search_panel_orbitDirection2;
+	@UiField Button catalogue_search_panel_send_request_button;
 	
 	private final SpotServiceAsync greetingService = GWT
 			.create(SpotService.class);
@@ -335,9 +335,9 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 	         public void onValueChange(ValueChangeEvent<Date> event) {
 	            Date date = event.getValue();
 	            String dateString = 
-	            DateTimeFormat.getFormat("dd/MM/yyyy").format(date);
+	            DateTimeFormat.getFormat("yyyy-MM-dd").format(date);
 	            text.setText(dateString);
-	            //catalogue_search_begin.setValue(date);
+	            catalogue_search_begin.setValue(dateString);
 	         }
 	      });
 	      
@@ -345,7 +345,7 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 	      datePicker.setValue(new Date(), true);
 	      
 	   // Create a DateBox
-	      DateTimeFormat dateFormat = DateTimeFormat.getFormat("dd/MM/yyyy");
+	      DateTimeFormat dateFormat = DateTimeFormat.getFormat("yyyy-MM-dd");
 	      //catalogue_search_begin.setFormat(new DateBox.DefaultFormat(dateFormat));
 	      //catalogue_search_end.setFormat(new DateBox.DefaultFormat(dateFormat));
 
@@ -370,9 +370,9 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 	         public void onValueChange(ValueChangeEvent<Date> event) {
 	            Date date = event.getValue();
 	            String dateString = 
-	            DateTimeFormat.getFormat("dd/MM/yyyy").format(date);
+	            DateTimeFormat.getFormat("yyyy-MM-dd").format(date);
 	            text.setText(dateString);
-	            //catalogue_search_end.setValue(date);
+	            catalogue_search_end.setValue(dateString);
 	         }
 	      });
 	      
@@ -380,7 +380,7 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 	      datePicker.setValue(new Date(), true);
 	      
 	   // Create a DateBox
-	      DateTimeFormat dateFormat = DateTimeFormat.getFormat("dd/MM/yyyy");
+	      DateTimeFormat dateFormat = DateTimeFormat.getFormat("yyyy-MM-dd");
 	      //catalogue_search_begin.setFormat(new DateBox.DefaultFormat(dateFormat));
 	     // catalogue_search_end.setFormat(new DateBox.DefaultFormat(dateFormat));
 	}

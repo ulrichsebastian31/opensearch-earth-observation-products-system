@@ -75,16 +75,19 @@ public class MapPanel {
 		public void buildMap() {
 	        //create some MapOptions
 	        MapOptions defaultMapOptions = new MapOptions();
+	        defaultMapOptions.setDisplayProjection(new Projection("EPSG:4326"));
 	        defaultMapOptions.setNumZoomLevels(18);
 	 
 	        //Create a MapWidget
 	        mapWidget = new MapWidget("100%", "100%", defaultMapOptions);
 	 
 	        //Create some Google Layers
-	      /* GoogleV3Options gHybridOptions = new GoogleV3Options();
+	        GoogleV3Options gHybridOptions = new GoogleV3Options();
+	        //gHybridOptions.setProjection("EPSG:4326");
 	        gHybridOptions.setIsBaseLayer(true);
 	        gHybridOptions.setType(GoogleV3MapType.G_HYBRID_MAP);
 	        GoogleV3 gHybrid = new GoogleV3("Google Hybrid", gHybridOptions);
+	        
 	 
 	        GoogleV3Options gNormalOptions = new GoogleV3Options();
 	        gNormalOptions.setIsBaseLayer(true);
@@ -99,7 +102,7 @@ public class MapPanel {
 	        GoogleV3Options gTerrainOptions = new GoogleV3Options();
 	        gTerrainOptions.setIsBaseLayer(true);
 	        gTerrainOptions.setType(GoogleV3MapType.G_TERRAIN_MAP);
-	        GoogleV3 gTerrain = new GoogleV3("Google Terrain", gTerrainOptions);*/
+	        GoogleV3 gTerrain = new GoogleV3("Google Terrain", gTerrainOptions);
 	        
 	        //Create some WMS Layers
 	        
@@ -116,10 +119,10 @@ public class MapPanel {
 	 
 	        //And add them to the map
 	        Map map = this.mapWidget.getMap();
-	        /*map.addLayer(gHybrid);
+	        map.addLayer(gHybrid);
 	        map.addLayer(gNormal);
 	        map.addLayer(gSatellite);
-	        map.addLayer(gTerrain);*/
+	        map.addLayer(gTerrain);
 	        map.addLayer(wmsLayer);
 	 
 	        //Lets add some default controls to the map
@@ -129,8 +132,8 @@ public class MapPanel {
 	 
 	        //Center and zoom to a location
 	        LonLat lonLat = new LonLat(0, 0);
-	       /*lonLat.transform(DEFAULT_PROJECTION.getProjectionCode(),
-	                         map.getProjection()); *///transform lonlat to OSM coordinate system
+	        lonLat.transform(DEFAULT_PROJECTION.getProjectionCode(),
+	                         map.getProjection()); //transform lonlat to OSM coordinate system
 	        map.setCenter(lonLat, 3);
 	        
 	        DeferredCommand.addCommand(new Command() {

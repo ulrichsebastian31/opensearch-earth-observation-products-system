@@ -106,6 +106,26 @@ public class Hmas implements EntryPoint {
 				// TODO Auto-generated method stub
 				mapPanel.drawRectangleFeatureControl.deactivate();
 				mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_draw_aoi_button.setEnabled(false);
+				Vector vector = mapPanel.vectorLayer;
+				Feature[] features = vector.getFeatures();
+				Feature feature = features[0];
+				Bounds bounds = ((VectorFeature) feature).getGeometry().getBounds();
+				if(map.getBaseLayer().getName() == "Global Imagery"){
+					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlat.setValue(bounds.getLowerLeftY());
+					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlon.setValue(bounds.getUpperRightX());
+					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selat.setValue(bounds.getUpperRightY());
+					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selon.setValue(bounds.getLowerLeftX());
+				}else{
+					LonLat nw = new LonLat(bounds.getUpperRightX(), bounds.getLowerLeftY());
+					LonLat se = new LonLat(bounds.getLowerLeftX(), bounds.getUpperRightY());
+					nw.transform("EPSG:900913", "EPSG:4326");
+					se.transform("EPSG:900913", "EPSG:4326");
+					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlat.setValue(nw.lat());
+					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlon.setValue(nw.lon());
+					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selat.setValue(se.lat());
+					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selon.setValue(se.lon());
+				}
+				
 				
 			}});
 		
@@ -119,10 +139,14 @@ public class Hmas implements EntryPoint {
 				Feature[] features = vector.getFeatures();
 				Feature feature = features[0];
 				Bounds bounds = ((VectorFeature) feature).getGeometry().getBounds();
-				mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlat.setValue(bounds.getLowerLeftY());
-				mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlon.setValue(bounds.getUpperRightX());
-				mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selat.setValue(bounds.getUpperRightY());
-				mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selon.setValue(bounds.getLowerLeftX());
+				LonLat nw = new LonLat(bounds.getUpperRightX(), bounds.getLowerLeftY());
+				LonLat se = new LonLat(bounds.getLowerLeftX(), bounds.getUpperRightY());
+				nw.transform("EPSG:900913", "EPSG:4326");
+				se.transform("EPSG:900913", "EPSG:4326");
+				mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlat.setValue(nw.lat());
+				mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlon.setValue(nw.lon());
+				mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selat.setValue(se.lat());
+				mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selon.setValue(se.lon());
 				
 			}});
         mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_stop_drawing_button.addClickHandler(new ClickHandler() {
@@ -371,15 +395,10 @@ public class Hmas implements EntryPoint {
 							public void onClick(ClickEvent event) {
 								// TODO Auto-generated method stub
 								Iterator<String> iterator = catalogueResult.keySet().iterator();
-								if(iterator.hasNext()){
+								
 									String key = (String) iterator.next();
 									CatalogueResult value = (CatalogueResult) catalogueResult.get(key);
 									Window.alert(value.getXml());
-								}else {
-									System.out.println("marche pas");
-								}
-								
-								
 							}
 							
 						});
@@ -423,8 +442,9 @@ public class Hmas implements EntryPoint {
 								     	polygon_layer.setIsVisible(true);
 								     	((org.gwtopenmaps.openlayers.client.Map) map).addLayer(polygon_layer);
 								     	
-								     	
-								     	map.setCenter(new LonLat(value.upperLeft.longitude,value.upperLeft.latitude),6);
+								     	LonLat center = new LonLat(value.upperLeft.longitude,value.upperLeft.latitude);
+								     	center.transform("EPSG:4326", map.getProjection());
+								     	map.setCenter(center,6);
 								     	
 								     	  //remove current object
 							            iterator.remove(); 

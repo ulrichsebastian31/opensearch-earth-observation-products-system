@@ -1,0 +1,270 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:AbsolutePanel height="850px" width="450" ui:field="feasibility_search_panel_absolute_panel">
+			<g:at left="10" top="10">
+				<g:TextBox text="OpenLayer url here..."/>
+			</g:at>
+			<g:at left="183" top="10">
+				<g:Button width="50">Send</g:Button>
+			</g:at>
+			<g:at left="-10" top="68">
+				<g:AbsolutePanel height="694px" width="450px" ui:field="feasibility_search_panel_param_panel">
+					<g:at left="10" top="10">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Area of Interest" width="107px"/>
+					</g:at>
+					<g:at left="43" top="35">
+						<g:Label height="18px" text="Upper (N/W)" width="71px"/>
+					</g:at>
+					<g:at left="43" top="59">
+						<g:Label height="18px" text="Lower (S/E)" width="68px"/>
+					</g:at>
+					<g:at left="133" top="35">
+						<g:DoubleBox height="16px" name="bbox" width="86px"/>
+					</g:at>
+					<g:at left="133" top="59">
+						<g:DoubleBox height="16px" name="bbox" width="86px"/>
+					</g:at>
+					<g:at left="229" top="35">
+						<g:DoubleBox height="16px" name="bbox" width="86px"/>
+					</g:at>
+					<g:at left="229" top="59">
+						<g:DoubleBox height="16px" name="bbox" width="86px"/>
+					</g:at>
+					<g:at left="345" top="35">
+						<g:Button height="30px" width="71px">Draw AOI</g:Button>
+					</g:at>
+					<g:at left="10" top="99">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Date" width="107px"/>
+					</g:at>
+					<g:at left="43" top="120">
+						<g:Label height="18px" text="Begin/End" width="60px"/>
+					</g:at>
+					<g:at left="130" top="119">
+						<g:TextBox height="7px" name="time:start" width="100px"/>
+					</g:at>
+					<g:at left="286" top="120">
+						<g:TextBox height="7px" name="time:end" width="100px"/>
+					</g:at>
+					<g:at left="248" top="119">
+						<g:Button height="19px" width="16px"/>
+					</g:at>
+					<g:at left="402" top="120">
+						<g:Button height="19px" width="16px"/>
+					</g:at>
+					<g:at left="10" top="162">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Platform" width="107px"/>
+					</g:at>
+					<g:at left="107" top="159">
+						<g:ListBox height="22px" name="eo:platform" visibleItemCount="1" width="71px"/>
+					</g:at>
+					<g:at left="251" top="162">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Instrument" width="107px"/>
+					</g:at>
+					<g:at left="345" top="162">
+						<g:ListBox height="22px" name="eo:instrument" visibleItemCount="1" width="71px"/>
+					</g:at>
+					<g:at left="107" top="200">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Sensor Type" width="107px"/>
+					</g:at>
+					<g:at left="232" top="197">
+						<g:ListBox height="22px" name="eo:sensorType" visibleItemCount="1" width="71px"/>
+					</g:at>
+					<g:at left="107" top="251">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Resolution" width="107px"/>
+					</g:at>
+					<g:at left="232" top="250">
+						<g:DoubleBox height="16px" name="eo:resolution" width="67px"/>
+					</g:at>
+					<g:at left="309" top="250">
+						<g:DoubleBox height="16px" name="eo:resolution" width="67px"/>
+					</g:at>
+					<g:at left="107" top="355">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Orbit Number" width="107px"/>
+					</g:at>
+					<g:at left="234" top="355">
+						<g:DoubleBox height="16px" name="eo:orbitNumber" width="67px"/>
+					</g:at>
+					<g:at left="311" top="355">
+						<g:DoubleBox height="16px" name="eo:orbitNumber" width="67px"/>
+					</g:at>
+					<g:at left="107" top="406">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Direction" width="107px"/>
+					</g:at>
+					<g:at left="229" top="407">
+						<g:RadioButton name="eo:orbitDirection" text="ASCENDING"/>
+					</g:at>
+					<g:at left="229" top="431">
+						<g:RadioButton name="eo:orbitDirection" height="18px" text="DESCENDING" width="107px"/>
+					</g:at>
+					<g:at left="107" top="457">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Track" width="107px"/>
+					</g:at>
+					<g:at left="184" top="458">
+						<g:Label height="18px" text="Along" width="71px"/>
+					</g:at>
+					<g:at left="229" top="456">
+						<g:DoubleBox height="16px" name="eo:track" width="67px"/>
+					</g:at>
+					<g:at left="318" top="456">
+						<g:Label height="18px" text="Across" width="71px"/>
+					</g:at>
+					<g:at left="369" top="456">
+						<g:DoubleBox height="16px" name="eo:track" width="67px"/>
+					</g:at>
+					<g:at left="345" top="35">
+						<g:Button height="30px" text="Stop" width="71px"/>
+					</g:at>
+					<g:at left="107" top="810">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Cloud Coverage" width="107px"/>
+					</g:at>
+					<g:at left="107" top="835">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Snow Coverage" width="107px"/>
+					</g:at>
+					<g:at left="107" top="557">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Entry type" width="107px"/>
+					</g:at>
+					<g:at left="229" top="556">
+						<g:TextBox height="8px" name="eo:type" width="141px"/>
+					</g:at>
+					<g:at left="107" top="381">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Orbit Type" width="107px"/>
+					</g:at>
+					<g:at left="107" top="225">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Sensor Mode" width="107px"/>
+					</g:at>
+					<g:at left="229" top="225">
+						<g:TextBox height="8px" name="eo:sensorMode" width="141px"/>
+					</g:at>
+					<g:at left="107" top="279">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Swath Id" width="107px"/>
+					</g:at>
+					<g:at left="229" top="276">
+						<g:TextBox height="8px" name="eo:swathId" width="141px"/>
+					</g:at>
+					<g:at left="107" top="304">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Wave Lenght" width="107px"/>
+					</g:at>
+					<g:at left="229" top="303">
+						<g:DoubleBox height="16px" name="eo:wavelength" width="67px"/>
+					</g:at>
+					<g:at left="306" top="303">
+						<g:DoubleBox height="16px" name="eo:wavelength" width="67px"/>
+					</g:at>
+					<g:at left="107" top="329">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Spectral Range" width="107px"/>
+					</g:at>
+					<g:at left="229" top="329">
+						<g:ListBox height="22px" name="eo:spectralRange" visibleItemCount="1" width="71px"/>
+					</g:at>
+					<g:at left="107" top="482">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Frame" width="107px"/>
+					</g:at>
+					<g:at left="229" top="481">
+						<g:DoubleBox height="16px" name="eo:frame" width="67px"/>
+					</g:at>
+					<g:at left="306" top="481">
+						<g:DoubleBox height="16px" name="eo:frame" width="67px"/>
+					</g:at>
+					<g:at left="107" top="507">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Identifier" width="107px"/>
+					</g:at>
+					<g:at left="229" top="507">
+						<g:TextBox height="8px" name="eo:identifier" width="141px"/>
+					</g:at>
+					<g:at left="107" top="532">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Acquisition Type" width="133px"/>
+					</g:at>
+					<g:at left="229" top="533">
+						<g:TextBox height="8px" name="eo:acquisitionType" width="141px"/>
+					</g:at>
+					<g:at left="107" top="582">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Status" width="107px"/>
+					</g:at>
+					<g:at left="232" top="582">
+						<g:ListBox height="22px" name="eo:status" visibleItemCount="1" width="71px"/>
+					</g:at>
+					<g:at left="107" top="607">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Archiving Center" width="133px"/>
+					</g:at>
+					<g:at left="229" top="606">
+						<g:TextBox height="8px" name="eo:archivingCenter" width="141px"/>
+					</g:at>
+					<g:at left="107" top="632">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Acquisition Station" width="133px"/>
+					</g:at>
+					<g:at left="245" top="632">
+						<g:TextBox height="8px" name="eo:acquisitionStation" width="141px"/>
+					</g:at>
+					<g:at left="107" top="657">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Processing Center" width="133px"/>
+					</g:at>
+					<g:at left="248" top="657">
+						<g:ListBox height="22px" name="eo:ProcessingCenter" visibleItemCount="1" width="71px"/>
+					</g:at>
+					<g:at left="107" top="682">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Processing Software" width="176px"/>
+					</g:at>
+					<g:at left="245" top="685">
+						<g:TextBox height="8px" name="eo:processingSoftware" width="141px"/>
+					</g:at>
+					<g:at left="10" top="707">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Processing Date" width="176px"/>
+					</g:at>
+					<g:at left="107" top="732">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Processing Level" width="176px"/>
+					</g:at>
+					<g:at left="245" top="731">
+						<g:TextBox height="8px" name="eo:processingLevel" width="141px"/>
+					</g:at>
+					<g:at left="107" top="758">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Composite Type" width="176px"/>
+					</g:at>
+					<g:at left="245" top="757">
+						<g:TextBox height="8px" name="eo:compositeType" width="141px"/>
+					</g:at>
+					<g:at left="107" top="784">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Contents" width="176px"/>
+					</g:at>
+					<g:at left="245" top="783">
+						<g:TextBox height="8px" name="eo:contents" width="141px"/>
+					</g:at>
+					<g:at left="248" top="810">
+						<g:DoubleBox height="16px" name="eo:cloudCover" width="144px"/>
+					</g:at>
+					<g:at left="248" top="834">
+						<g:DoubleBox height="16px" name="eo:snowCover" width="144px"/>
+					</g:at>
+					<g:at left="229" top="379">
+						<g:ListBox height="22px" name="eo:orbitType" visibleItemCount="1" width="71px"/>
+					</g:at>
+					<g:at left="133" top="706">
+						<g:TextBox height="7px" name="eo:processingDate" width="100px"/>
+					</g:at>
+					<g:at left="251" top="706">
+						<g:Button height="19px" width="16px"/>
+					</g:at>
+					<g:at left="289" top="707">
+						<g:TextBox height="7px" name="eo:processingDate" width="100px"/>
+					</g:at>
+					<g:at left="405" top="707">
+						<g:Button height="19px" width="16px"/>
+					</g:at>
+				</g:AbsolutePanel>
+			</g:at>
+			<g:at left="0" top="768">
+				<g:AbsolutePanel height="82px" width="440px">
+					<g:at left="345" top="10">
+						<g:Button height="30px" text="Send request" width="95px">Submit</g:Button>
+					</g:at>
+				</g:AbsolutePanel>
+			</g:at>
+		</g:AbsolutePanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

@@ -17,12 +17,22 @@ public class FeasibilityPanel extends Composite implements HasText {
 	private static FeasSubPanelUiBinder uiBinder = GWT
 			.create(FeasSubPanelUiBinder.class);
 	@UiField TabPanel feasibility_panel_tab;
+	public FeasibilitySearchPanel feasibilitySearchPanel = new FeasibilitySearchPanel();
+	public FeasibilityResultPanel feasibilityResultPanel = new FeasibilityResultPanel();
+	public FeasibilityDetailsPanel feasibilityDetailsPanel = new FeasibilityDetailsPanel();
 
 	interface FeasSubPanelUiBinder extends UiBinder<Widget, FeasibilityPanel> {
 	}
 
 	public FeasibilityPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
+		feasibilitySearchPanel.setWidth("450px");
+		feasibilityDetailsPanel.setWidth("450px");
+		feasibility_panel_tab.add(feasibilitySearchPanel, "Search");
+		feasibility_panel_tab.add(feasibilityResultPanel, "Results");
+		feasibility_panel_tab.add(feasibilityDetailsPanel, "Details");
+		//feasibility_panel_tab.getTabBar().setTabEnabled(1, false);
+		//feasibility_panel_tab.getTabBar().setTabEnabled(2, false);
 	}
 
 

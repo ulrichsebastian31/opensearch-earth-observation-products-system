@@ -15,7 +15,7 @@
 				<g:Button width="50" ui:field="catalogue_search_send_button">Send</g:Button>
 			</g:at>
 			<g:at left="-10" top="68">
-				<g:AbsolutePanel width="450px" height="782px" ui:field="catalogue_search_param_panel">
+				<g:AbsolutePanel width="450px" height="694px" ui:field="catalogue_search_param_panel">
 					<g:at left="10" top="10">
 						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Area of Interest"/>
 					</g:at>
@@ -135,9 +135,6 @@
 					</g:at>
 					<g:at left="229" top="556">
 						<g:TextBox width="141px" height="8px" ui:field="catalogue_search_panel_entryType" name="eo:type"/>
-					</g:at>
-					<g:at left="355" top="907">
-						<g:Button width="95px" height="30px" text="Send request" ui:field="catalogue_search_panel_send_request_button">Submit</g:Button>
 					</g:at>
 					<g:at left="107" top="381">
 						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Orbit Type"/>
@@ -261,6 +258,13 @@
 					</g:at>
 					<g:at left="405" top="707">
 						<g:Button width="16px" height="19px"/>
+					</g:at>
+				</g:AbsolutePanel>
+			</g:at>
+			<g:at left="0" top="768">
+				<g:AbsolutePanel width="440px" height="82px">
+					<g:at left="345" top="10">
+						<g:Button height="30px" text="Send request" width="95px" ui:field="catalogue_search_panel_send_request_button">Submit</g:Button>
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>
