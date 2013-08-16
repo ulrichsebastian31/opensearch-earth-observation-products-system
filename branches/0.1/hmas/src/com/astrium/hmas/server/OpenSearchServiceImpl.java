@@ -38,13 +38,14 @@ OpenSearchService {
 	public Map<String, String> getDescriptionFile(String url) throws IllegalArgumentException {
 		   URLConnectionClientHandler ch  = new URLConnectionClientHandler(new ConnectionFactory());
 		   
-		    Client client = new Client(ch);
+		    Client client = new Client();
 		    //TODO mettre l'url direct -> ne pas passer par la servlet distante
 	        WebResource webResource = client.resource(url);
 
 	        String s = webResource.accept("application/atom+xml").get(String.class);
 
 	    	Map<String, String> parameters = new HashMap<String, String>();
+	    	String rep = "";
 	    	
 	     try {
 	    	 
@@ -73,7 +74,10 @@ OpenSearchService {
 	    	
 	    	while(m.find()){ 
 	    		parameters.put(m.group(3), m.group(2));
+	    		rep += m.group(3) + " : " + m.group(2) + "\n";
 	    	} 
+	    	System.out.println(rep);
+		     return parameters;
 	   
 	    	
 	    	/*if (nlist != null && nlist.getLength() > 0){
@@ -96,17 +100,21 @@ OpenSearchService {
 	    	
 	   } catch (ParserConfigurationException e) {// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		} catch (SAXException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
+		return null;
 	} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		} 
-	     return parameters;
+	     
 	   }
 
 }

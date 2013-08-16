@@ -120,7 +120,7 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 		catalogue_search_stop_drawing_button.setVisible(false);
 		catalogue_search_submit_button.setVisible(false);
 		//Test!!
-		catalogue_search_panel_os_textbox.setValue("http://eo-virtual-archive4.esa.int/search/description");
+		catalogue_search_panel_os_textbox.setValue("http://localhost:8080/hmas_server-1.0-SNAPSHOT/hmas/cat/os");
 		
 		catalogue_search_panel_platform.addItem("Select...");
 		catalogue_search_panel_platform.addItem("ENVISAT");
@@ -280,9 +280,9 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 					if(!result.containsKey("eo:acquisitionStation")){
 						catalogue_search_panel_acquisitionStation.setEnabled(false);
 					}else{catalogue_search_panel_acquisitionStation.setName(result.get("eo:acquisitionStation"));}
-					if(!result.containsKey("eo:ProcessingCenter")){
+					if(!result.containsKey("eo:processingCenter")){
 						catalogue_search_panel_processingCenter.setEnabled(false);
-					}else{catalogue_search_panel_processingCenter.setName(result.get("eo:ProcessingCenter"));}
+					}else{catalogue_search_panel_processingCenter.setName(result.get("eo:processingCenter"));}
 					if(!result.containsKey("eo:processingSoftware")){
 						catalogue_search_panel_processingSoftware.setEnabled(false);
 					}else{catalogue_search_panel_processingSoftware.setName(result.get("eo:processingSoftware"));}
