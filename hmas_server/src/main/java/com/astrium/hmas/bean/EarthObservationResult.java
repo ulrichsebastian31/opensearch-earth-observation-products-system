@@ -10,7 +10,6 @@ package com.astrium.hmas.bean;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -26,9 +25,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="timePosition" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="cloudCoverPercentage" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="snowCoverPercentage" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute ref="{http://www.opengis.net/gml/3.2}id"/>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -38,62 +37,63 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "timePosition"
+    "cloudCoverPercentage",
+    "snowCoverPercentage"
 })
-@XmlRootElement(name = "TimeInstant", namespace = "http://www.opengis.net/gml/3.2")
-public class TimeInstant {
+@XmlRootElement(name = "EarthObservationResult", namespace = "http://www.opengis.net/opt/2.0")
+public class EarthObservationResult {
 
-    @XmlElement(namespace = "http://www.opengis.net/gml/3.2")
-    protected String timePosition;
-    @XmlAttribute(namespace = "http://www.opengis.net/gml/3.2")
-    protected String id;
+    @XmlElement(namespace = "http://www.opengis.net/opt/2.0")
+    protected String cloudCoverPercentage;
+    @XmlElement(namespace = "http://www.opengis.net/opt/2.0")
+    protected String snowCoverPercentage;
 
     /**
-     * Gets the value of the timePosition property.
+     * Gets the value of the cloudCoverPercentage property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getTimePosition() {
-        return timePosition;
+    public String getCloudCoverPercentage() {
+        return cloudCoverPercentage;
     }
 
     /**
-     * Sets the value of the timePosition property.
+     * Sets the value of the cloudCoverPercentage property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setTimePosition(String value) {
-        this.timePosition = value;
+    public void setCloudCoverPercentage(String value) {
+        this.cloudCoverPercentage = value;
     }
 
     /**
-     * Gets the value of the id property.
+     * Gets the value of the snowCoverPercentage property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getId() {
-        return id;
+    public String getSnowCoverPercentage() {
+        return snowCoverPercentage;
     }
 
     /**
-     * Sets the value of the id property.
+     * Sets the value of the snowCoverPercentage property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setId(String value) {
-        this.id = value;
+    public void setSnowCoverPercentage(String value) {
+        this.snowCoverPercentage = value;
     }
 
 }

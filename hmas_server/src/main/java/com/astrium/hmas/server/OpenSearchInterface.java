@@ -7,6 +7,12 @@ package com.astrium.hmas.server;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.core.HttpContext;
 import com.sun.jersey.multipart.FormDataMultiPart;
+import com.sun.org.apache.xml.internal.serialize.OutputFormat;
+import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.net.URI;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -17,6 +23,22 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
+import org.jdom.output.XMLOutputter;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -41,26 +63,44 @@ public class OpenSearchInterface {
 	public Response getMethodParser()
 	{
 		MultivaluedMap<String, String> conf = ui.getQueryParameters();
-		/*String responseText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" 
-		+ "<OpenSearchDescription xmlns=\"http://a9.com/-/spec/opensearch/1.1/\" " 
-		+ "xmlns:eop=\"http://www.genesi-dr.eu/spec/opensearch/extensions/eop/1.0/\">" 
-		+ "<ShortName>Web Search</ShortName>"
-		+ "<Description>Use Example.com to search the Web.</Description>"
-		+ "<Tags>example web</Tags>"
-		+ "<Contact>admin@example.com</Contact>"
-		+ "<Url type=\"application/atom+xml\" template=\"http://example.com/?q=%7BsearchTerms%7D&amp;orbit=%7Beop:orbitNumber?%7D&amp;acqstation=%7Beop:acquisitionStation?%7D&amp;pw=%7BstartPage?%7D&amp;format=atom\"/>"
-		+ "<Url type=\"text/html\" template=\"http://example.com/?q={searchTerms}&amp;orbit={eop:orbitNumber?}&amp;acqstation={eop:acquisitionStation?}&amp;pw={startPage?}\"/>"
-		+ "<LongName>Example.com Web Search</LongName>"
-		+ "<Image height=\"64\" width=\"64\" type=\"image/png\">http://example.com/websearch.png</Image>"
-		+ "<Developer>Example.com Development Team</Developer>"
-		+ "<SyndicationRight>open</SyndicationRight>"
-		+ "<AdultContent>false</AdultContent>"
-		+ "<Language>en-us</Language>"
-		+ "<OutputEncoding>UTF-8</OutputEncoding>"
-		+ "<InputEncoding>UTF-8</InputEncoding>"
-		+ "</OpenSearchDescription>";*/
 		
-		String responseText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" 
+		Document document = null;
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+    	DocumentBuilder dBuilder;
+		
+		
+	
+	         try {
+	        	dBuilder = dbFactory.newDocumentBuilder();
+				document = (Document) dBuilder.parse(new File("description.xml"));
+				 /*TransformerFactory tf = TransformerFactory.newInstance();
+		         Transformer transformer = tf.newTransformer();
+		         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");*/
+		         OutputFormat format = new OutputFormat(document); 
+		         StringWriter writer = new StringWriter();
+		         XMLSerializer serial = new XMLSerializer (writer, format);
+		         serial.serialize(document);
+		         //transformer.transform(new DOMSource((Node) document), new StreamResult(writer));
+		         //String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
+		         //XMLOutputter outputter = new XMLOutputter(((Object) document).getPrettyFormat());
+		         return Response.ok(writer.toString(), "application/atom+xml").build();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+	        
+	   
+		
+		/*String responseText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" 
 		+ "<OpenSearchDescription xmlns=\"http://a9.com/-/spec/opensearch/1.1/\" " 
 		+ "xmlns:eo=\"http://a9.com/-/opensearch/extensions/eo/1.0/\" "
 		+ "xmlns:param=\"http://a9.com/-/spec/opensearch/extensions/parameters/1.0/\">"
@@ -81,11 +121,8 @@ public class OpenSearchInterface {
 		+ "</param:Parameter>"
 		+ "<Attribution>Copyright 2005, Example.com, Inc.</Attribution>" 
 		+ "<SyndicationRight>open</SyndicationRight>"
-		+ "</OpenSearchDescription>";
+		+ "</OpenSearchDescription>";*/
 
-		
-		return Response.ok(responseText, "application/atom+xml").build();
-		
 	}
     
     @POST

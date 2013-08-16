@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://www.opengis.net/eop/2.0}Footprint" minOccurs="0"/>
+ *         &lt;element name="productContentsType" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,36 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "footprint"
+    "productContentsType"
 })
-@XmlRootElement(name = "featureOfInterest")
-public class FeatureOfInterest {
+@XmlRootElement(name = "ProcessingInformation", namespace = "http://www.opengis.net/alt/2.0")
+public class ProcessingInformation {
 
-    @XmlElement(name = "Footprint", namespace = "http://www.opengis.net/eop/2.0")
-    protected Footprint footprint;
+    @XmlElement(namespace = "http://www.opengis.net/alt/2.0")
+    protected String productContentsType;
 
     /**
-     * Gets the value of the footprint property.
+     * Gets the value of the productContentsType property.
      * 
      * @return
      *     possible object is
-     *     {@link Footprint }
+     *     {@link String }
      *     
      */
-    public Footprint getFootprint() {
-        return footprint;
+    public String getProductContentsType() {
+        return productContentsType;
     }
 
     /**
-     * Sets the value of the footprint property.
+     * Sets the value of the productContentsType property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Footprint }
+     *     {@link String }
      *     
      */
-    public void setFootprint(Footprint value) {
-        this.footprint = value;
+    public void setProductContentsType(String value) {
+        this.productContentsType = value;
     }
 
 }
