@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.astrium.hmas.server;
 
 import com.sun.jersey.api.client.ClientResponse;
@@ -44,10 +40,9 @@ import org.xml.sax.SAXException;
  *
  * @author re-cetienne
  */
-@Path("cat/os")
-public class OpenSearchInterface {
-
-    
+@Path("feas/os")
+public class DescriptionFeasibilityInterface {
+	
     /**
      * Map containing the URL parameters
      */ 
@@ -72,7 +67,7 @@ public class OpenSearchInterface {
 	
 	         try {
 	        	dBuilder = dbFactory.newDocumentBuilder();
-				document = (Document) dBuilder.parse(new File("description.xml"));
+				document = (Document) dBuilder.parse(new File("descriptionFeasibility.xml"));
 		         OutputFormat format = new OutputFormat(document); 
 		         StringWriter writer = new StringWriter();
 		         XMLSerializer serial = new XMLSerializer (writer, format);
@@ -101,4 +96,5 @@ public class OpenSearchInterface {
     {
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
+
 }

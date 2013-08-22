@@ -135,10 +135,10 @@ public class OpenSearchCatalogueInterface {
 			}*/
 			String box = conf.get("bbox").get(0);
 			String[] bbox = box.split(",");
-			query += " WHERE ST_Contains(st_geomfromtext('POLYGON((" + bbox[0] + " " + bbox[1] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[2] + " " + bbox[3] + ", " +bbox[3] + " " + bbox[0] + ", " + bbox[0] + " " + bbox[1] + "))',4326),\"upperRight\")" +
-					"OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[0] + " " + bbox[1] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[2] + " " + bbox[3] + ", " +bbox[3] + " " + bbox[0] + ", " + bbox[0] + " " + bbox[1] + "))',4326),\"upperLeft\")"
-					+ "OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[0] + " " + bbox[1] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[2] + " " + bbox[3] + ", " +bbox[3] + " " + bbox[0] + ", " + bbox[0] + " " + bbox[1] + "))',4326),\"lowerLeft\")"
-					+ "OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[0] + " " + bbox[1] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[2] + " " + bbox[3] + ", " +bbox[3] + " " + bbox[0] + ", " + bbox[0] + " " + bbox[1] + "))',4326),\"lowerRight\")"; 
+			query += " WHERE ST_Contains(st_geomfromtext('POLYGON((" + bbox[0] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[3] + ", " +bbox[0] + " " + bbox[3] + ", " + bbox[0] + " " + bbox[1] + "))',4326),\"upperRight\")" +
+					" OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[0] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[3] + ", " +bbox[0] + " " + bbox[3] + ", " + bbox[0] + " " + bbox[1] + "))',4326),\"upperLeft\")"
+					+ " OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[0] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[3] + ", " +bbox[0] + " " + bbox[3] + ", " + bbox[0] + " " + bbox[1] + "))',4326),\"lowerLeft\")"
+					+ " OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[0] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[3] + ", " +bbox[0] + " " + bbox[3] + ", " + bbox[0] + " " + bbox[1] + "))',4326),\"lowerRight\")"; 
 			if (conf.get("id") != null){
 				query += " AND identifier = '" + conf.get("id").get(0) + "'";
 			}else{}

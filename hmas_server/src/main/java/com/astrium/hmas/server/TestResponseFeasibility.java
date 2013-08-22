@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.astrium.hmas.server;
 
 import com.sun.jersey.api.client.ClientResponse;
@@ -26,28 +22,16 @@ import javax.ws.rs.core.UriInfo;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
-import org.jdom.output.XMLOutputter;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 /**
  *
  * @author re-cetienne
  */
-@Path("cat/os")
-public class OpenSearchInterface {
-
-    
+@Path("feas")
+public class TestResponseFeasibility {
+	
     /**
      * Map containing the URL parameters
      */ 
@@ -72,7 +56,7 @@ public class OpenSearchInterface {
 	
 	         try {
 	        	dBuilder = dbFactory.newDocumentBuilder();
-				document = (Document) dBuilder.parse(new File("description.xml"));
+				document = (Document) dBuilder.parse(new File("responseFeasibility.xml"));
 		         OutputFormat format = new OutputFormat(document); 
 		         StringWriter writer = new StringWriter();
 		         XMLSerializer serial = new XMLSerializer (writer, format);
@@ -101,4 +85,5 @@ public class OpenSearchInterface {
     {
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
+
 }
