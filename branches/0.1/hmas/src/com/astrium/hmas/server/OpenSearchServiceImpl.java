@@ -48,8 +48,6 @@ OpenSearchService {
 	    	String rep = "";
 	    	
 	     try {
-	    	 
-	        //File fXmlFile = new File();
 	    	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	    	DocumentBuilder dBuilder;
 			

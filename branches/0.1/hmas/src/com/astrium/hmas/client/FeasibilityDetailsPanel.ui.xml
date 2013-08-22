@@ -27,157 +27,115 @@
 				<g:Label height="19px" styleName="gwt-Label-sub" text="Resolution" width="89px"/>
 			</g:at>
 			<g:at left="10" top="246">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Swath Id" width="89px"/>
+				<g:Label height="19px" styleName="gwt-Label-sub" text="Acquisition Date" width="129px"/>
 			</g:at>
 			<g:at left="10" top="273">
-				<g:Label styleName="gwt-Label-sub" text="Wave Lenght"/>
+				<g:Label styleName="gwt-Label-sub" text="Azimuth"/>
 			</g:at>
 			<g:at left="10" top="171">
 				<g:Label height="19px" styleName="gwt-Label-sub" text="Sensor Type" width="113px"/>
 			</g:at>
 			<g:at left="10" top="298">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Spectral Range" width="103px"/>
+				<g:Label height="19px" styleName="gwt-Label-sub" text="Elevation" width="103px"/>
 			</g:at>
 			<g:at left="10" top="323">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Orbit Number" width="103px"/>
+				<g:Label height="19px" styleName="gwt-Label-sub" text="Along Track" width="103px"/>
 			</g:at>
 			<g:at left="10" top="348">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Orbit Direction" width="103px"/>
+				<g:Label height="19px" styleName="gwt-Label-sub" text="Across Track" width="103px"/>
 			</g:at>
 			<g:at left="10" top="373">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Track" width="103px"/>
+				<g:Label height="19px" styleName="gwt-Label-sub" text="Fusion Accepted" width="142px"/>
 			</g:at>
 			<g:at left="10" top="398">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Frame" width="103px"/>
+				<g:Label height="19px" styleName="gwt-Label-sub" text="Sand Wind Accepted" width="174px"/>
 			</g:at>
 			<g:at left="10" top="423">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Identifier" width="103px"/>
+				<g:Label height="19px" styleName="gwt-Label-sub" text="Minimum Luminosity" width="174px"/>
 			</g:at>
 			<g:at left="10" top="448">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Type (entry)" width="103px"/>
+				<g:Label height="19px" styleName="gwt-Label-sub" text="Maximum Noise Level" width="174px"/>
 			</g:at>
 			<g:at left="10" top="473">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Acquisition Type" width="142px"/>
-			</g:at>
-			<g:at left="10" top="498">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Status" width="103px"/>
-			</g:at>
-			<g:at left="10" top="523">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Archiving Center" width="153px"/>
-			</g:at>
-			<g:at left="10" top="548">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Archiving Date" width="103px"/>
-			</g:at>
-			<g:at left="10" top="573">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Acquisition Station" width="142px"/>
-			</g:at>
-			<g:at left="10" top="598">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Processing Center" width="142px"/>
-			</g:at>
-			<g:at left="10" top="623">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Processing Software" width="163px"/>
-			</g:at>
-			<g:at left="10" top="648">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Processing Date" width="142px"/>
-			</g:at>
-			<g:at left="10" top="673">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Processing Level" width="142px"/>
-			</g:at>
-			<g:at left="10" top="698">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Composite Type" width="142px"/>
-			</g:at>
-			<g:at left="10" top="723">
 				<g:Label height="19px" styleName="gwt-Label-sub" text="Cloud Coverage" width="142px"/>
 			</g:at>
-			<g:at left="10" top="748">
-				<g:Label height="19px" styleName="gwt-Label-sub" text="Snow Coverage" width="142px"/>
+			<g:at left="10" top="498">
+				<g:Label height="19px" styleName="gwt-Label-sub" text="Snow Coverage" width="174px"/>
+			</g:at>
+			<g:at left="10" top="523">
+				<g:Label height="19px" styleName="gwt-Label-sub" text="Haze Accepted" width="153px"/>
+			</g:at>
+			<g:at left="10" top="548">
+				<g:Label height="19px" styleName="gwt-Label-sub" text="Maximum Sun Glint" width="153px"/>
+			</g:at>
+			<g:at left="10" top="573">
+				<g:Label height="19px" styleName="gwt-Label-sub" text="Polarization Mode" width="142px"/>
 			</g:at>
 			<g:at left="104" top="98">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_platform"/>
 			</g:at>
 			<g:at left="104" top="123">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_orbitType"/>
 			</g:at>
 			<g:at left="104" top="146">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_instrument"/>
 			</g:at>
 			<g:at left="104" top="171">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_sensorType"/>
 			</g:at>
 			<g:at left="106" top="196">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="334px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="334px" ui:field="feasibility_details_panel_sensorMode"/>
 			</g:at>
 			<g:at left="105" top="221">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="335px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="335px" ui:field="feasibility_details_panel_resolution"/>
 			</g:at>
 			<g:at left="104" top="246">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_acquisitionDate"/>
 			</g:at>
 			<g:at left="104" top="273">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_azimuth"/>
 			</g:at>
 			<g:at left="104" top="298">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_elevation"/>
 			</g:at>
 			<g:at left="104" top="323">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_alongTrack"/>
 			</g:at>
 			<g:at left="104" top="348">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_accrossTrack"/>
 			</g:at>
 			<g:at left="104" top="373">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
-			</g:at>
-			<g:at left="104" top="398">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_compositeType"/>
 			</g:at>
 			<g:at left="104" top="423">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_minLuminosity"/>
 			</g:at>
 			<g:at left="104" top="448">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_noiseLevel"/>
 			</g:at>
 			<g:at left="104" top="473">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_cloud"/>
 			</g:at>
 			<g:at left="104" top="498">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_snow"/>
 			</g:at>
 			<g:at left="104" top="523">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_haze"/>
 			</g:at>
 			<g:at left="104" top="548">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_sunGlint"/>
 			</g:at>
 			<g:at left="104" top="573">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
-			</g:at>
-			<g:at left="104" top="598">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
-			</g:at>
-			<g:at left="104" top="623">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
-			</g:at>
-			<g:at left="104" top="648">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
-			</g:at>
-			<g:at left="104" top="673">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
-			</g:at>
-			<g:at left="104" top="698">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
-			</g:at>
-			<g:at left="104" top="723">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
-			</g:at>
-			<g:at left="104" top="748">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_polarisationMode"/>
 			</g:at>
 			<g:at left="10" top="73">
 				<g:Label height="19px" styleName="gwt-Label-sub" text="Id" width="60px"/>
 			</g:at>
 			<g:at left="104" top="73">
-				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px"/>
+				<g:Label direction="LTR" height="19px" horizontalAlignment="ALIGN_RIGHT" width="336px" ui:field="feasibility_details_panel_id"/>
+			</g:at>
+			<g:at left="104" top="398">
+				<g:Label width="336px" height="19px" direction="LTR" horizontalAlignment="ALIGN_RIGHT" ui:field="feasibility_details_panel_sandWind"/>
 			</g:at>
 		</g:AbsolutePanel>
 

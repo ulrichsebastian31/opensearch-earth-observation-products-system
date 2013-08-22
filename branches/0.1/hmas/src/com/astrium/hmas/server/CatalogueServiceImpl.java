@@ -51,11 +51,11 @@ public class CatalogueServiceImpl extends RemoteServiceServlet implements
 		queryParams.add("startIndex", "0");
 		if(catalogueSearch.parameters.get("time:start") != null){
 			queryParams.add(catalogueSearch.parameters.get("time:start"),
-					catalogueSearch.getArchivingDate_start());
+					catalogueSearch.getStart());
 		}	
 		if(catalogueSearch.parameters.get("time:end") != null){
 			queryParams.add(catalogueSearch.parameters.get("time:end"),
-					catalogueSearch.getArchivingDate_stop());
+					catalogueSearch.getStop());
 		}
 		//bbox -> must be LBRU
 		queryParams.add("bbox", catalogueSearch.getSelat() + ","
@@ -180,6 +180,8 @@ public class CatalogueServiceImpl extends RemoteServiceServlet implements
 
 		String s = webResource.queryParams(queryParams)
 				.accept("application/atom+xml").get(String.class);
+		
+		String url = webResource.queryParams(queryParams).toString();
 
 		Map<String, CatalogueResult> results = new HashMap<String, CatalogueResult>();
 
@@ -199,13 +201,12 @@ public class CatalogueServiceImpl extends RemoteServiceServlet implements
 			// http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
 			doc.getDocumentElement().normalize();
 
-			System.out.println(s);
 			NodeList nlist = doc.getElementsByTagName("entry");
 
 			if (nlist != null && nlist.getLength() > 0) {
 				for (int i = 0; i < nlist.getLength(); i++) {
 					CatalogueResult entry = new CatalogueResult();
-					entry.setXml(s);
+					entry.setXml(url);
 					Element param = (Element) nlist.item(i);
 
 					Element id = (Element) param.getElementsByTagName("id")
@@ -984,6 +985,7 @@ public class CatalogueServiceImpl extends RemoteServiceServlet implements
 				
 			} else {
 				System.out.println("no result");
+				
 			}
 
 		} catch (ParserConfigurationException e) {// TODO Auto-generated catch

@@ -19,7 +19,6 @@
 package com.astrium.hmas.client;
 
 
-import org.gwtopenmaps.openlayers.client.Bounds;
 import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.Map;
 import org.gwtopenmaps.openlayers.client.MapOptions;
@@ -34,23 +33,20 @@ import org.gwtopenmaps.openlayers.client.control.DrawFeature;
 import org.gwtopenmaps.openlayers.client.control.DrawFeatureOptions;
 import org.gwtopenmaps.openlayers.client.control.LayerSwitcher;
 import org.gwtopenmaps.openlayers.client.control.ModifyFeature;
-import org.gwtopenmaps.openlayers.client.control.ModifyFeatureOptions;
 import org.gwtopenmaps.openlayers.client.control.OverviewMap;
 import org.gwtopenmaps.openlayers.client.control.ScaleLine;
+import org.gwtopenmaps.openlayers.client.control.SelectFeature;
 import org.gwtopenmaps.openlayers.client.feature.VectorFeature;
-import org.gwtopenmaps.openlayers.client.handler.PathHandler;
-import org.gwtopenmaps.openlayers.client.handler.PolygonHandler;
 import org.gwtopenmaps.openlayers.client.handler.RegularPolygonHandler;
 import org.gwtopenmaps.openlayers.client.handler.RegularPolygonHandlerOptions;
 import org.gwtopenmaps.openlayers.client.layer.GoogleV3;
 import org.gwtopenmaps.openlayers.client.layer.GoogleV3MapType;
 import org.gwtopenmaps.openlayers.client.layer.GoogleV3Options;
+import org.gwtopenmaps.openlayers.client.layer.Layer;
 import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.gwtopenmaps.openlayers.client.layer.WMS;
 import org.gwtopenmaps.openlayers.client.layer.WMSParams;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 
@@ -61,7 +57,11 @@ public class MapPanel {
 	            "EPSG:4326");
 	    public MapWidget mapWidget;
 	    public DrawFeature drawRectangleFeatureControl = null;
+	    public DrawFeature drawRectangleFeatureControlFeas = null;
 	    public Vector vectorLayer = new Vector("Vector layer");
+	    public Vector vectorLayerFeas = new Vector("Vector layer Feasibility");
+	    public ModifyFeature modFeas = new ModifyFeature(vectorLayerFeas);
+	    public ModifyFeature mod = new ModifyFeature(vectorLayer);
 	 
 	    public MapWidget getMapWidget() {
 			return mapWidget;
@@ -82,7 +82,7 @@ public class MapPanel {
 	        mapWidget = new MapWidget("100%", "100%", defaultMapOptions);
 	 
 	        //Create some Google Layers
-	        GoogleV3Options gHybridOptions = new GoogleV3Options();
+	       GoogleV3Options gHybridOptions = new GoogleV3Options();
 	        //gHybridOptions.setProjection("EPSG:4326");
 	        gHybridOptions.setIsBaseLayer(true);
 	        gHybridOptions.setType(GoogleV3MapType.G_HYBRID_MAP);
@@ -112,7 +112,6 @@ public class MapPanel {
 	        wmsParams.setFormat("image/png");
 	        wmsParams.setLayers("topp:bmng_092004");
 	        wmsParams.setStyles("");
-	        
 	        //WMS Layer     
 	        WMS wmsLayer = new WMS ("Global Imagery","http://localhost:8000/geoserver/wms",wmsParams);
 	        wmsLayer.isBaseLayer();
@@ -154,10 +153,14 @@ public class MapPanel {
 	        style.setFillOpacity(0);
 	        
 	        vectorLayer.setStyle(style);
+	        vectorLayerFeas.setStyle(style);
 	        map.addLayer(vectorLayer);
+	        map.addLayer(vectorLayerFeas);
 	        
-	        ModifyFeature mod = new ModifyFeature(vectorLayer);
+	        
 	        mod.setMode(mod.RESIZE, mod.DRAG);
+	        
+	        modFeas.setMode(modFeas.RESIZE, modFeas.DRAG);
 
 	        DrawFeatureOptions drawFeatureOptions = new DrawFeatureOptions();
 	        
@@ -167,18 +170,41 @@ public class MapPanel {
 	        rectangleOptions.setSides(4);
 	        
 	        drawFeatureOptions.setHandlerOptions(rectangleOptions);
+	        drawRectangleFeatureControlFeas= new DrawFeature(vectorLayerFeas, new RegularPolygonHandler(), drawFeatureOptions);
 	        drawRectangleFeatureControl = new DrawFeature(vectorLayer, new RegularPolygonHandler(), drawFeatureOptions);
-	        DragFeature dragFeature = createDragFeature(vectorLayer);
+	        
+	        //DragFeature dragFeature = createDragFeature(vectorLayer);
+	        //DragFeature dragFeatureFeas = createDragFeature(vectorLayerFeas);
+	        
+	        map.addControl(drawRectangleFeatureControlFeas);
 	        map.addControl(drawRectangleFeatureControl);
-	        map.addControl(dragFeature);
+	       /* map.addControl(dragFeature);
+	        map.addControl(dragFeatureFeas);*/
 	        map.addControl(mod);
-	        //dragFeature.activate();
-	        mod.activate();
+	        map.addControl(modFeas);
 
 	        this.mapWidget.getElement().getFirstChildElement().getStyle().setZIndex(0); //force the map to fall behind popups
 	        
 	    }
 		
+		public DrawFeature getDrawRectangleFeatureControl() {
+			return drawRectangleFeatureControl;
+		}
+
+		public void setDrawRectangleFeatureControl(
+				DrawFeature drawRectangleFeatureControl) {
+			this.drawRectangleFeatureControl = drawRectangleFeatureControl;
+		}
+
+		public DrawFeature getDrawRectangleFeatureControlFeas() {
+			return drawRectangleFeatureControlFeas;
+		}
+
+		public void setDrawRectangleFeatureControlFeas(
+				DrawFeature drawRectangleFeatureControlFeas) {
+			this.drawRectangleFeatureControlFeas = drawRectangleFeatureControlFeas;
+		}
+
 		//Maybe useful
 		private DragFeature createDragFeature(Vector layer) {
             DragFeatureOptions dragFeatureOptions = new DragFeatureOptions();

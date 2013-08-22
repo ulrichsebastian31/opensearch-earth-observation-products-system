@@ -48,7 +48,6 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 	@UiField Button catalogue_search_datepicker2_button;
 	@UiField Button catalogue_search_draw_aoi_button;
 	@UiField Button catalogue_search_stop_drawing_button;
-	@UiField Button catalogue_search_submit_button;
 	@UiField DoubleBox catalogue_search_panel_nwlon;
 	@UiField DoubleBox catalogue_search_panel_nwlat;
 	@UiField DoubleBox catalogue_search_panel_selon;
@@ -72,9 +71,6 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 	@UiField DoubleBox catalogue_search_panel_frame2;
 	@UiField TextBox catalogue_search_panel_identifier;
 	@UiField TextBox catalogue_search_panel_acquisitionType;
-	@UiField ListBox catalogue_search_panel_status;
-	@UiField TextBox catalogue_search_panel_archivingCenter;
-	@UiField TextBox catalogue_search_panel_acquisitionStation;
 	@UiField ListBox catalogue_search_panel_processingCenter;
 	@UiField TextBox catalogue_search_panel_processingSoftware;
 	@UiField TextBox catalogue_search_panel_processingLevel;
@@ -86,8 +82,11 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 	@UiField ListBox catalogue_search_panel_orbitType;
 	@UiField TextBox catalogue_search_panel_processingDate1;
 	@UiField TextBox catalogue_search_panel_processingDate2;
-	@UiField RadioButton catalogue_search_panel_orbitDirection1;
-	@UiField RadioButton catalogue_search_panel_orbitDirection2;
+	@UiField ListBox catalogue_search_panel_orbitDirection;
+	@UiField ListBox catalogue_search_panel_status;
+	@UiField TextBox catalogue_search_panel_archivingCenter;
+	@UiField TextBox catalogue_search_panel_archivingDate;
+	@UiField TextBox catalogue_search_panel_acquisitionStation;
 	@UiField Button catalogue_search_panel_send_request_button;
 	
 	private final SpotServiceAsync greetingService = GWT
@@ -118,7 +117,6 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 		catalogue_search_param_panel.getElement().getStyle().setOverflow(Overflow.AUTO);
 		catalogue_search_param_panel.setVisible(false);
 		catalogue_search_stop_drawing_button.setVisible(false);
-		catalogue_search_submit_button.setVisible(false);
 		//Test!!
 		catalogue_search_panel_os_textbox.setValue("http://localhost:8080/hmas_server-1.0-SNAPSHOT/hmas/cat/os");
 		
@@ -164,6 +162,10 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 		catalogue_search_panel_processingCenter.addItem("PDHS-K");
 		catalogue_search_panel_processingCenter.addItem("DPA");
 		catalogue_search_panel_processingCenter.addItem("F-ACRI");
+		
+		catalogue_search_panel_orbitDirection.addItem("Select...");
+		catalogue_search_panel_orbitDirection.addItem("ASCENDING");
+		catalogue_search_panel_orbitDirection.addItem("DESCENDING");
 	}
 
 
@@ -245,10 +247,8 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 					catalogue_search_panel_orbitMin.setName(result.get("eo:orbitNumber"));
 					}
 					if(!result.containsKey("eo:orbitDirection")){
-						catalogue_search_panel_orbitDirection1.setEnabled(false);
-						catalogue_search_panel_orbitDirection2.setEnabled(false);
-					}else{catalogue_search_panel_orbitDirection1.setName(result.get("eo:orbitDirection"));
-					catalogue_search_panel_orbitDirection2.setName(result.get("eo:orbitDirection"));
+						catalogue_search_panel_orbitDirection.setEnabled(false);
+					}else{catalogue_search_panel_orbitDirection.setName(result.get("eo:orbitDirection"));
 					}
 					if(!result.containsKey("eo:track")){
 						catalogue_search_panel_trackAccross.setEnabled(false);

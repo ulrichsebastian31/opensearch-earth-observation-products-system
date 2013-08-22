@@ -8,14 +8,14 @@
 	</ui:style>
 	<g:HTMLPanel>
 		<g:ScrollPanel height="750px">
-			<p1:CellTable width="100%" height="100%" ui:field="cellTable"/>
+			<p1:CellTable width="100%" height="100%" ui:field="feasibility_result_panel_cellTable"/>
 		</g:ScrollPanel>
 		<g:AbsolutePanel height="73px">
 			<g:at left="331" top="10">
 				<g:Button height="30px" text="Add to shopcart" width="119px"/>
 			</g:at>
 			<g:at left="10" top="10">
-				<g:Button>See XML file</g:Button>
+				<g:Button ui:field="feasibility_result_panel_show_xml_button">See XML file</g:Button>
 			</g:at>
 		</g:AbsolutePanel>
 

@@ -27,6 +27,8 @@ import org.gwtopenmaps.openlayers.client.layer.Vector;
 
 import com.astrium.hmas.bean.CatalogueResult;
 import com.astrium.hmas.bean.CatalogueSearch;
+import com.astrium.hmas.bean.FeasibilityResult;
+import com.astrium.hmas.bean.FeasibilitySearch;
 import com.astrium.hmas.bean.SpotResult;
 import com.astrium.hmas.bean.SpotScene;
 import com.astrium.hmas.bean.SpotSearch;
@@ -89,7 +91,7 @@ public class Hmas implements EntryPoint {
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
 						mapPanel.drawRectangleFeatureControl.activate();
-
+						mapPanel.mod.activate();
 						mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_stop_drawing_button
 								.setVisible(true);
 						mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_draw_aoi_button
@@ -112,7 +114,7 @@ public class Hmas implements EntryPoint {
 				Feature feature = features[0];
 				Bounds bounds = ((VectorFeature) feature).getGeometry()
 						.getBounds();
-				if (map.getBaseLayer().getName() == "Global Imagery") {
+				if (map.getBaseLayer().getName().equals("Global Imagery")) {
 					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlat
 							.setValue(bounds.getLowerLeftY());
 					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlon
@@ -151,20 +153,37 @@ public class Hmas implements EntryPoint {
 				Feature feature = features[0];
 				Bounds bounds = ((VectorFeature) feature).getGeometry()
 						.getBounds();
-				LonLat nw = new LonLat(bounds.getUpperRightX(), bounds
-						.getLowerLeftY());
-				LonLat se = new LonLat(bounds.getLowerLeftX(), bounds
-						.getUpperRightY());
-				nw.transform("EPSG:900913", "EPSG:4326");
-				se.transform("EPSG:900913", "EPSG:4326");
-				mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlat
-						.setValue(nw.lat());
-				mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlon
-						.setValue(nw.lon());
-				mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selat
-						.setValue(se.lat());
-				mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selon
-						.setValue(se.lon());
+				if (map.getBaseLayer().getName().equals("Global Imagery")) {
+					LonLat nw = new LonLat(bounds.getUpperRightX(), bounds
+							.getLowerLeftY());
+					LonLat se = new LonLat(bounds.getLowerLeftX(), bounds
+							.getUpperRightY());
+					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlat
+					.setValue(nw.lat());
+			mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlon
+					.setValue(nw.lon());
+			mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selat
+					.setValue(se.lat());
+			mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selon
+					.setValue(se.lon());
+				}else{
+					LonLat nw = new LonLat(bounds.getUpperRightX(), bounds
+							.getLowerLeftY());
+					LonLat se = new LonLat(bounds.getLowerLeftX(), bounds
+							.getUpperRightY());
+					nw.transform("EPSG:900913", "EPSG:4326");
+					se.transform("EPSG:900913", "EPSG:4326");
+					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlat
+							.setValue(nw.lat());
+					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlon
+							.setValue(nw.lon());
+					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selat
+							.setValue(se.lat());
+					mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selon
+							.setValue(se.lon());
+				}
+				
+				
 
 			}
 		});
@@ -188,15 +207,6 @@ public class Hmas implements EntryPoint {
 					}
 				});
 
-		mapPanel.mapWidget.addHandler(new DoubleClickHandler() {
-
-			@Override
-			public void onDoubleClick(DoubleClickEvent event) {
-				mapPanel.drawRectangleFeatureControl.deactivate();
-				mapPanel.drawRectangleFeatureControl.disable();
-			}
-		}, DoubleClickEvent.getType());
-
 		mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_send_request_button
 				.addClickHandler(new ClickHandler() {
 
@@ -210,20 +220,17 @@ public class Hmas implements EntryPoint {
 
 						if (mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_begin
 								.getValue().length() > 0) {
-							catalogueSearch
-									.setArchivingDate_start(mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_begin
-											.getValue());
-							catalogueSearch.parameters.put("time:start",
-									"start");
+							String start = mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_begin.getValue();
+							
+							catalogueSearch.setStart(start);
+							catalogueSearch.parameters.put("time:start","start");
 						}else{
 							//empty
 						}
-						if (mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_end
-								.getValue().length() > 0) {
-							catalogueSearch
-									.setArchivingDate_stop(mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_end
-											.getValue());
-							catalogueSearch.parameters.put("time:end", "stop");
+						if(mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_end.getValue().length() > 0){
+							String stop = mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_end.getValue();
+							catalogueSearch.parameters.put("time:end","stop");
+							catalogueSearch.setStop(stop);
 						}else{
 							//empty
 						}
@@ -239,6 +246,7 @@ public class Hmas implements EntryPoint {
 						}else{
 							//empty
 						}
+						
 						if (mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_acquisitionType
 								.getValue().length() > 0) {
 							catalogueSearch
@@ -394,28 +402,21 @@ public class Hmas implements EntryPoint {
 									mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_orbitType
 											.getName());
 						}
-						if (mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_orbitDirection1
-								.getValue() != null) {
-							catalogueSearch.setOrbitDirection("ASCENDING");
+						if (mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_orbitDirection
+								.getValue(mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_orbitDirection
+										.getSelectedIndex()) != "Select...") {
+							catalogueSearch.setOrbitDirection(mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_orbitDirection
+									.getValue(mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_orbitDirection
+											.getSelectedIndex()));
 							catalogueSearch.parameters
 									.put("eo:orbitDirection",
-											mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_orbitDirection1
+											mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_orbitDirection
 													.getName());
 
 						}else{
 							//empty
 						}
-						if (mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_orbitDirection2
-								.getValue() != null) {
-							catalogueSearch.setOrbitDirection("DESCENDING");
-							catalogueSearch.parameters
-									.put("eo:orbitDirection",
-											mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_orbitDirection2
-													.getName());
-
-						}else{
-							//empty
-						}
+						
 						if (mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_platform
 								.getValue(mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_platform
 										.getSelectedIndex()).equals("Select...")) {
@@ -736,29 +737,27 @@ public class Hmas implements EntryPoint {
 												// Recovering of the parameters
 												// and building of the Search
 												// object to send to the server
+												if(catalogueResult.get("0") != null){
+													final String xml = catalogueResult.get("0").getXml();
+													
+													mainPanel.cataloguePanel.catalogueResultPanel.catalogue_result_panel_xml_show_button
+															.addClickHandler(new ClickHandler() {
+																
+																@Override
+																public void onClick(
+																		ClickEvent event) {
+																	// TODO
+																	// Auto-generated
+																	// method stub
+																	Window.open(xml, "show xml",xml);
+																}
 
-												mainPanel.cataloguePanel.catalogueResultPanel.catalogue_result_panel_xml_show_button
-														.addClickHandler(new ClickHandler() {
-
-															@Override
-															public void onClick(
-																	ClickEvent event) {
-																// TODO
-																// Auto-generated
-																// method stub
-																Iterator<String> iterator = catalogueResult
-																		.keySet()
-																		.iterator();
-
-																String key = (String) iterator
-																		.next();
-																CatalogueResult value = (CatalogueResult) catalogueResult
-																		.get(key);
-																Window.alert(value
-																		.getXml());
-															}
-
-														});
+															});
+												}else{
+													Window.alert("no result found corresponding to your request");
+													mainPanel.cataloguePanel.catalogueResultPanel.catalogue_result_panel_xml_show_button.setEnabled(false);
+												}
+												
 
 												final ArrayList<CatalogueResult> result_list = new ArrayList<CatalogueResult>();
 
@@ -799,59 +798,61 @@ public class Hmas implements EntryPoint {
 																	"polygon_layer"
 																			+ value.identifier);
 
-															Point p1 = new Point(
-																	value.upperLeft.longitude,
-																	value.upperLeft.latitude);
-															Point p2 = new Point(
-																	value.lowerLeft.longitude,
-																	value.lowerLeft.latitude);
-															Point p3 = new Point(
-																	value.lowerRight.longitude,
-																	value.lowerRight.latitude);
-															Point p4 = new Point(
-																	value.upperRight.longitude,
-																	value.upperRight.latitude);
+															if(value.upperLeft != null && value.lowerLeft != null && value.lowerRight != null && value.upperRight != null){
+																Point p1 = new Point(
+																		value.upperLeft.longitude,
+																		value.upperLeft.latitude);
+																Point p2 = new Point(
+																		value.lowerLeft.longitude,
+																		value.lowerLeft.latitude);
+																Point p3 = new Point(
+																		value.lowerRight.longitude,
+																		value.lowerRight.latitude);
+																Point p4 = new Point(
+																		value.upperRight.longitude,
+																		value.upperRight.latitude);
 
-															p1.transform(
-																	DEFAULT_PROJECTION,
-																	new Projection(
-																			map.getProjection()));
-															p2.transform(
-																	DEFAULT_PROJECTION,
-																	new Projection(
-																			map.getProjection()));
-															p3.transform(
-																	DEFAULT_PROJECTION,
-																	new Projection(
-																			map.getProjection()));
-															p4.transform(
-																	DEFAULT_PROJECTION,
-																	new Projection(
-																			map.getProjection()));
+																p1.transform(
+																		DEFAULT_PROJECTION,
+																		new Projection(
+																				map.getProjection()));
+																p2.transform(
+																		DEFAULT_PROJECTION,
+																		new Projection(
+																				map.getProjection()));
+																p3.transform(
+																		DEFAULT_PROJECTION,
+																		new Projection(
+																				map.getProjection()));
+																p4.transform(
+																		DEFAULT_PROJECTION,
+																		new Projection(
+																				map.getProjection()));
 
-															Point[] points = {
-																	p1, p2, p3,
-																	p4 };
+																Point[] points = {
+																		p1, p2, p3,
+																		p4 };
 
-															LinearRing linear_ring = new LinearRing(
-																	points);
-															VectorFeature polygon = new VectorFeature(
-																	linear_ring);
-															polygon_layer
-																	.addFeature(polygon);
-															polygon_layer
-																	.setIsVisible(true);
-															((org.gwtopenmaps.openlayers.client.Map) map)
-																	.addLayer(polygon_layer);
+																LinearRing linear_ring = new LinearRing(
+																		points);
+																VectorFeature polygon = new VectorFeature(
+																		linear_ring);
+																polygon_layer
+																		.addFeature(polygon);
+																polygon_layer
+																		.setIsVisible(true);
+																((org.gwtopenmaps.openlayers.client.Map) map)
+																		.addLayer(polygon_layer);
 
-															LonLat center = new LonLat(
-																	value.upperLeft.longitude,
-																	value.upperLeft.latitude);
-															center.transform(
-																	"EPSG:4326",
-																	map.getProjection());
-															map.setCenter(
-																	center, 6);
+																LonLat center = new LonLat(
+																		value.upperLeft.longitude,
+																		value.upperLeft.latitude);
+																center.transform(
+																		"EPSG:4326",
+																		map.getProjection());
+																map.setCenter(
+																		center, 6);
+															}
 
 															// remove current
 															// object
@@ -1119,422 +1120,588 @@ public class Hmas implements EntryPoint {
 					}
 				}});
 
-		// Recherche dans le catalogue SPOT (bouton submit par défaut invisible
-		// -> voir dans CatalogueSearchPanel)
-		mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_submit_button
-				.addClickHandler(new ClickHandler() {
+		
+		
+		/*********** TASKING FEASIBILITY SEARCH PANEL ***********/
+		
+		mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_drawaoi
+		.addClickHandler(new ClickHandler() {
 
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				mapPanel.drawRectangleFeatureControlFeas.activate();
+				mapPanel.modFeas.activate();
+
+				mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_drawaoiStop
+						.setVisible(true);
+				mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_drawaoi
+						.setVisible(false);
+
+			}
+		});
+
+Vector vectorFeas = mapPanel.vectorLayerFeas;
+vectorFeas.addVectorFeatureAddedListener(new VectorFeatureAddedListener() {
+
+	@Override
+	public void onFeatureAdded(FeatureAddedEvent eventObject) {
+		// TODO Auto-generated method stub
+		mapPanel.drawRectangleFeatureControlFeas.deactivate();
+		mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_drawaoi
+				.setEnabled(false);
+		Vector vectorFeas = mapPanel.vectorLayerFeas;
+		Feature[] features = vectorFeas.getFeatures();
+		Feature feature = features[0];
+		Bounds bounds = ((VectorFeature) feature).getGeometry()
+				.getBounds();
+		if (map.getBaseLayer().getName().equals("Global Imagery")) {
+			mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_nwlat
+					.setValue(bounds.getLowerLeftY());
+			mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_nwlon
+					.setValue(bounds.getUpperRightX());
+			mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_selat
+					.setValue(bounds.getUpperRightY());
+			mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_selon
+					.setValue(bounds.getLowerLeftX());
+		} else {
+			LonLat nw = new LonLat(bounds.getUpperRightX(), bounds
+					.getLowerLeftY());
+			LonLat se = new LonLat(bounds.getLowerLeftX(), bounds
+					.getUpperRightY());
+			nw.transform("EPSG:900913", "EPSG:4326");
+			se.transform("EPSG:900913", "EPSG:4326");
+			mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_nwlat
+					.setValue(nw.lat());
+			mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_nwlon
+					.setValue(nw.lon());
+			mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_selat
+					.setValue(se.lat());
+			mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_selon
+					.setValue(se.lon());
+		}
+
+	}
+});
+
+vectorFeas.addVectorFeatureModifiedListener(new VectorFeatureModifiedListener() {
+
+	@Override
+	public void onFeatureModified(FeatureModifiedEvent eventObject) {
+		// TODO Auto-generated method stub
+		Vector vectorFeas = mapPanel.vectorLayerFeas;
+		Feature[] features = vectorFeas.getFeatures();
+		Feature feature = features[0];
+		Bounds bounds = ((VectorFeature) feature).getGeometry()
+				.getBounds();
+		if (map.getBaseLayer().getName().equals("Global Imagery")) {
+			LonLat nw = new LonLat(bounds.getUpperRightX(), bounds
+					.getLowerLeftY());
+			LonLat se = new LonLat(bounds.getLowerLeftX(), bounds
+					.getUpperRightY());
+			mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_nwlat
+			.setValue(nw.lat());
+	mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_nwlon
+			.setValue(nw.lon());
+	mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_selat
+			.setValue(se.lat());
+	mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_selon
+			.setValue(se.lon());
+		}else{
+			LonLat nw = new LonLat(bounds.getUpperRightX(), bounds
+					.getLowerLeftY());
+			LonLat se = new LonLat(bounds.getLowerLeftX(), bounds
+					.getUpperRightY());
+			nw.transform("EPSG:900913", "EPSG:4326");
+			se.transform("EPSG:900913", "EPSG:4326");
+			mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_nwlat
+					.setValue(nw.lat());
+			mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_nwlon
+					.setValue(nw.lon());
+			mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_selat
+					.setValue(se.lat());
+			mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_selon
+					.setValue(se.lon());
+		}
+		
+
+	}
+});
+mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_drawaoiStop
+		.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				Vector vectorFeas = mapPanel.vectorLayerFeas;
+				Feature[] features = vectorFeas.getFeatures();
+				Feature feature = features[0];
+				vectorFeas.removeFeature((VectorFeature) feature);
+				mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_drawaoi
+						.setVisible(true);
+				mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_drawaoi
+						.setEnabled(true);
+				mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_drawaoiStop
+						.setVisible(false);
+
+			}
+		});
+
+mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_send_request_button
+.addClickHandler(new ClickHandler() {
+
+	@Override
+	public void onClick(ClickEvent event) {
+		// TODO Auto-generated method stub
+		FeasibilitySearch feasibilitySearch = new FeasibilitySearch();
+
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_ambiguityLevel.getValue() != null) {
+			feasibilitySearch
+					.setMaxAmbiguityLevel(String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_ambiguityLevel
+							.getValue()));
+			feasibilitySearch.parameters.put("eosp:validationParametersSARMaxAmbiguityLevel",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_ambiguityLevel.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_azimuthMax.getValue() != null && mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_azimuthMin.getValue() != null) {
+			feasibilitySearch
+					.setAzimuth(String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_azimuthMin
+							.getValue()) + "," + String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_azimuthMax
+									.getValue()));
+			feasibilitySearch.parameters.put("eosp:acquisitionAngleIncidenceAzimuth",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_azimuthMin.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_cloud.getValue() != null) {
+			feasibilitySearch
+					.setCloudCover(String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_cloud
+							.getValue()));
+			feasibilitySearch.parameters.put("eo:cloudCover",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_cloud.getName());
+		}else{
+			//empty
+		}
+		if (!mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_compositeType.getValue(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_compositeType.getSelectedIndex()).equals("Select...")) {
+			feasibilitySearch
+					.setCompositeType(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_compositeType
+							.getValue(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_compositeType.getSelectedIndex()));
+			feasibilitySearch.parameters.put("eo:compositeType",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_compositeType.getName());
+		}else{
+			//empty
+		}
+		if (!mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_coverageType.getValue(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_coverageType.getSelectedIndex()).equals("Select...")) {
+			feasibilitySearch
+					.setCoverageType(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_coverageType
+							.getValue(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_coverageType.getSelectedIndex()));
+			feasibilitySearch.parameters.put("eo:coverageType",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_coverageType.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_dateend.getValue().length() > 0) {
+			feasibilitySearch
+					.setEnd(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_dateend
+							.getValue());
+			feasibilitySearch.parameters.put("time:end",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_dateend.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_datestart.getValue().length() > 0) {
+			feasibilitySearch
+					.setStart(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_datestart
+							.getValue());
+			feasibilitySearch.parameters.put("time:start",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_datestart.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_elevationMax.getValue() != null && mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_elevationMin.getValue() != null) {
+			feasibilitySearch
+					.setElevation(String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_elevationMin
+							.getValue()) + "," + String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_elevationMax
+									.getValue()));
+			feasibilitySearch.parameters.put("eosp:acquisitionAngleIncidenceElevation",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_elevationMin.getName());
+		}else{
+			//empty
+		}
+		if (!mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_haze.getValue(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_haze.getSelectedIndex()).equals("Select...")) {
+			feasibilitySearch
+					.setHaze(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_haze.getValue(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_haze.getSelectedIndex()));
+			feasibilitySearch.parameters.put("eosp:validationParametersOPTHazeAccepted",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_haze.getName());
+		}else{
+			//empty
+		}
+		if (!mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_instrument.getValue(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_instrument.getSelectedIndex()).equals("Select...")) {
+			feasibilitySearch
+					.setInstrument(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_instrument.getValue(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_instrument.getSelectedIndex()));
+			feasibilitySearch.parameters.put("eo:instrument",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_instrument.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_minLuminosity.getValue() != null) {
+			feasibilitySearch
+					.setMinLuminosity(String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_minLuminosity.getValue()));
+			feasibilitySearch.parameters.put("eosp:acquisitionParametersOPTMinimumLuminosity",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_minLuminosity.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_noiseLevel.getValue() != null) {
+			feasibilitySearch
+					.setMaxNoiseLevel(String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_noiseLevel.getValue()));
+			feasibilitySearch.parameters.put("eosp:validationParametersSARMaximumNoiseLevel",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_noiseLevel.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_nwlat.getValue() != null && mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_nwlon.getValue() != null
+				&& mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_selat.getValue() != null && mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_selon.getValue() != null) {
+			feasibilitySearch
+					.setNwlat(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_nwlat.getValue());
+			feasibilitySearch
+			.setNwlon(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_nwlon.getValue());
+			feasibilitySearch
+			.setSelat(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_selat.getValue());
+			feasibilitySearch
+			.setSelon(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_selon.getValue());
+			feasibilitySearch.parameters.put("geo:box",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_nwlat.getName());
+		}else{
+			//empty
+		}
+		if (!mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_platform.getValue(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_platform.getSelectedIndex()).equals("Select...")) {
+			feasibilitySearch
+					.setPlatform(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_platform.getValue(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_platform.getSelectedIndex()));
+			feasibilitySearch.parameters.put("eo:platform",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_platform.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_polarization.getValue().length() > 0) {
+			feasibilitySearch
+					.setPolMode(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_polarization.getValue());
+			feasibilitySearch.parameters.put("eosp:acquisitionParametersSARPolarizationMode",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_polarization.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_resoMax.getValue() != null && mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_resoMin.getValue() != null) {
+			feasibilitySearch
+					.setResolution(String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_resoMin.getValue()) + "," + String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_resoMax.getValue()) );
+			feasibilitySearch.parameters.put("eo:resolution",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_resoMin.getName());
+		}else{
+			//empty
+		}
+		if (!mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sandwind.getValue(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sandwind.getSelectedIndex()).equals("Select...")) {
+			feasibilitySearch
+					.setSandWind(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sandwind.getValue(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sandwind.getSelectedIndex()));
+			feasibilitySearch.parameters.put("eosp:validationParametersOPTSandWindAccepted",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sandwind.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sensorMode.getValue().length() > 0) {
+			feasibilitySearch
+					.setSensorMode(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sensorMode.getValue());
+			feasibilitySearch.parameters.put("eo:sensorMode",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sensorMode.getName());
+		}else{
+			//empty
+		}
+		if (!mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sensorType.getValue(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sensorType.getSelectedIndex()).equals("Select...")) {
+			feasibilitySearch
+					.setSensorType(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sensorType.getValue(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sensorType.getSelectedIndex()));
+			feasibilitySearch.parameters.put("eo:sensorType",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sensorType.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_snow.getValue() != null) {
+			feasibilitySearch
+					.setSnowCover(String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_snow.getValue()));
+			feasibilitySearch.parameters.put("eo:snowCover",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_snow.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sunglint.getValue() != null) {
+			feasibilitySearch
+					.setMaxSunGlint(String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sunglint.getValue()));
+			feasibilitySearch.parameters.put("eo:snowCover",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sunglint.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sunglint.getValue() != null) {
+			feasibilitySearch
+					.setMaxSunGlint(String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sunglint.getValue()));
+			feasibilitySearch.parameters.put("eosp:validationParametersOPTmaxSunGlint",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_sunglint.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_trackacrossMax.getValue() != null && mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_trackacrossMin.getValue() != null) {
+			feasibilitySearch
+					.setTrackAcross(String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_trackacrossMin.getValue()) + "," + String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_trackacrossMax.getValue()) );
+			feasibilitySearch.parameters.put("eosp:acquisitionAnglePointingRangeAcrossTrack",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_trackacrossMax.getName());
+		}else{
+			//empty
+		}
+		if (mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_trackalongMax.getValue() != null && mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_trackalongMin.getValue() != null) {
+			feasibilitySearch
+					.setTrackAlong(String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_trackalongMin.getValue()) + "," + String.valueOf(mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_trackalongMax.getValue()) );
+			feasibilitySearch.parameters.put("eosp:acquisitionAnglePointingRangeAlongTrack",
+					mainPanel.feasibilityPanel.feasibilitySearchPanel.feasibility_search_panel_trackalongMin.getName());
+		}else{
+			//empty
+		}
+		
+		mainPanel.feasibilityPanel.feasibilitySearchPanel
+		.getFeasibilityService().getResults(feasibilitySearch,new AsyncCallback<Map<String, FeasibilityResult>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				System.out.println("fail");
+				
+			}
+
+			@Override
+			public void onSuccess(final Map<String, FeasibilityResult> feasibilityResult) {
+				// TODO Auto-generated method stub
+				System.out.println("success");
+				// We go on the results Panel
+				// and disable the search Panel
+				mainPanel.feasibilityPanel.feasibility_panel_tab.getTabBar().setTabEnabled(1, true);
+				mainPanel.feasibilityPanel.feasibility_panel_tab.getTabBar().setTabEnabled(2, true);
+				mainPanel.feasibilityPanel.feasibility_panel_tab.getTabBar().selectTab(1);
+				
+				Window.alert(feasibilityResult.get("0").getStatusMsg());
+				if(feasibilityResult.get("0") == null){
+					Window.alert("no result found corresponding to your request");
+				}else{
+					mainPanel.feasibilityPanel.feasibilityResultPanel.feasibility_result_panel_show_xml_button.addClickHandler(new ClickHandler() {
+						String xml = feasibilityResult.get("0").getXml();
+						@Override
+						public void onClick(ClickEvent event) {
+							// TODO
+							// Auto-generated
+							// method stub
+							Window.open(xml, "show xml",xml);
+						}
+
+					});
+				}
+				
+				
+				final ArrayList<FeasibilityResult> result_list = new ArrayList<FeasibilityResult>();
+
+				AsyncDataProvider<FeasibilityResult> provider = new AsyncDataProvider<FeasibilityResult>() {
+					@SuppressWarnings("unchecked")
 					@Override
-					public void onClick(ClickEvent event) {
+					protected void onRangeChanged(HasData<FeasibilityResult> display) {
+						int start = display.getVisibleRange().getStart();
+						int end = start	+ display.getVisibleRange().getLength();
+						end = end >= feasibilityResult.size() ? feasibilityResult.size() : end;
+						Iterator<String> iterator = feasibilityResult.keySet().iterator();
 
-						// TODO Auto-generated method stub
-						// Recovering of the parameters and building of the
-						// Search object to send to the server
-						SpotSearch searchSpot = new SpotSearch(
-								"w9LEniuV7WlZUP9CgtMr9Je72gS0BwfsleDoNypGIGI:",
-								"json",
-								mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_begin
-										.getValue(),
-								mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_end
-										.getValue(),
-								mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_cloud
-										.getValue(),
-								(double) 30,
-								mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_resolutionMin
-										.getValue(),
-								mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_resolutionMax
-										.getValue(),
-								mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_entryType
-										.getValue(),
-								mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlat
-										.getValue(),
-								mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_nwlon
-										.getValue(),
-								mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selat
-										.getValue(),
-								mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_panel_selon
-										.getValue());
+						while (iterator.hasNext()) {
 
-						// The submit button is not enabled anymore
-						mainPanel.cataloguePanel.catalogueSearchPanel.catalogue_search_submit_button
-								.setEnabled(false);
+							// add results in a
+							// table
+							String key = (String) iterator.next();
+							FeasibilityResult value = (FeasibilityResult) feasibilityResult.get(key);
+							result_list.add(value);
 
-						// Server action
-						mainPanel.cataloguePanel.catalogueSearchPanel
-								.getGreetingService().greetServer(searchSpot,
-										new AsyncCallback<SpotResult>() {
-											@Override
-											public void onSuccess(
-													SpotResult spotResult) {
-												// TODO Auto-generated method
-												// stub
-												System.out.println("success");
-												// We go on the results Panel
-												// and disable the search Panel
-												mainPanel.cataloguePanel.catalogue_panel_tab
-														.getTabBar()
-														.setTabEnabled(1, true);
-												mainPanel.cataloguePanel.catalogue_panel_tab
-														.getTabBar()
-														.setTabEnabled(2, true);
-												mainPanel.cataloguePanel.catalogue_panel_tab
-														.getTabBar().selectTab(
-																1);
-												mainPanel.cataloguePanel.catalogue_panel_tab
-														.getTabBar()
-														.setTabEnabled(0, false);
+							// Display footprint
+							// on the map
+							Vector polygon_layer = new Vector("polygon_layer" + value.identifier);
+							if(value.upperLeft != null && value.lowerLeft != null && value.lowerRight != null && value.upperRight != null){
+								
+								Point p1 = new Point(value.upperLeft.longitude,value.upperLeft.latitude);
+								Point p2 = new Point(value.lowerLeft.longitude,	value.lowerLeft.latitude);
+								Point p3 = new Point(value.lowerRight.longitude,value.lowerRight.latitude);
+								Point p4 = new Point(value.upperRight.longitude,value.upperRight.latitude);
 
-												final Map<String, SpotScene> spotScenes = spotResult
-														.getScenes();
-												final ArrayList<SpotScene> scene_list = new ArrayList();
+								p1.transform(DEFAULT_PROJECTION,new Projection(map.getProjection()));
+								p2.transform(DEFAULT_PROJECTION,new Projection(map.getProjection()));
+								p3.transform(DEFAULT_PROJECTION,new Projection(map.getProjection()));
+								p4.transform(DEFAULT_PROJECTION,new Projection(map.getProjection()));
 
-												// Display results in a table
-												AsyncDataProvider<SpotScene> provider = new AsyncDataProvider<SpotScene>() {
-													@SuppressWarnings("unchecked")
-													@Override
-													protected void onRangeChanged(
-															HasData<SpotScene> display) {
-														int start = display
-																.getVisibleRange()
-																.getStart();
-														int end = start
-																+ display
-																		.getVisibleRange()
-																		.getLength();
-														end = end >= spotScenes
-																.size() ? spotScenes
-																.size() : end;
-														Iterator iterator = spotScenes
-																.keySet()
-																.iterator();
+								Point[] points = {p1, p2, p3, p4 };
 
-														while (iterator
-																.hasNext()) {
+								LinearRing linear_ring = new LinearRing(points);
+								VectorFeature polygon = new VectorFeature(linear_ring);
+								polygon_layer.addFeature(polygon);
+								polygon_layer.setIsVisible(true);
+								((org.gwtopenmaps.openlayers.client.Map) map).addLayer(polygon_layer);
 
-															// add results in a
-															// table
-															String key = (String) iterator
-																	.next();
-															SpotScene value = (SpotScene) spotScenes
-																	.get(key);
-															scene_list
-																	.add(value);
+								LonLat center = new LonLat(value.upperLeft.longitude,value.upperLeft.latitude);
+								center.transform("EPSG:4326",map.getProjection());
+								map.setCenter(center, 6);
+							}
+							
 
-															// Display footprint
-															// on the map
-															/*
-															 * Vector
-															 * polygon_layer =
-															 * new Vector(
-															 * "polygon_layer" +
-															 * value.id);
-															 * 
-															 * Point p1 = new
-															 * Point
-															 * (value.upper_left
-															 * .longitude,value.
-															 * upper_left
-															 * .latitude); Point
-															 * p2 = new
-															 * Point(value
-															 * .lower_left
-															 * .longitude
-															 * ,value.lower_left
-															 * .latitude); Point
-															 * p3 = new
-															 * Point(value
-															 * .lower_right
-															 * .longitude
-															 * ,value.lower_right
-															 * .latitude); Point
-															 * p4 = new
-															 * Point(value
-															 * .upper_right
-															 * .longitude
-															 * ,value.upper_right
-															 * .latitude);
-															 * 
-															 * p1.transform(
-															 * DEFAULT_PROJECTION
-															 * , new
-															 * Projection(map
-															 * .getProjection
-															 * ()));
-															 * p2.transform
-															 * (DEFAULT_PROJECTION
-															 * , new
-															 * Projection(map
-															 * .getProjection
-															 * ()));
-															 * p3.transform
-															 * (DEFAULT_PROJECTION
-															 * , new
-															 * Projection(map
-															 * .getProjection
-															 * ()));
-															 * p4.transform
-															 * (DEFAULT_PROJECTION
-															 * , new
-															 * Projection(map
-															 * .getProjection
-															 * ()));
-															 * 
-															 * Point[] points=
-															 * {p1,p2,p3,p4};
-															 * 
-															 * LinearRing
-															 * linear_ring = new
-															 * LinearRing
-															 * (points);
-															 * VectorFeature
-															 * polygon = new
-															 * VectorFeature
-															 * (linear_ring);
-															 * polygon_layer
-															 * .addFeature
-															 * (polygon);
-															 * 
-															 * map.addLayer(
-															 * polygon_layer);
-															 */
+							// remove current
+							// object
+							iterator.remove();
+						}
+						updateRowData(start,result_list);
+					}
+				};
+				provider.addDataDisplay(mainPanel.feasibilityPanel.feasibilityResultPanel.feasibility_result_panel_cellTable);
+				provider.updateRowCount(result_list.size(),true);
+				
+				mainPanel.feasibilityPanel.feasibilityResultPanel.feasibility_result_panel_showColumn.setFieldUpdater(new FieldUpdater<FeasibilityResult, String>() {
+					@Override
+					public void update(int index,FeasibilityResult object,String value) {
 
-															// Display quicklook
-															final Bounds extent = new Bounds(
-																	value.upper_left.latitude,
-																	value.lower_left.longitude,
-																	value.lower_right.latitude,
-																	value.upper_right.longitude);
-															LonLat scene_center_lonlat = new LonLat(
-																	value.scene_center.longitude,
-																	value.scene_center.latitude);
-															LonLat upper_left_lonlat = new LonLat(
-																	value.upper_left.longitude,
-																	value.upper_left.latitude);
-															LonLat lower_left_lonlat = new LonLat(
-																	value.lower_left.longitude,
-																	value.lower_left.latitude);
-															LonLat lower_right_lonlat = new LonLat(
-																	value.lower_right.longitude,
-																	value.lower_right.latitude);
-															LonLat upper_right_lonlat = new LonLat(
-																	value.upper_right.longitude,
-																	value.upper_right.latitude);
-															extent.extend(scene_center_lonlat);
-															extent.extend(upper_left_lonlat);
-															extent.extend(lower_left_lonlat);
-															extent.extend(lower_right_lonlat);
-															extent.extend(upper_right_lonlat);
-															extent.transform(
-																	DEFAULT_PROJECTION,
-																	new Projection(
-																			map.getProjection()));
-															ImageOptions imageOptions = new ImageOptions();
-															imageOptions
-																	.setNumZoomLevels(18);
-															imageOptions
-																	.setLayerOpacity(0.8d);
-															Image imageLayer = new Image(
-																	value.id,
-																	value.image_url,
-																	extent,
-																	new Size(
-																			50,
-																			50),
-																	imageOptions);
-															imageLayer
-																	.setIsBaseLayer(false);
+						if (value == "Hide") {
+							Layer vector = map.getLayerByName("polygon_layer" + object.identifier);
+							vector.setIsVisible(false);
+							mainPanel.feasibilityPanel.feasibilityResultPanel.hideButtonClicked = true;
+							mainPanel.feasibilityPanel.feasibilityResultPanel.feasibility_result_panel_cellTable.redrawRow(index);
 
-															map.setCenter(
-																	new LonLat(
-																			10.3321,
-																			49.8959),
-																	6);
+						} else if (value == "Show") {
+							Layer vector = map.getLayerByName("polygon_layer"+ object.identifier);
+							vector.setIsVisible(true);
+							mainPanel.feasibilityPanel.feasibilityResultPanel.hideButtonClicked = false;
+							mainPanel.feasibilityPanel.feasibilityResultPanel.feasibility_result_panel_cellTable.redrawRow(index);
 
-															// ((org.gwtopenmaps.openlayers.client.Map)
-															// map).addLayer(imageLayer);
-
-															// remove current
-															// object
-															iterator.remove();
-
-														}
-														updateRowData(start,
-																scene_list);
-													}
-												};
-												// add to the table
-												// provider.addDataDisplay(mainPanel.cataloguePanel.catalogueResultPanel.catalogue_result_panel_celltable);
-												provider.updateRowCount(
-														scene_list.size(), true);
-
-												// Footprints handler
-												// TODO : ne marche pas super
-												// bien....
-												/*
-												 * mainPanel.cataloguePanel.
-												 * catalogueResultPanel.
-												 * catalogue_result_panel_showColumn
-												 * .setFieldUpdater(new
-												 * FieldUpdater<SpotScene,
-												 * String>() {
-												 * 
-												 * @Override public void
-												 * update(int index, SpotScene
-												 * object, String value) { //
-												 * The user clicked on the
-												 * button for the passed
-												 * auction. if (value ==
-												 * "Hide"){
-												 * System.out.println(index);
-												 * Layer vector =
-												 * map.getLayerByName
-												 * ("polygon_layer" +
-												 * object.id);
-												 * System.out.println
-												 * ("polygon_layer" +
-												 * object.id);
-												 * vector.setIsVisible(false);
-												 * System
-												 * .out.println(vector.isVisible
-												 * ());
-												 * mainPanel.cataloguePanel.
-												 * catalogueResultPanel
-												 * .hideButtonClicked = true;
-												 * mainPanel.cataloguePanel.
-												 * catalogueResultPanel
-												 * .catalogue_result_panel_celltable
-												 * .redrawRow(index);
-												 * System.out.println(value);
-												 * 
-												 * 
-												 * } else if (value == "Show"){
-												 * System.out.println(index);
-												 * Layer vector =
-												 * map.getLayerByName
-												 * ("polygon_layer" +
-												 * object.id);
-												 * System.out.println
-												 * ("polygon_layer" +
-												 * object.id);
-												 * vector.setIsVisible(true);
-												 * System
-												 * .out.println(vector.isVisible
-												 * ());
-												 * mainPanel.cataloguePanel.
-												 * catalogueResultPanel
-												 * .hideButtonClicked = false;
-												 * mainPanel.cataloguePanel.
-												 * catalogueResultPanel
-												 * .catalogue_result_panel_celltable
-												 * .redrawRow(index);
-												 * System.out.println(value);
-												 * 
-												 * } } });
-												 */
-
-												// Details according to the
-												// selected scene
-												/*
-												 * Handler tableHandler = new
-												 * SelectionChangeEvent
-												 * .Handler() {
-												 * 
-												 * @Override public void
-												 * onSelectionChange
-												 * (SelectionChangeEvent event)
-												 * { SpotScene selectedScene =
-												 * mainPanel.cataloguePanel.
-												 * catalogueResultPanel.
-												 * catalogue_result_panel_selectionModelDetails
-												 * .getLastSelectedObject();
-												 * mainPanel.cataloguePanel.
-												 * catalogueDetailsPanel
-												 * .catalogue_details_panel_image
-												 * .
-												 * setUrl(selectedScene.image_url
-												 * ); mainPanel.cataloguePanel.
-												 * catalogueDetailsPanel
-												 * .catalogue_details_panel_date
-												 * .setText(selectedScene.
-												 * acquisition_date);
-												 * mainPanel.cataloguePanel
-												 * .catalogueDetailsPanel.
-												 * catalogue_details_panel_satellite
-												 * .
-												 * setText(selectedScene.satellite
-												 * ); mainPanel.cataloguePanel.
-												 * catalogueDetailsPanel
-												 * .catalogue_details_panel_cloud
-												 * .setText(String.valueOf(
-												 * selectedScene.cloud_cover));
-												 * mainPanel.cataloguePanel.
-												 * catalogueDetailsPanel
-												 * .catalogue_details_panel_snow
-												 * .setText(String.valueOf(
-												 * selectedScene.snow_cover));
-												 * mainPanel.cataloguePanel.
-												 * catalogueDetailsPanel
-												 * .resolution
-												 * .setText(String.valueOf
-												 * (selectedScene.resolution));
-												 * mainPanel.cataloguePanel.
-												 * catalogueDetailsPanel
-												 * .catalogue_details_panel_shift
-												 * .
-												 * setText(selectedScene.shift);
-												 * mainPanel.cataloguePanel.
-												 * catalogueDetailsPanel.
-												 * catalogue_details_panel_sunAzimuth
-												 * .setText(String.valueOf(
-												 * selectedScene.sun_azimuth));
-												 * mainPanel.cataloguePanel.
-												 * catalogueDetailsPanel.
-												 * catalogue_details_panel_sunElevation
-												 * .setText(String.valueOf(
-												 * selectedScene
-												 * .sun_elevation));
-												 * mainPanel.cataloguePanel
-												 * .catalogueDetailsPanel
-												 * .catalogue_details_panel_tquality
-												 * .
-												 * setText(selectedScene.tquality
-												 * );
-												 * //mainPanel.cataloguePanel.
-												 * catalogueDetailsPanel
-												 * .spot_panel_label_center
-												 * .setText("[" +
-												 * selectedScene.scene_center
-												 * .latitude + ";" +
-												 * selectedScene
-												 * .scene_center.longitude +
-												 * "]"); } };
-												 * 
-												 * // Add the handler to the
-												 * selection model
-												 * mainPanel.cataloguePanel
-												 * .catalogueResultPanel.
-												 * catalogue_result_panel_selectionModelDetails
-												 * .addSelectionChangeHandler(
-												 * tableHandler );
-												 */
-												// Add the selection model to
-												// the table
-												// mainPanel.cataloguePanel.catalogueResultPanel.catalogue_result_panel_celltable.setSelectionModel(
-												// mainPanel.cataloguePanel.catalogueResultPanel.catalogue_result_panel_selectionModelDetails);
-
-											}
-
-											@Override
-											public void onFailure(
-													Throwable caught) {
-												// TODO Auto-generated method
-												// stub
-												System.out.println("fail!");
-											}
-										});
-
+						}
 					}
 				});
+				
+				// Details according to the
+				// selected scene
+				Handler tableHandler = new SelectionChangeEvent.Handler() {
+					@Override
+					public void onSelectionChange(SelectionChangeEvent event) {
+						FeasibilityResult selectedScene = mainPanel.feasibilityPanel.feasibilityResultPanel.feasibility_result_panel_selectionModelDetails.getLastSelectedObject();
+						mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_id.setText(selectedScene.identifier);
+						if (selectedScene.acquisitionDate != null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_acquisitionDate.setText(selectedScene.acquisitionDate);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_acquisitionDate.setText("not informed");
+						}
+						if (selectedScene.acrossTrack!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_accrossTrack.setText(selectedScene.acrossTrack);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_accrossTrack.setText("not informed");
+						}
+						if (selectedScene.alongTrack!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_alongTrack.setText(selectedScene.alongTrack);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_alongTrack.setText("not informed");
+						}
+						if (selectedScene.azimuth!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_azimuth.setText(selectedScene.azimuth);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_azimuth.setText("not informed");
+						}
+						if (selectedScene.cloudCover!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_cloud.setText(selectedScene.cloudCover);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_cloud.setText("not informed");
+						}
+						if (selectedScene.compositeType!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_compositeType.setText(selectedScene.compositeType);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_compositeType.setText("not informed");
+						}
+						if (selectedScene.elevation!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_elevation.setText(selectedScene.elevation);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_elevation.setText("not informed");
+						}
+						if (selectedScene.haze!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_haze.setText(selectedScene.haze);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_haze.setText("not informed");
+						}
+						if (selectedScene.instrument!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_instrument.setText(selectedScene.instrument);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_instrument.setText("not informed");
+						}
+						if (selectedScene.instrumentMode!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_sensorMode.setText(selectedScene.instrumentMode);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_sensorMode.setText("not informed");
+						}
+						if (selectedScene.maxNoiseLevel!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_noiseLevel.setText(selectedScene.maxNoiseLevel);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_noiseLevel.setText("not informed");
+						}
+						if (selectedScene.maxSunGlint!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_sunGlint.setText(selectedScene.maxSunGlint);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_sunGlint.setText("not informed");
+						}
+						if (selectedScene.minLuminosity!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_minLuminosity.setText(selectedScene.minLuminosity);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_minLuminosity.setText("not informed");
+						}
+						if (selectedScene.orbitType!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_orbitType.setText(selectedScene.orbitType);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_orbitType.setText("not informed");
+						}
+						if (selectedScene.platform!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_platform.setText(selectedScene.platform);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_platform.setText("not informed");
+						}
+						if (selectedScene.polarizationMode!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_polarisationMode.setText(selectedScene.polarizationMode);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_polarisationMode.setText("not informed");
+						}
+						if (selectedScene.resolution!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_resolution.setText(selectedScene.resolution);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_resolution.setText("not informed");
+						}
+						if (selectedScene.sandWind!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_sandWind.setText(selectedScene.sandWind);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_sandWind.setText("not informed");
+						}
+						if (selectedScene.sensor!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_sensorType.setText(selectedScene.sensor);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_sensorType.setText("not informed");
+						}
+						if (selectedScene.snowCover!= null) {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_snow.setText(selectedScene.snowCover);
+						} else {
+							mainPanel.feasibilityPanel.feasibilityDetailsPanel.feasibility_details_panel_snow.setText("not informed");
+						}
+						
+					}
+				};
+				// Add the handler to the
+				// selection model
+				mainPanel.feasibilityPanel.feasibilityResultPanel.feasibility_result_panel_selectionModelDetails.addSelectionChangeHandler(tableHandler);
+				// Add the selection model to
+				// the table
+				mainPanel.feasibilityPanel.feasibilityResultPanel.feasibility_result_panel_cellTable.setSelectionModel(mainPanel.feasibilityPanel.feasibilityResultPanel.feasibility_result_panel_selectionModelDetails);
+			}
+});
+		
+		
+	}});
 
 		/**************** TEST DISPLAY IMAGE ***************/
 

@@ -11,6 +11,8 @@ public class CatalogueSearch implements Serializable{
 	 */
 	private static final long serialVersionUID = 7110663649768591236L;
 	public Map<String, String> parameters;
+	public String start;
+	public String stop;
 	public String platform;
 	public String orbitType;
 	public String instrument;
@@ -55,7 +57,25 @@ public class CatalogueSearch implements Serializable{
 		parameters = new HashMap<String, String>();
 	}
 
-	
+	public String getStart() {
+		return start;
+	}
+
+
+	public void setStart(String start) {
+		this.start = start;
+	}
+
+	public String getStop() {
+		return stop;
+	}
+
+
+	public void setStop(String stop) {
+		this.stop = stop;
+	}
+
+
 	public String getPlatform() {
 		return platform;
 	}
