@@ -12,32 +12,48 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.astrium.hmas.bean.EarthObservation.MetaDataProperty;
-import com.astrium.hmas.bean.EarthObservation.MetaDataProperty.EarthObservationMetaData;
-import com.astrium.hmas.bean.EarthObservation.MetaDataProperty.EarthObservationMetaData.ArchivedIn;
-import com.astrium.hmas.bean.EarthObservation.MetaDataProperty.EarthObservationMetaData.DownlinkedTo;
-import com.astrium.hmas.bean.EarthObservation.MetaDataProperty.EarthObservationMetaData.ArchivedIn.ArchivingInformation;
-import com.astrium.hmas.bean.EarthObservation.MetaDataProperty.EarthObservationMetaData.DownlinkedTo.DownlinkInformation;
-import com.astrium.hmas.bean.EarthObservation.MetaDataProperty.EarthObservationMetaData.Processing;
-import com.astrium.hmas.bean.EarthObservation.MetaDataProperty.EarthObservationMetaData.Processing.ProcessingInformation;
-import com.astrium.hmas.bean.EarthObservationEquipment.AcquisitionParameters;
-import com.astrium.hmas.bean.EarthObservationEquipment.AcquisitionParameters.Acquisition;
-import com.astrium.hmas.bean.EarthObservationEquipment.Instrument;
-import com.astrium.hmas.bean.EarthObservationEquipment.Platform;
-import com.astrium.hmas.bean.EarthObservationEquipment.Instrument.InstrumentType;
-import com.astrium.hmas.bean.EarthObservationEquipment.Platform.PlatformType;
-import com.astrium.hmas.bean.EarthObservationEquipment.Sensor;
-import com.astrium.hmas.bean.EarthObservationEquipment.Sensor.SensorType;
-import com.astrium.hmas.bean.EarthObservationEquipment.Sensor.SensorType.WavelengthInformation;
-import com.astrium.hmas.bean.EarthObservationEquipment.Sensor.SensorType.WavelengthInformation.WavelengthInformationType;
-import com.astrium.hmas.bean.Feed.Entry;
-import com.astrium.hmas.bean.Feed.Entry.Link;
-import com.astrium.hmas.bean.Feed.Generator;
-import com.astrium.hmas.bean.Footprint.MultiExtentOf;
-import com.astrium.hmas.bean.MultiSurface.SurfaceMember;
-import com.astrium.hmas.bean.MultiSurface.SurfaceMember.Polygon.Exterior;
-import com.astrium.hmas.bean.Polygon.Exterior.LinearRing;
-import com.astrium.hmas.bean.Polygon.Exterior.LinearRing.PosList;
+import com.astrium.hmas.bean.catalogue.EarthObservation;
+import com.astrium.hmas.bean.catalogue.EarthObservationEquipment;
+import com.astrium.hmas.bean.catalogue.EarthObservationResult;
+import com.astrium.hmas.bean.catalogue.FeatureOfInterest;
+import com.astrium.hmas.bean.catalogue.Feed;
+import com.astrium.hmas.bean.catalogue.Footprint;
+import com.astrium.hmas.bean.catalogue.MultiSurface;
+import com.astrium.hmas.bean.catalogue.ObjectFactory;
+import com.astrium.hmas.bean.catalogue.PhenomenonTime;
+import com.astrium.hmas.bean.catalogue.Polygon;
+import com.astrium.hmas.bean.catalogue.Procedure;
+import com.astrium.hmas.bean.catalogue.Result;
+import com.astrium.hmas.bean.catalogue.ResultTime;
+import com.astrium.hmas.bean.catalogue.TimeInstant;
+import com.astrium.hmas.bean.catalogue.TimePeriod;
+import com.astrium.hmas.bean.catalogue.Where;
+import com.astrium.hmas.bean.catalogue.EarthObservation.MetaDataProperty;
+import com.astrium.hmas.bean.catalogue.EarthObservation.MetaDataProperty.EarthObservationMetaData;
+import com.astrium.hmas.bean.catalogue.EarthObservation.MetaDataProperty.EarthObservationMetaData.ArchivedIn;
+import com.astrium.hmas.bean.catalogue.EarthObservation.MetaDataProperty.EarthObservationMetaData.DownlinkedTo;
+import com.astrium.hmas.bean.catalogue.EarthObservation.MetaDataProperty.EarthObservationMetaData.Processing;
+import com.astrium.hmas.bean.catalogue.EarthObservation.MetaDataProperty.EarthObservationMetaData.ArchivedIn.ArchivingInformation;
+import com.astrium.hmas.bean.catalogue.EarthObservation.MetaDataProperty.EarthObservationMetaData.DownlinkedTo.DownlinkInformation;
+import com.astrium.hmas.bean.catalogue.EarthObservation.MetaDataProperty.EarthObservationMetaData.Processing.ProcessingInformation;
+import com.astrium.hmas.bean.catalogue.EarthObservationEquipment.AcquisitionParameters;
+import com.astrium.hmas.bean.catalogue.EarthObservationEquipment.Instrument;
+import com.astrium.hmas.bean.catalogue.EarthObservationEquipment.Platform;
+import com.astrium.hmas.bean.catalogue.EarthObservationEquipment.Sensor;
+import com.astrium.hmas.bean.catalogue.EarthObservationEquipment.AcquisitionParameters.Acquisition;
+import com.astrium.hmas.bean.catalogue.EarthObservationEquipment.Instrument.InstrumentType;
+import com.astrium.hmas.bean.catalogue.EarthObservationEquipment.Platform.PlatformType;
+import com.astrium.hmas.bean.catalogue.EarthObservationEquipment.Sensor.SensorType;
+import com.astrium.hmas.bean.catalogue.EarthObservationEquipment.Sensor.SensorType.WavelengthInformation;
+import com.astrium.hmas.bean.catalogue.EarthObservationEquipment.Sensor.SensorType.WavelengthInformation.WavelengthInformationType;
+import com.astrium.hmas.bean.catalogue.Feed.Entry;
+import com.astrium.hmas.bean.catalogue.Feed.Generator;
+import com.astrium.hmas.bean.catalogue.Feed.Entry.Link;
+import com.astrium.hmas.bean.catalogue.Footprint.MultiExtentOf;
+import com.astrium.hmas.bean.catalogue.MultiSurface.SurfaceMember;
+import com.astrium.hmas.bean.catalogue.MultiSurface.SurfaceMember.Polygon.Exterior;
+import com.astrium.hmas.bean.catalogue.Polygon.Exterior.LinearRing;
+import com.astrium.hmas.bean.catalogue.Polygon.Exterior.LinearRing.PosList;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -100,21 +116,16 @@ public class OpenSearchCatalogueInterface {
 	@GET
 	public Response getMethodParser() {
 		MultivaluedMap<String, String> conf = ui.getQueryParameters();
-		
-		System.out.println(conf.get("startIndex"));
-		System.out.println(conf.size());
 
 		try {
 			Class.forName("org.postgresql.Driver");
 
 		} catch (ClassNotFoundException e) {
-			System.out
-					.println("Where is your PostgreSQL JDBC Driver? Include in your library path!");
+			System.out.println("Where is your PostgreSQL JDBC Driver? Include in your library path!");
 			e.printStackTrace();
 		}
 
-		System.out
-				.println("-------- PostgreSQL JDBC Connection Testing ------------");
+		System.out.println("-------- PostgreSQL JDBC Connection Testing ------------");
 		try {
 
 			System.out.println("PostgreSQL JDBC Driver Registered!");
@@ -123,105 +134,134 @@ public class OpenSearchCatalogueInterface {
 			Statement st = null;
 			ResultSet rs = null;
 
-			connection = DriverManager.getConnection(
-					"jdbc:postgresql://127.0.0.1:5432/osresult", "postgres",
-					"fightclub09");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/osresult", "postgres", "fightclub09");
 			st = connection.createStatement();
 			String query = "SELECT * FROM result";
-			//full query according to the different request parameters : 
-			//TODO NE MARCHERA PAS A CAUSE DES DATES
-			/*if (conf.get("start") != null && conf.get("stop") != null){
-				query += "WHERE archivingDate > " + conf.get("time:start") + "AND archivingDate < " + conf.get("time:end");
-			}*/
+			// full query according to the different request parameters :
+			// TODO NE MARCHERA PAS A CAUSE DES DATES
+			/*
+			 * if (conf.get("start") != null && conf.get("stop") != null){ query
+			 * += "WHERE archivingDate > " + conf.get("time:start") +
+			 * "AND archivingDate < " + conf.get("time:end"); }
+			 */
 			String box = conf.get("bbox").get(0);
 			String[] bbox = box.split(",");
-			query += " WHERE ST_Contains(st_geomfromtext('POLYGON((" + bbox[0] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[3] + ", " +bbox[0] + " " + bbox[3] + ", " + bbox[0] + " " + bbox[1] + "))',4326),\"upperRight\")" +
-					" OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[0] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[3] + ", " +bbox[0] + " " + bbox[3] + ", " + bbox[0] + " " + bbox[1] + "))',4326),\"upperLeft\")"
-					+ " OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[0] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[3] + ", " +bbox[0] + " " + bbox[3] + ", " + bbox[0] + " " + bbox[1] + "))',4326),\"lowerLeft\")"
-					+ " OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[0] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[1] + ", " + bbox[2] + " " + bbox[3] + ", " +bbox[0] + " " + bbox[3] + ", " + bbox[0] + " " + bbox[1] + "))',4326),\"lowerRight\")"; 
-			if (conf.get("id") != null){
+			query += " WHERE ST_Contains(st_geomfromtext('POLYGON((" + bbox[1] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[3] + " "
+					+ bbox[2] + ", " + bbox[3] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[0] + "))',4326),\"upperRight\")"
+					+ " OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[1] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[3] + " "
+					+ bbox[2] + ", " + bbox[3] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[0] + "))',4326),\"upperLeft\")"
+					+ " OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[1] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[3] + " "
+					+ bbox[2] + ", " + bbox[3] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[0] + "))',4326),\"lowerLeft\")"
+					+ " OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[1] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[3] + " "
+					+ bbox[2] + ", " + bbox[3] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[0] + "))',4326),\"lowerRight\")";
+			if (conf.get("id") != null) {
 				query += " AND identifier = '" + conf.get("id").get(0) + "'";
-			}else{}
-			if (conf.get("acqstation") != null){
+			} else {
+			}
+			if (conf.get("acqstation") != null) {
 				query += " AND \"acquisitionStation\" = '" + conf.get("acqstation").get(0) + "'";
-			}else{}
-			if (conf.get("plat") != null){
+			} else {
+			}
+			if (conf.get("plat") != null) {
 				query += " AND platform = '" + conf.get("plat").get(0) + "'";
-			}else{}
-			if (conf.get("orbittype") != null){
+			} else {
+			}
+			if (conf.get("orbittype") != null) {
 				query += " AND \"orbitType\" = '" + conf.get("orbittype").get(0) + "'";
-			}else{}
-			if (conf.get("instrument") != null){
+			} else {
+			}
+			if (conf.get("instrument") != null) {
 				query += " AND instrument = '" + conf.get("instrument").get(0) + "'";
-			}else{}
-			if (conf.get("sensortype") != null){
+			} else {
+			}
+			if (conf.get("sensortype") != null) {
 				query += " AND \"sensorType\" = '" + conf.get("sensortype").get(0) + "'";
-			}else{}
-			if (conf.get("sensormode") != null){
+			} else {
+			}
+			if (conf.get("sensormode") != null) {
 				query += " AND \"sensorMode\" = '" + conf.get("sensormode").get(0) + "'";
-			}else{}
-			//TODO set or range
-			if (conf.get("resolution") != null){
+			} else {
+			}
+			// TODO set or range
+			if (conf.get("resolution") != null) {
 				query += " AND resolution = '" + conf.get("resolution").get(0) + "'";
-			}else{}
-			if (conf.get("swathid") != null){
+			} else {
+			}
+			if (conf.get("swathid") != null) {
 				query += " AND \"swathId\" = '" + conf.get("swathid").get(0) + "'";
-			}else{}
-			//TODO set or range
-			if (conf.get("wavelength") != null){
+			} else {
+			}
+			// TODO set or range
+			if (conf.get("wavelength") != null) {
 				query += " AND \"waveLength\" = '" + conf.get("wavelength").get(0) + "'";
-			}else{}
-			if (conf.get("spectralrange") != null){
+			} else {
+			}
+			if (conf.get("spectralrange") != null) {
 				query += " AND \"spectralRange\" = '" + conf.get("spectralrange").get(0) + "'";
-			}else{}
-			//TODO set or range
-			if (conf.get("orbitnumber") != null){
+			} else {
+			}
+			// TODO set or range
+			if (conf.get("orbitnumber") != null) {
 				query += " AND \"orbitNumber\" = '" + conf.get("orbitnumber").get(0) + "'";
-			}else{}
-			if (conf.get("orbitdirection") != null){
+			} else {
+			}
+			if (conf.get("orbitdirection") != null) {
 				query += " AND \"orbitDirection\" = '" + conf.get("orbitdirection").get(0) + "'";
-			}else{}
-			//TODO set or range
-			if (conf.get("track") != null){
+			} else {
+			}
+			// TODO set or range
+			if (conf.get("track") != null) {
 				query += " AND track = '" + conf.get("track").get(0) + "'";
-			}else{}
-			//TODO set or range
-			if (conf.get("frame") != null){
+			} else {
+			}
+			// TODO set or range
+			if (conf.get("frame") != null) {
 				query += " AND frame = '" + conf.get("frame").get(0) + "'";
-			}else{}
-			if (conf.get("type") != null){
+			} else {
+			}
+			if (conf.get("type") != null) {
 				query += " AND type = '" + conf.get("type").get(0) + "'";
-			}else{}
-			if (conf.get("acqtype") != null){
+			} else {
+			}
+			if (conf.get("acqtype") != null) {
 				query += " AND \"acquisitionType\" = '" + conf.get("acqtype").get(0) + "'";
-			}else{}
-			if (conf.get("archcenter") != null){
+			} else {
+			}
+			if (conf.get("archcenter") != null) {
 				query += " AND \"archivingCenter\" = '" + conf.get("archcenter").get(0) + "'";
-			}else{}
-			//TODO DAATES!!! --> process and archiving!!
-			if (conf.get("processcenter") != null){
+			} else {
+			}
+			// TODO DAATES!!! --> process and archiving!!
+			if (conf.get("processcenter") != null) {
 				query += " AND \"processingCenter\" = '" + conf.get("processcenter").get(0) + "'";
-			}else{}
-			if (conf.get("status") != null){
+			} else {
+			}
+			if (conf.get("status") != null) {
 				query += " AND status = '" + conf.get("status").get(0) + "'";
-			}else{}
-			if (conf.get("processoft") != null){
+			} else {
+			}
+			if (conf.get("processoft") != null) {
 				query += " AND \"processingSoftware\" = '" + conf.get("processoft").get(0) + "'";
-			}else{}
-			if (conf.get("processlevel") != null){
+			} else {
+			}
+			if (conf.get("processlevel") != null) {
 				query += " AND \"processingLevel\" = '" + conf.get("processlevel").get(0) + "'";
-			}else{}
-			if (conf.get("compositetype") != null){
+			} else {
+			}
+			if (conf.get("compositetype") != null) {
 				query += " AND \"compositeType\" = '" + conf.get("compositetype").get(0) + "'";
-			}else{}
-			//TODO set or range
-			if (conf.get("cloud") != null){
+			} else {
+			}
+			// TODO set or range
+			if (conf.get("cloud") != null) {
 				query += " AND \"cloudCover\" = '" + conf.get("cloud").get(0) + "'";
-			}else{}
-			//TODO set or range
-			if (conf.get("snow") != null){
+			} else {
+			}
+			// TODO set or range
+			if (conf.get("snow") != null) {
 				query += " AND \"snowCover\" = '" + conf.get("snow").get(0) + "'";
-			}else{}
+			} else {
+			}
 			rs = st.executeQuery(query);
 			System.out.println(query);
 
@@ -240,23 +280,22 @@ public class OpenSearchCatalogueInterface {
 			generator.setValue("Astrium Ltd");
 			feed.setGenerator(generator);
 			Feed.Link link = objFactory.createFeedLink();
-			//TODO put the query url here
+			// TODO put the query url here
 			link.setHref("query url");
 			link.setType("application/atom+xml");
 			Feed.Link link2 = objFactory.createFeedLink();
-			//TODO put the description url here
+			// TODO put the description url here
 			link2.setHref("description url");
 			link2.setType("application/atom+xml");
-			List<com.astrium.hmas.bean.Feed.Link> links = feed.getLink();
+			List<com.astrium.hmas.bean.catalogue.Feed.Link> links = feed.getLink();
 			links.add(link2);
 			links.add(link);
-			//TODO put the number of results -> count on the sql query
-			feed.setTotalResults((short)2);
-			feed.setStartIndex((short)0);
-			feed.setItemsPerPage((short)20);
-			
-			//TODO if needed georss:Where and element -> feed query box
-			
+			// TODO put the number of results -> count on the sql query
+			feed.setTotalResults((short) 2);
+			feed.setStartIndex((short) 0);
+			feed.setItemsPerPage((short) 20);
+
+			// TODO if needed georss:Where and element -> feed query box
 
 			// entries -> part of feed
 			while (rs.next()) {
@@ -272,12 +311,9 @@ public class OpenSearchCatalogueInterface {
 				// georss:Where and element -> entry
 				Where where = objFactory.createWhere();
 				Polygon polygon = objFactory.createPolygon();
-				com.astrium.hmas.bean.Polygon.Exterior exterior = objFactory
-						.createPolygonExterior();
-				LinearRing linearRing = objFactory
-						.createPolygonExteriorLinearRing();
-				PosList poslist = objFactory
-						.createPolygonExteriorLinearRingPosList();
+				com.astrium.hmas.bean.catalogue.Polygon.Exterior exterior = objFactory.createPolygonExterior();
+				LinearRing linearRing = objFactory.createPolygonExteriorLinearRing();
+				PosList poslist = objFactory.createPolygonExteriorLinearRingPosList();
 				poslist.setSrsDimension((short) 2);
 				poslist.setValue(rs.getString("footprint"));
 				linearRing.setPosList(poslist);
@@ -288,11 +324,9 @@ public class OpenSearchCatalogueInterface {
 
 				// earthObservation and element
 				EarthObservation earthObs = objFactory.createEarthObservation();
-				PhenomenonTime phenomenonTime = objFactory
-						.createPhenomenonTime();
+				PhenomenonTime phenomenonTime = objFactory.createPhenomenonTime();
 				TimePeriod timePeriod = objFactory.createTimePeriod();
-				timePeriod
-						.setId("tp_ASA_IM__0CNPDE20100122_014441_000000162086_00146_41282_7918.N1");
+				timePeriod.setId("tp_ASA_IM__0CNPDE20100122_014441_000000162086_00146_41282_7918.N1");
 				// TODO begin and end position
 				timePeriod.setBeginPosition("2010-01-22T01:44:41.316Z");
 				timePeriod.setEndPosition("2010-01-22T01:44:57.596Z");
@@ -301,8 +335,7 @@ public class OpenSearchCatalogueInterface {
 
 				ResultTime resultTime = objFactory.createResultTime();
 				TimeInstant timeInstant = objFactory.createTimeInstant();
-				timeInstant
-						.setId("ad_ ASA_IM__0CNPDE20100122_014441_000000162086_00146_41282_7918.N1");
+				timeInstant.setId("ad_ ASA_IM__0CNPDE20100122_014441_000000162086_00146_41282_7918.N1");
 				timeInstant.setTimePosition("2010-01-22T02:35:06.000Z");
 				// TODO timePosition
 				resultTime.setTimeInstant(timeInstant);
@@ -310,44 +343,37 @@ public class OpenSearchCatalogueInterface {
 
 				Procedure procedure = objFactory.createProcedure();
 
-				EarthObservationEquipment eoEquipment = objFactory
-						.createEarthObservationEquipment();
-				eoEquipment
-						.setId("eq_ASA_IM__0CNPDE20100122_014441_000000162086_00146_41282_7918.N1");
-				Platform platform = objFactory
-						.createEarthObservationEquipmentPlatform();
-				PlatformType platformType = objFactory
-						.createEarthObservationEquipmentPlatformPlatform();
+				EarthObservationEquipment eoEquipment = objFactory.createEarthObservationEquipment();
+				eoEquipment.setId("eq_ASA_IM__0CNPDE20100122_014441_000000162086_00146_41282_7918.N1");
+				Platform platform = objFactory.createEarthObservationEquipmentPlatform();
+				PlatformType platformType = objFactory.createEarthObservationEquipmentPlatformPlatform();
 				platformType.setShortName(rs.getString("platform"));
 				platformType.setOrbitType(rs.getString("orbitType"));
 				platform.setPlatform(platformType);
 				eoEquipment.setPlatform(platform);
 
-				Instrument instrument = objFactory
-						.createEarthObservationEquipmentInstrument();
-				InstrumentType instrumentType = objFactory
-						.createEarthObservationEquipmentInstrumentInstrument();
+				Instrument instrument = objFactory.createEarthObservationEquipmentInstrument();
+				InstrumentType instrumentType = objFactory.createEarthObservationEquipmentInstrumentInstrument();
 				instrumentType.setShortName(rs.getString("instrument"));
 				instrument.setInstrument(instrumentType);
 				eoEquipment.setInstrument(instrument);
 
-				Sensor sensor = objFactory
-						.createEarthObservationEquipmentSensor();
-				SensorType sensorType = objFactory
-						.createEarthObservationEquipmentSensorSensor();
+				Sensor sensor = objFactory.createEarthObservationEquipmentSensor();
+				SensorType sensorType = objFactory.createEarthObservationEquipmentSensorSensor();
 				sensorType.setSensorType(rs.getString("sensorType"));
 				sensorType.setOperationalMode(rs.getString("sensorMode"));
 				sensorType.setResolution(rs.getString("resolution"));
 				sensorType.setSwathIdentifier(rs.getString("swathId"));
 				WavelengthInformation wavelengthInformation = objFactory.createEarthObservationEquipmentSensorSensorWavelengthInformation();
-				WavelengthInformationType wavelengthInformationType = objFactory.createEarthObservationEquipmentSensorSensorWavelengthInformationWavelengthInformation();
+				WavelengthInformationType wavelengthInformationType = objFactory
+						.createEarthObservationEquipmentSensorSensorWavelengthInformationWavelengthInformation();
 				wavelengthInformationType.setDiscreteWavelengths(rs.getString("wavelength"));
 				wavelengthInformationType.setSpectralRange(rs.getString("spectralRange"));
 				wavelengthInformation.setWavelengthInformation(wavelengthInformationType);
 				sensorType.setWavelengthInformation(wavelengthInformation);
 				sensor.setSensor(sensorType);
 				eoEquipment.setSensor(sensor);
-				
+
 				AcquisitionParameters acquisitionParameters = objFactory.createEarthObservationEquipmentAcquisitionParameters();
 				Acquisition acquisition = objFactory.createEarthObservationEquipmentAcquisitionParametersAcquisition();
 				acquisition.setOrbitDirection(rs.getString("orbitDirection"));
@@ -362,71 +388,59 @@ public class OpenSearchCatalogueInterface {
 				earthObs.setProcedure(procedure);
 
 				// feature of interest and elements
-				FeatureOfInterest featureOfInterest = objFactory
-						.createFeatureOfInterest();
+				FeatureOfInterest featureOfInterest = objFactory.createFeatureOfInterest();
 				Footprint footprint = objFactory.createFootprint();
-				MultiExtentOf multiExtentOf = objFactory
-						.createFootprintMultiExtentOf();
+				MultiExtentOf multiExtentOf = objFactory.createFootprintMultiExtentOf();
 				MultiSurface multiSurface = objFactory.createMultiSurface();
-				SurfaceMember surfaceMember = objFactory
-						.createMultiSurfaceSurfaceMember();
-				com.astrium.hmas.bean.MultiSurface.SurfaceMember.Polygon polygon2 = objFactory
-						.createMultiSurfaceSurfaceMemberPolygon();
-				Exterior exterior2 = objFactory
-						.createMultiSurfaceSurfaceMemberPolygonExterior();
-				com.astrium.hmas.bean.MultiSurface.SurfaceMember.Polygon.Exterior.LinearRing linearRing2 = objFactory
+				SurfaceMember surfaceMember = objFactory.createMultiSurfaceSurfaceMember();
+				com.astrium.hmas.bean.catalogue.MultiSurface.SurfaceMember.Polygon polygon2 = objFactory.createMultiSurfaceSurfaceMemberPolygon();
+				Exterior exterior2 = objFactory.createMultiSurfaceSurfaceMemberPolygonExterior();
+				com.astrium.hmas.bean.catalogue.MultiSurface.SurfaceMember.Polygon.Exterior.LinearRing linearRing2 = objFactory
 						.createMultiSurfaceSurfaceMemberPolygonExteriorLinearRing();
-				linearRing2
-						.setPosList(rs.getString("footprint"));
+				linearRing2.setPosList(rs.getString("footprint"));
 				exterior2.setLinearRing(linearRing2);
 				polygon2.setExterior(exterior2);
 				polygon2.setId("p_" + rs.getString("identifier"));
 				surfaceMember.setPolygon(polygon2);
 				multiSurface.setSurfaceMember(surfaceMember);
 				multiSurface.setSrsName("EPSG:4326");
-				multiSurface
-						.setId("ms" + rs.getString("identifier"));
+				multiSurface.setId("ms" + rs.getString("identifier"));
 				multiExtentOf.setMultiSurface(multiSurface);
 				footprint.setMultiExtentOf(multiExtentOf);
-				footprint
-						.setId("fp_" + rs.getString("identifier"));
+				footprint.setId("fp_" + rs.getString("identifier"));
 				featureOfInterest.setFootprint(footprint);
 
 				earthObs.setFeatureOfInterest(featureOfInterest);
-				
-				//earth obs results and elements
+
+				// earth obs results and elements
 				Result result = objFactory.createResult();
 				EarthObservationResult eoResult = objFactory.createEarthObservationResult();
 				eoResult.setCloudCoverPercentage(rs.getString("cloudCover"));
 				eoResult.setSnowCoverPercentage(rs.getString("snowCover"));
 				result.setEarthObservationResult(eoResult);
-				
+
 				earthObs.setResult(result);
 
 				// earth observation metadata properties and elements
-				MetaDataProperty metaDataProperty = objFactory
-						.createEarthObservationMetaDataProperty();
-				EarthObservationMetaData eoMetaData = objFactory
-						.createEarthObservationMetaDataPropertyEarthObservationMetaData();
-				eoMetaData
-						.setIdentifier(rs.getString("identifier"));
+				MetaDataProperty metaDataProperty = objFactory.createEarthObservationMetaDataProperty();
+				EarthObservationMetaData eoMetaData = objFactory.createEarthObservationMetaDataPropertyEarthObservationMetaData();
+				eoMetaData.setIdentifier(rs.getString("identifier"));
 				eoMetaData.setAcquisitionType(rs.getString("acquisitionType"));
 				eoMetaData.setProductType(rs.getString("type"));
 				eoMetaData.setStatus(rs.getString("status"));
 				ArchivedIn archivedIn = objFactory.createEarthObservationMetaDataPropertyEarthObservationMetaDataArchivedIn();
-				ArchivingInformation archivingInformation = objFactory.createEarthObservationMetaDataPropertyEarthObservationMetaDataArchivedInArchivingInformation();
+				ArchivingInformation archivingInformation = objFactory
+						.createEarthObservationMetaDataPropertyEarthObservationMetaDataArchivedInArchivingInformation();
 				archivingInformation.setArchivingCenter(rs.getString("archivingCenter"));
 				archivingInformation.setArchivingDate(rs.getString("archivingDate"));
 				archivedIn.setArchivingInformation(archivingInformation);
 				eoMetaData.setArchivedIn(archivedIn);
-				DownlinkedTo downlinkedTo = objFactory
-						.createEarthObservationMetaDataPropertyEarthObservationMetaDataDownlinkedTo();
+				DownlinkedTo downlinkedTo = objFactory.createEarthObservationMetaDataPropertyEarthObservationMetaDataDownlinkedTo();
 				DownlinkInformation downlinkInformation = objFactory
 						.createEarthObservationMetaDataPropertyEarthObservationMetaDataDownlinkedToDownlinkInformation();
 				downlinkInformation.setAcquisitionStation(rs.getString("acquisitionStation"));
 				downlinkedTo.setDownlinkInformation(downlinkInformation);
-				Processing processing = objFactory
-						.createEarthObservationMetaDataPropertyEarthObservationMetaDataProcessing();
+				Processing processing = objFactory.createEarthObservationMetaDataPropertyEarthObservationMetaDataProcessing();
 				ProcessingInformation processingInformation = objFactory
 						.createEarthObservationMetaDataPropertyEarthObservationMetaDataProcessingProcessingInformation();
 				processingInformation.setProcessingCenter(rs.getString("processingCenter"));
@@ -447,11 +461,9 @@ public class OpenSearchCatalogueInterface {
 				entries.add(entry);
 			}
 
-			JAXBContext jaxbContext = JAXBContext
-					.newInstance("com.astrium.hmas.bean");
+			JAXBContext jaxbContext = JAXBContext.newInstance("com.astrium.hmas.bean.catalogue");
 			Marshaller marshaller = jaxbContext.createMarshaller();
-			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
-					new Boolean(true));
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, new Boolean(true));
 
 			marshaller.marshal(feed, System.out);
 			return Response.ok(feed, "application/atom+xml").build();

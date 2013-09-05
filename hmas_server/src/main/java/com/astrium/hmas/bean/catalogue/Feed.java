@@ -6,7 +6,7 @@
 //
 
 
-package com.astrium.hmas.bean;
+package com.astrium.hmas.bean.catalogue;
 
 import java.util.ArrayList;
 import java.util.List;

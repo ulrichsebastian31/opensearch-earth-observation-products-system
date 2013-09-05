@@ -6,7 +6,7 @@
 //
 
 
-package com.astrium.hmas.bean;
+package com.astrium.hmas.bean.catalogue;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://www.opengis.net/eop/2.0}Footprint" minOccurs="0"/>
+ *         &lt;element ref="{http://www.opengis.net/opt/2.0}EarthObservationResult" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,36 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "footprint"
+    "earthObservationResult"
 })
-@XmlRootElement(name = "featureOfInterest")
-public class FeatureOfInterest {
+@XmlRootElement(name = "result")
+public class Result {
 
-    @XmlElement(name = "Footprint", namespace = "http://www.opengis.net/eop/2.0")
-    protected Footprint footprint;
+    @XmlElement(name = "EarthObservationResult", namespace = "http://www.opengis.net/opt/2.0")
+    protected EarthObservationResult earthObservationResult;
 
     /**
-     * Gets the value of the footprint property.
+     * Gets the value of the earthObservationResult property.
      * 
      * @return
      *     possible object is
-     *     {@link Footprint }
+     *     {@link EarthObservationResult }
      *     
      */
-    public Footprint getFootprint() {
-        return footprint;
+    public EarthObservationResult getEarthObservationResult() {
+        return earthObservationResult;
     }
 
     /**
-     * Sets the value of the footprint property.
+     * Sets the value of the earthObservationResult property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Footprint }
+     *     {@link EarthObservationResult }
      *     
      */
-    public void setFootprint(Footprint value) {
-        this.footprint = value;
+    public void setEarthObservationResult(EarthObservationResult value) {
+        this.earthObservationResult = value;
     }
 
 }

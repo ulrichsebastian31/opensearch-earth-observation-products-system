@@ -6,7 +6,7 @@
 //
 
 
-package com.astrium.hmas.bean;
+package com.astrium.hmas.bean.catalogue;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

@@ -6,7 +6,7 @@
 //
 
 
-package com.astrium.hmas.bean;
+package com.astrium.hmas.bean.catalogue;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://www.opengis.net/opt/2.0}EarthObservationResult" minOccurs="0"/>
+ *         &lt;element ref="{http://www.opengis.net/eop/2.0}EarthObservationEquipment" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,36 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "earthObservationResult"
+    "earthObservationEquipment"
 })
-@XmlRootElement(name = "result")
-public class Result {
+@XmlRootElement(name = "procedure")
+public class Procedure {
 
-    @XmlElement(name = "EarthObservationResult", namespace = "http://www.opengis.net/opt/2.0")
-    protected EarthObservationResult earthObservationResult;
+    @XmlElement(name = "EarthObservationEquipment", namespace = "http://www.opengis.net/eop/2.0")
+    protected EarthObservationEquipment earthObservationEquipment;
 
     /**
-     * Gets the value of the earthObservationResult property.
+     * Gets the value of the earthObservationEquipment property.
      * 
      * @return
      *     possible object is
-     *     {@link EarthObservationResult }
+     *     {@link EarthObservationEquipment }
      *     
      */
-    public EarthObservationResult getEarthObservationResult() {
-        return earthObservationResult;
+    public EarthObservationEquipment getEarthObservationEquipment() {
+        return earthObservationEquipment;
     }
 
     /**
-     * Sets the value of the earthObservationResult property.
+     * Sets the value of the earthObservationEquipment property.
      * 
      * @param value
      *     allowed object is
-     *     {@link EarthObservationResult }
+     *     {@link EarthObservationEquipment }
      *     
      */
-    public void setEarthObservationResult(EarthObservationResult value) {
-        this.earthObservationResult = value;
+    public void setEarthObservationEquipment(EarthObservationEquipment value) {
+        this.earthObservationEquipment = value;
     }
 
 }

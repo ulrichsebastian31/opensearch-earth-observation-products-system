@@ -6,7 +6,7 @@
 //
 
 
-package com.astrium.hmas.bean;
+package com.astrium.hmas.bean.catalogue;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
@@ -277,19 +277,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link com.astrium.hmas.bean.ProcessingInformation }
+     * Create an instance of {@link com.astrium.hmas.bean.catalogue.ProcessingInformation }
      * 
      */
-    public com.astrium.hmas.bean.ProcessingInformation createProcessingInformation() {
-        return new com.astrium.hmas.bean.ProcessingInformation();
+    public com.astrium.hmas.bean.catalogue.ProcessingInformation createProcessingInformation() {
+        return new com.astrium.hmas.bean.catalogue.ProcessingInformation();
     }
 
     /**
-     * Create an instance of {@link com.astrium.hmas.bean.Polygon }
+     * Create an instance of {@link com.astrium.hmas.bean.catalogue.Polygon }
      * 
      */
-    public com.astrium.hmas.bean.Polygon createPolygon() {
-        return new com.astrium.hmas.bean.Polygon();
+    public com.astrium.hmas.bean.catalogue.Polygon createPolygon() {
+        return new com.astrium.hmas.bean.catalogue.Polygon();
     }
 
     /**
@@ -405,19 +405,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link com.astrium.hmas.bean.Polygon.Exterior.LinearRing.PosList }
+     * Create an instance of {@link com.astrium.hmas.bean.catalogue.Polygon.Exterior.LinearRing.PosList }
      * 
      */
-    public com.astrium.hmas.bean.Polygon.Exterior.LinearRing.PosList createPolygonExteriorLinearRingPosList() {
-        return new com.astrium.hmas.bean.Polygon.Exterior.LinearRing.PosList();
+    public com.astrium.hmas.bean.catalogue.Polygon.Exterior.LinearRing.PosList createPolygonExteriorLinearRingPosList() {
+        return new com.astrium.hmas.bean.catalogue.Polygon.Exterior.LinearRing.PosList();
     }
 
     /**
-     * Create an instance of {@link com.astrium.hmas.bean.Polygon.Exterior }
+     * Create an instance of {@link com.astrium.hmas.bean.catalogue.Polygon.Exterior }
      * 
      */
-    public com.astrium.hmas.bean.Polygon.Exterior createPolygonExterior() {
-        return new com.astrium.hmas.bean.Polygon.Exterior();
+    public com.astrium.hmas.bean.catalogue.Polygon.Exterior createPolygonExterior() {
+        return new com.astrium.hmas.bean.catalogue.Polygon.Exterior();
     }
 
     /**
@@ -429,11 +429,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link com.astrium.hmas.bean.Polygon.Exterior.LinearRing }
+     * Create an instance of {@link com.astrium.hmas.bean.catalogue.Polygon.Exterior.LinearRing }
      * 
      */
-    public com.astrium.hmas.bean.Polygon.Exterior.LinearRing createPolygonExteriorLinearRing() {
-        return new com.astrium.hmas.bean.Polygon.Exterior.LinearRing();
+    public com.astrium.hmas.bean.catalogue.Polygon.Exterior.LinearRing createPolygonExteriorLinearRing() {
+        return new com.astrium.hmas.bean.catalogue.Polygon.Exterior.LinearRing();
     }
 
     /**

@@ -6,7 +6,7 @@
 //
 
 
-package com.astrium.hmas.bean;
+package com.astrium.hmas.bean.catalogue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1088,7 +1088,7 @@ public class EarthObservation {
             public static class Processing {
 
                 @XmlElementRefs({
-                    @XmlElementRef(name = "ProcessingInformation", namespace = "http://www.opengis.net/alt/2.0", type = com.astrium.hmas.bean.ProcessingInformation.class, required = false),
+                    @XmlElementRef(name = "ProcessingInformation", namespace = "http://www.opengis.net/alt/2.0", type = com.astrium.hmas.bean.catalogue.ProcessingInformation.class, required = false),
                     @XmlElementRef(name = "ProcessingInformation", namespace = "http://www.opengis.net/eop/2.0", type = JAXBElement.class, required = false)
                 })
                 protected List<Object> content;
@@ -1122,7 +1122,7 @@ public class EarthObservation {
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link JAXBElement }{@code <}{@link EarthObservation.MetaDataProperty.EarthObservationMetaData.Processing.ProcessingInformation }{@code >}
-                 * {@link com.astrium.hmas.bean.ProcessingInformation }
+                 * {@link com.astrium.hmas.bean.catalogue.ProcessingInformation }
                  * 
                  * 
                  */

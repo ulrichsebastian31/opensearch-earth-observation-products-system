@@ -6,10 +6,11 @@
 //
 
 
-package com.astrium.hmas.bean;
+package com.astrium.hmas.bean.catalogue;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -25,8 +26,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="productContentsType" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="timePosition" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
+ *       &lt;attribute ref="{http://www.opengis.net/gml/3.2}id"/>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -36,36 +38,62 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "productContentsType"
+    "timePosition"
 })
-@XmlRootElement(name = "ProcessingInformation", namespace = "http://www.opengis.net/alt/2.0")
-public class ProcessingInformation {
+@XmlRootElement(name = "TimeInstant", namespace = "http://www.opengis.net/gml/3.2")
+public class TimeInstant {
 
-    @XmlElement(namespace = "http://www.opengis.net/alt/2.0")
-    protected String productContentsType;
+    @XmlElement(namespace = "http://www.opengis.net/gml/3.2")
+    protected String timePosition;
+    @XmlAttribute(namespace = "http://www.opengis.net/gml/3.2")
+    protected String id;
 
     /**
-     * Gets the value of the productContentsType property.
+     * Gets the value of the timePosition property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getProductContentsType() {
-        return productContentsType;
+    public String getTimePosition() {
+        return timePosition;
     }
 
     /**
-     * Sets the value of the productContentsType property.
+     * Sets the value of the timePosition property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setProductContentsType(String value) {
-        this.productContentsType = value;
+    public void setTimePosition(String value) {
+        this.timePosition = value;
+    }
+
+    /**
+     * Gets the value of the id property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setId(String value) {
+        this.id = value;
     }
 
 }

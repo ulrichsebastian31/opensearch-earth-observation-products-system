@@ -6,11 +6,11 @@
 //
 
 
-package com.astrium.hmas.bean;
+package com.astrium.hmas.bean.catalogue;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -24,7 +24,9 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute ref="{http://www.w3.org/1999/xlink}href"/>
+ *       &lt;sequence>
+ *         &lt;element ref="{http://www.opengis.net/eop/2.0}Footprint" minOccurs="0"/>
+ *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -33,35 +35,37 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
-@XmlRootElement(name = "observedProperty")
-public class ObservedProperty {
+@XmlType(name = "", propOrder = {
+    "footprint"
+})
+@XmlRootElement(name = "featureOfInterest")
+public class FeatureOfInterest {
 
-    @XmlAttribute(namespace = "http://www.w3.org/1999/xlink")
-    protected String href;
+    @XmlElement(name = "Footprint", namespace = "http://www.opengis.net/eop/2.0")
+    protected Footprint footprint;
 
     /**
-     * Gets the value of the href property.
+     * Gets the value of the footprint property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Footprint }
      *     
      */
-    public String getHref() {
-        return href;
+    public Footprint getFootprint() {
+        return footprint;
     }
 
     /**
-     * Sets the value of the href property.
+     * Sets the value of the footprint property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Footprint }
      *     
      */
-    public void setHref(String value) {
-        this.href = value;
+    public void setFootprint(Footprint value) {
+        this.footprint = value;
     }
 
 }

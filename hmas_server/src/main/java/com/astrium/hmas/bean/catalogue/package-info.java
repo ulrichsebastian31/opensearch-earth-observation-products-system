@@ -35,7 +35,7 @@
         namespaceURI="http://www.opengis.net/om/2.0"),
         @XmlNs(prefix="", 
         namespaceURI="http://www.w3.org/2005/Atom")})
-package com.astrium.hmas.bean;
+package com.astrium.hmas.bean.catalogue;
 import javax.xml.bind.annotation.XmlNs;
 import javax.xml.bind.annotation.XmlNsForm;
 import javax.xml.bind.annotation.XmlSchema;

@@ -6,11 +6,11 @@
 //
 
 
-package com.astrium.hmas.bean;
+package com.astrium.hmas.bean.catalogue;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -24,9 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://www.opengis.net/gml/3.2}Polygon" minOccurs="0"/>
- *       &lt;/sequence>
+ *       &lt;attribute ref="{http://www.w3.org/1999/xlink}href"/>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -35,37 +33,35 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "polygon"
-})
-@XmlRootElement(name = "where", namespace = "http://www.georss.org/georss")
-public class Where {
+@XmlType(name = "")
+@XmlRootElement(name = "observedProperty")
+public class ObservedProperty {
 
-    @XmlElement(name = "Polygon", namespace = "http://www.opengis.net/gml/3.2")
-    protected Polygon polygon;
+    @XmlAttribute(namespace = "http://www.w3.org/1999/xlink")
+    protected String href;
 
     /**
-     * Gets the value of the polygon property.
+     * Gets the value of the href property.
      * 
      * @return
      *     possible object is
-     *     {@link Polygon }
+     *     {@link String }
      *     
      */
-    public Polygon getPolygon() {
-        return polygon;
+    public String getHref() {
+        return href;
     }
 
     /**
-     * Sets the value of the polygon property.
+     * Sets the value of the href property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Polygon }
+     *     {@link String }
      *     
      */
-    public void setPolygon(Polygon value) {
-        this.polygon = value;
+    public void setHref(String value) {
+        this.href = value;
     }
 
 }

@@ -6,7 +6,7 @@
 //
 
 
-package com.astrium.hmas.bean;
+package com.astrium.hmas.bean.catalogue;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://www.opengis.net/eop/2.0}EarthObservationEquipment" minOccurs="0"/>
+ *         &lt;element name="productContentsType" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,36 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "earthObservationEquipment"
+    "productContentsType"
 })
-@XmlRootElement(name = "procedure")
-public class Procedure {
+@XmlRootElement(name = "ProcessingInformation", namespace = "http://www.opengis.net/alt/2.0")
+public class ProcessingInformation {
 
-    @XmlElement(name = "EarthObservationEquipment", namespace = "http://www.opengis.net/eop/2.0")
-    protected EarthObservationEquipment earthObservationEquipment;
+    @XmlElement(namespace = "http://www.opengis.net/alt/2.0")
+    protected String productContentsType;
 
     /**
-     * Gets the value of the earthObservationEquipment property.
+     * Gets the value of the productContentsType property.
      * 
      * @return
      *     possible object is
-     *     {@link EarthObservationEquipment }
+     *     {@link String }
      *     
      */
-    public EarthObservationEquipment getEarthObservationEquipment() {
-        return earthObservationEquipment;
+    public String getProductContentsType() {
+        return productContentsType;
     }
 
     /**
-     * Sets the value of the earthObservationEquipment property.
+     * Sets the value of the productContentsType property.
      * 
      * @param value
      *     allowed object is
-     *     {@link EarthObservationEquipment }
+     *     {@link String }
      *     
      */
-    public void setEarthObservationEquipment(EarthObservationEquipment value) {
-        this.earthObservationEquipment = value;
+    public void setProductContentsType(String value) {
+        this.productContentsType = value;
     }
 
 }
