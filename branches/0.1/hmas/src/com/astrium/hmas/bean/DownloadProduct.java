@@ -1,38 +1,19 @@
 package com.astrium.hmas.bean;
 
-public class DownloadProduct {
-	public boolean availibity;
-	public int status;
+import java.io.Serializable;
+
+public class DownloadProduct implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3617745513036044423L;
 	public String platform;
 	public String sensor;
 	public String date;
-	public int id;
+	public String id;
 	
-	public DownloadProduct(boolean availibity, int status, String platform,
-			String sensor, String date, int id) {
-		super();
-		this.availibity = availibity;
-		this.status = status;
-		this.platform = platform;
-		this.sensor = sensor;
-		this.date = date;
-		this.id = id;
-	}
+	public DownloadProduct() {
 
-	public boolean isAvailibity() {
-		return availibity;
-	}
-
-	public void setAvailibity(boolean availibity) {
-		this.availibity = availibity;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
 	}
 
 	public String getPlatform() {
@@ -59,11 +40,11 @@ public class DownloadProduct {
 		this.date = date;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

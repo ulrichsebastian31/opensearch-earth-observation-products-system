@@ -1,8 +1,10 @@
 package com.astrium.hmas.client;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
+import com.astrium.hmas.bean.Parameter;
 import com.astrium.hmas.shared.UrlValidator;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Overflow;
@@ -46,7 +48,6 @@ public class FeasibilitySearchPanel extends Composite implements HasText {
 	@UiField ListBox feasibility_search_panel_platform;
 	@UiField ListBox feasibility_search_panel_instrument;
 	@UiField ListBox feasibility_search_panel_sensorType;
-	@UiField TextBox feasibility_search_panel_sensorMode;
 	@UiField DoubleBox feasibility_search_panel_azimuthMin;
 	@UiField DoubleBox feasibility_search_panel_azimuthMax;
 	@UiField DoubleBox feasibility_search_panel_elevationMin;
@@ -56,7 +57,6 @@ public class FeasibilitySearchPanel extends Composite implements HasText {
 	@UiField DoubleBox feasibility_search_panel_trackacrossMin;
 	@UiField DoubleBox feasibility_search_panel_trackacrossMax;
 	@UiField DoubleBox feasibility_search_panel_minLuminosity;
-	@UiField TextBox feasibility_search_panel_polarization;
 	@UiField ListBox feasibility_search_panel_compositeType;
 	@UiField ListBox feasibility_search_panel_coverageType;
 	@UiField DoubleBox feasibility_search_panel_sunglint;
@@ -64,16 +64,17 @@ public class FeasibilitySearchPanel extends Composite implements HasText {
 	@UiField ListBox feasibility_search_panel_sandwind;
 	@UiField DoubleBox feasibility_search_panel_noiseLevel;
 	@UiField DoubleBox feasibility_search_panel_ambiguityLevel;
-	@UiField DoubleBox feasibility_search_panel_resoMin;
-	@UiField DoubleBox feasibility_search_panel_resoMax;
 	@UiField DoubleBox feasibility_search_panel_cloud;
 	@UiField DoubleBox feasibility_search_panel_snow;
 	@UiField Button feasibility_search_panel_start_button;
 	@UiField Button feasibility_search_panel_end_button;
 	@UiField Button feasibility_search_panel_send_request_button;
+	@UiField ListBox feasibility_search_panel_sensorMode;
+	@UiField ListBox feasibility_search_panel_resolution;
+	@UiField ListBox feasibility_search_panel_polarization;
 	
-	private final OpenSearchServiceAsync opensearchService = GWT
-			.create(OpenSearchService.class);
+	private final OSFeasibilityServiceAsync osFeasibilityService = GWT
+			.create(OSFeasibilityService.class);
 	
 	private final FeasibilityServiceAsync feasibilityService = GWT
 			.create(FeasibilityService.class);
@@ -93,43 +94,31 @@ public class FeasibilitySearchPanel extends Composite implements HasText {
 		feasibility_search_panel_absolute_panel.getElement().getStyle().setOverflow(Overflow.AUTO);
 		feasibility_search_panel_param_panel.getElement().getStyle().setOverflow(Overflow.AUTO);
 		
-		feasibility_search_panel_osurl.setValue("http://localhost:8080/hmas_server-1.0-SNAPSHOT/hmas/feas/os");
+		feasibility_search_panel_osurl.setValue("http://localhost:8080/DreamServices-1.0-SNAPSHOT/dream/os/fas/s1-fas/description");
 		
 		feasibility_search_panel_param_panel.setVisible(false);
 		feasibility_search_panel_drawaoiStop.setVisible(false);
 		
 		feasibility_search_panel_platform.addItem("Select...");
-		feasibility_search_panel_platform.addItem("SPOT6");
-		feasibility_search_panel_platform.addItem("SPOT7");
-		feasibility_search_panel_platform.addItem("EUMETSAT");
-		feasibility_search_panel_platform.addItem("PLEIADE");
 		
 		feasibility_search_panel_instrument.addItem("Select...");
-		feasibility_search_panel_instrument.addItem("MERIS");
-		feasibility_search_panel_instrument.addItem("AATSR");
-		feasibility_search_panel_instrument.addItem("ASAR");
-		feasibility_search_panel_instrument.addItem("HRVIR");
 		
 		feasibility_search_panel_haze.addItem("Select...");
-		feasibility_search_panel_haze.addItem("true");
-		feasibility_search_panel_haze.addItem("false");
 		
 		feasibility_search_panel_sandwind.addItem("Select...");
-		feasibility_search_panel_sandwind.addItem("true");
-		feasibility_search_panel_sandwind.addItem("false");
 		
 		feasibility_search_panel_sensorType.addItem("Select...");
-		feasibility_search_panel_sensorType.addItem("OPT");
-		feasibility_search_panel_sensorType.addItem("SAR");
 		
 		feasibility_search_panel_compositeType.addItem("Select...");
-		feasibility_search_panel_compositeType.addItem("true");
-		feasibility_search_panel_compositeType.addItem("false");
 		
 		feasibility_search_panel_coverageType.addItem("Select...");
-		feasibility_search_panel_coverageType.addItem("SINGLE_SWATH");
-		feasibility_search_panel_coverageType.addItem("MONOPASS");
-		feasibility_search_panel_coverageType.addItem("MULTIPASS");
+		
+		feasibility_search_panel_resolution.addItem("Select...");
+		
+		feasibility_search_panel_sensorMode.addItem("Select...");
+		
+		feasibility_search_panel_polarization.addItem("Select...");
+
 		
 		
 		
@@ -156,104 +145,147 @@ public class FeasibilitySearchPanel extends Composite implements HasText {
 		if(!urlValidator.isValidUrl(url, false)){
 			Window.alert("ERROR : Opensearch URL not valid!");
 		} else {
-			opensearchService.getDescriptionFile(url, new AsyncCallback<Map<String, String>>(){
+			osFeasibilityService.getParameters(url, new AsyncCallback<Map<String, Parameter>>(){
 
 				@Override
 				public void onFailure(Throwable caught) {
 					// TODO Auto-generated method stub
-					System.out.println("fail!");
+					System.out.println("Fail!");
 					
 				}
 				
 				@Override
-				public void onSuccess(Map<String, String> result) {
+				public void onSuccess(Map<String, Parameter> result) {
 
 					feasibility_search_panel_param_panel.setVisible(true);
 					if(!result.containsKey("eo:platform")){
 						feasibility_search_panel_platform.setEnabled(false);
-					}else{feasibility_search_panel_platform.setName(result.get("eo:platform"));}
+					}else{
+						List<String> options = result.get("eo:platform").getOptions();
+						for (int i = 0;i<options.size();i++){
+							feasibility_search_panel_platform.addItem(options.get(i));
+						}
+						feasibility_search_panel_platform.setName(result.get("eo:platform").getName());}
 					if(!result.containsKey("eo:sensorType")){
 						feasibility_search_panel_sensorType.setEnabled(false);
-					}else{feasibility_search_panel_sensorType.setName(result.get("eo:sensorType"));}
+					}else{
+						List<String> options = result.get("eo:sensorType").getOptions();
+						for (int i = 0;i<options.size();i++){
+							feasibility_search_panel_sensorType.addItem(options.get(i));
+						}
+						feasibility_search_panel_sensorType.setName(result.get("eo:sensorType").getName());}
 					if(!result.containsKey("eo:instrument")){
 						feasibility_search_panel_instrument.setEnabled(false);
-					}else{feasibility_search_panel_instrument.setName(result.get("eo:instrument"));}
+					}else{
+						List<String> options = result.get("eo:instrument").getOptions();
+						for (int i = 0;i<options.size();i++){
+							feasibility_search_panel_instrument.addItem(options.get(i));
+						}
+						feasibility_search_panel_instrument.setName(result.get("eo:instrument").getName());}
 					if(!result.containsKey("eo:resolution")){
-						feasibility_search_panel_resoMax.setEnabled(false);
-						feasibility_search_panel_resoMin.setEnabled(false);
-					}else{feasibility_search_panel_resoMin.setName(result.get("eo:resolution"));
-					feasibility_search_panel_resoMax.setName(result.get("eo:resolution"));}
+						feasibility_search_panel_resolution.setEnabled(false);
+					}else{
+						List<String> options = result.get("eo:resolution").getOptions();
+						for (int i = 0;i<options.size();i++){
+							feasibility_search_panel_resolution.addItem(options.get(i));
+						}
+						feasibility_search_panel_resolution.setName(result.get("eo:resolution").getName());}
 					if(!result.containsKey("geo:box")){
 						feasibility_search_panel_nwlat.setEnabled(false);
 						feasibility_search_panel_nwlon.setEnabled(false);
 						feasibility_search_panel_selat.setEnabled(false);
 						feasibility_search_panel_selon.setEnabled(false);
-					}else{feasibility_search_panel_nwlat.setName(result.get("geo:box"));}
+					}else{feasibility_search_panel_nwlat.setName(result.get("geo:box").getName());}
 					if(!result.containsKey("time:start")){
 						feasibility_search_panel_datestart.setEnabled(false);
-					}else{feasibility_search_panel_datestart.setName(result.get("time:start"));}
+					}else{feasibility_search_panel_datestart.setName(result.get("time:start").getName());}
 					if(!result.containsKey("time:end")){
 						feasibility_search_panel_dateend.setEnabled(false);
-					}else{feasibility_search_panel_dateend.setName(result.get("time:end"));}
+					}else{feasibility_search_panel_dateend.setName(result.get("time:end").getName());}
 					if(!result.containsKey("time:end")){
 						feasibility_search_panel_dateend.setEnabled(false);
-					}else{feasibility_search_panel_dateend.setName(result.get("time:end"));}
+					}else{feasibility_search_panel_dateend.setName(result.get("time:end").getName());}
 					if(!result.containsKey("time:end")){
 						feasibility_search_panel_dateend.setEnabled(false);
-					}else{feasibility_search_panel_dateend.setName(result.get("time:end"));}
+					}else{feasibility_search_panel_dateend.setName(result.get("time:end").getName());}
 					if(!result.containsKey("eosp:acquisitionAngleIncidenceAzimuth")){
 						feasibility_search_panel_azimuthMax.setEnabled(false);
 						feasibility_search_panel_azimuthMin.setEnabled(false);
-					}else{feasibility_search_panel_azimuthMax.setName(result.get("eosp:acquisitionAngleIncidenceAzimuth"));
-					feasibility_search_panel_azimuthMin.setName(result.get("eosp:acquisitionAngleIncidenceAzimuth"));}
+					}else{feasibility_search_panel_azimuthMax.setName(result.get("eosp:acquisitionAngleIncidenceAzimuth").getName());
+					feasibility_search_panel_azimuthMin.setName(result.get("eosp:acquisitionAngleIncidenceAzimuth").getName());}
 					if(!result.containsKey("eosp:acquisitionAngleIncidenceElevation")){
 						feasibility_search_panel_elevationMax.setEnabled(false);
 						feasibility_search_panel_elevationMin.setEnabled(false);
-					}else{feasibility_search_panel_elevationMax.setName(result.get("eosp:acquisitionAngleIncidenceElevation"));
-					feasibility_search_panel_elevationMin.setName(result.get("eosp:acquisitionAngleIncidenceElevation"));}
+					}else{feasibility_search_panel_elevationMax.setName(result.get("eosp:acquisitionAngleIncidenceElevation").getName());
+					feasibility_search_panel_elevationMin.setName(result.get("eosp:acquisitionAngleIncidenceElevation").getName());}
 					if(!result.containsKey("eosp:acquisitionAnglePointingRangeAlongTrack")){
 						feasibility_search_panel_trackalongMax.setEnabled(false);
 						feasibility_search_panel_trackalongMin.setEnabled(false);
-					}else{feasibility_search_panel_trackalongMax.setName(result.get("eosp:acquisitionAnglePointingRangeAlongTrack"));
-					feasibility_search_panel_trackalongMin.setName(result.get("eosp:acquisitionAnglePointingRangeAlongTrack"));}
+					}else{feasibility_search_panel_trackalongMax.setName(result.get("eosp:acquisitionAnglePointingRangeAlongTrack").getName());
+					feasibility_search_panel_trackalongMin.setName(result.get("eosp:acquisitionAnglePointingRangeAlongTrack").getName());}
 					if(!result.containsKey("eosp:acquisitionAnglePointingRangeAcrossTrack")){
 						feasibility_search_panel_trackacrossMax.setEnabled(false);
 						feasibility_search_panel_trackacrossMin.setEnabled(false);
-					}else{feasibility_search_panel_trackacrossMax.setName(result.get("eosp:acquisitionAnglePointingRangeAcrossTrack"));
-					feasibility_search_panel_trackacrossMin.setName(result.get("eosp:acquisitionAnglePointingRangeAcrossTrack"));}
+					}else{feasibility_search_panel_trackacrossMax.setName(result.get("eosp:acquisitionAnglePointingRangeAcrossTrack").getName());
+					feasibility_search_panel_trackacrossMin.setName(result.get("eosp:acquisitionAnglePointingRangeAcrossTrack").getName());}
 					if(!result.containsKey("eo:sensorMode")){
 						feasibility_search_panel_sensorMode.setEnabled(false);
-					}else{feasibility_search_panel_sensorMode.setName(result.get("eo:sensorMode"));}
+					}else{
+						List<String> options = result.get("eo:sensorMode").getOptions();
+						for (int i = 0;i<options.size();i++){
+							feasibility_search_panel_sensorMode.addItem(options.get(i));
+						}
+						feasibility_search_panel_sensorMode.setName(result.get("eo:sensorMode").getName());}
 					if(!result.containsKey("eo:compositeType")){
 						feasibility_search_panel_compositeType.setEnabled(false);
-					}else{feasibility_search_panel_compositeType.setName(result.get("eo:compositeType"));}
+					}else{
+						List<String> options = result.get("eo:compositeType").getOptions();
+						for (int i = 0;i<options.size();i++){
+							feasibility_search_panel_compositeType.addItem(options.get(i));
+						}
+						feasibility_search_panel_compositeType.setName(result.get("eo:compositeType").getName());}
 					if(!result.containsKey("eosp:acquisitionParametersOPTMinimumLuminosity")){
 						feasibility_search_panel_minLuminosity.setEnabled(false);
-					}else{feasibility_search_panel_minLuminosity.setName(result.get("eosp:acquisitionParametersOPTMinimumLuminosity"));}
+					}else{feasibility_search_panel_minLuminosity.setName(result.get("eosp:acquisitionParametersOPTMinimumLuminosity").getName());}
 					if(!result.containsKey("eosp:acquisitionParametersSARPolarizationMode")){
 						feasibility_search_panel_polarization.setEnabled(false);
-					}else{feasibility_search_panel_polarization.setName(result.get("eosp:acquisitionParametersSARPolarizationMode"));}
+					}else{
+						List<String> options = result.get("eosp:acquisitionParametersSARPolarizationMode").getOptions();
+						for (int i = 0;i<options.size();i++){
+							feasibility_search_panel_polarization.addItem(options.get(i));
+						}
+						feasibility_search_panel_polarization.setName(result.get("eosp:acquisitionParametersSARPolarizationMode").getName());}
 					if(!result.containsKey("eo:cloudCover")){
 						feasibility_search_panel_cloud.setEnabled(false);
-					}else{feasibility_search_panel_cloud.setName(result.get("eo:cloudCover"));}
+					}else{feasibility_search_panel_cloud.setName(result.get("eo:cloudCover").getName());}
 					if(!result.containsKey("eo:snowCover")){
 						feasibility_search_panel_snow.setEnabled(false);
-					}else{feasibility_search_panel_snow.setName(result.get("eo:snowCover"));}
+					}else{feasibility_search_panel_snow.setName(result.get("eo:snowCover").getName());}
 					if(!result.containsKey("eosp:validationParametersOPTmaxSunGlint")){
 						feasibility_search_panel_sunglint.setEnabled(false);
-					}else{feasibility_search_panel_sunglint.setName(result.get("eosp:validationParametersOPTmaxSunGlint"));}
+					}else{feasibility_search_panel_sunglint.setName(result.get("eosp:validationParametersOPTmaxSunGlint").getName());}
 					if(!result.containsKey("eosp:validationParametersOPTHazeAcepted")){
 						feasibility_search_panel_haze.setEnabled(false);
-					}else{feasibility_search_panel_haze.setName(result.get("eosp:validationParametersOPTHazeAccepted"));}
+					}else{
+						List<String> options = result.get("eosp:validationParametersOPTHazeAcepted").getOptions();
+						for (int i = 0;i<options.size();i++){
+							feasibility_search_panel_haze.addItem(options.get(i));
+						}
+						feasibility_search_panel_haze.setName(result.get("eosp:validationParametersOPTHazeAcepted").getName());}
 					if(!result.containsKey("eosp:validationParametersOPTSandWindAccepted")){
 						feasibility_search_panel_sandwind.setEnabled(false);
-					}else{feasibility_search_panel_sandwind.setName(result.get("eosp:validationParametersOPTSandWindAccepted"));}
+					}else{
+						List<String> options = result.get("eosp:validationParametersOPTSandWindAccepted").getOptions();
+						for (int i = 0;i<options.size();i++){
+							feasibility_search_panel_sandwind.addItem(options.get(i));
+						}
+						feasibility_search_panel_sandwind.setName(result.get("eosp:validationParametersOPTSandWindAccepted").getName());}
 					if(!result.containsKey("eosp:validationParametersSARMaxAmbiguityLevel")){
 						feasibility_search_panel_ambiguityLevel.setEnabled(false);
-					}else{feasibility_search_panel_ambiguityLevel.setName(result.get("eosp:validationParametersSARMaxAmbiguityLevel"));}
+					}else{feasibility_search_panel_ambiguityLevel.setName(result.get("eosp:validationParametersSARMaxAmbiguityLevel").getName());}
 					if(!result.containsKey("eosp:validationParametersSARMaximumNoiseLevel")){
 						feasibility_search_panel_noiseLevel.setEnabled(false);
-					}else{feasibility_search_panel_noiseLevel.setName(result.get("eosp:validationParametersSARMaximumNoiseLevel"));}
+					}else{feasibility_search_panel_noiseLevel.setName(result.get("eosp:validationParametersSARMaximumNoiseLevel").getName());}
 					
 				}
 			});

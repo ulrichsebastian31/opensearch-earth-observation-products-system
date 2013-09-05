@@ -22,25 +22,22 @@ import com.google.gwt.view.client.NoSelectionModel;
 
 public class FeasibilityResultPanel extends Composite implements HasText {
 
-	private static FeasibilityResultPanelUiBinder uiBinder = GWT
-			.create(FeasibilityResultPanelUiBinder.class);
+	private static FeasibilityResultPanelUiBinder uiBinder = GWT.create(FeasibilityResultPanelUiBinder.class);
 	@UiField(provided = true)
 	CellTable<FeasibilityResult> feasibility_result_panel_cellTable = new CellTable<FeasibilityResult>();
-	@UiField Button feasibility_result_panel_show_xml_button;
+	@UiField
+	Button feasibility_result_panel_show_xml_button;
 	public NoSelectionModel<FeasibilityResult> feasibility_result_panel_selectionModelDetails = new NoSelectionModel<FeasibilityResult>();
 	public Column<FeasibilityResult, String> feasibility_result_panel_showColumn;
 	public boolean hideButtonClicked = false;
 
-	interface FeasibilityResultPanelUiBinder extends
-			UiBinder<Widget, FeasibilityResultPanel> {
+	interface FeasibilityResultPanelUiBinder extends UiBinder<Widget, FeasibilityResultPanel> {
 	}
 
 	public FeasibilityResultPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
-		feasibility_result_panel_cellTable.getElement().getStyle()
-				.setOverflow(Overflow.AUTO);
-		Column<FeasibilityResult, Boolean> shopcartColumn = new Column<FeasibilityResult, Boolean>(
-				new CheckboxCell(true, false)) {
+		feasibility_result_panel_cellTable.getElement().getStyle().setOverflow(Overflow.AUTO);
+		Column<FeasibilityResult, Boolean> shopcartColumn = new Column<FeasibilityResult, Boolean>(new CheckboxCell(true, false)) {
 			@Override
 			public Boolean getValue(FeasibilityResult object) {
 				// Get the value from the selection model.
@@ -48,28 +45,23 @@ public class FeasibilityResultPanel extends Composite implements HasText {
 			}
 		};
 
-		feasibility_result_panel_cellTable
-				.addColumn(shopcartColumn, "Shopcart");
-		feasibility_result_panel_cellTable.setColumnWidth(shopcartColumn, 40,
-				Unit.PX);
+		feasibility_result_panel_cellTable.addColumn(shopcartColumn, "Shopcart");
+		feasibility_result_panel_cellTable.setColumnWidth(shopcartColumn, 40, Unit.PX);
 
 		ButtonCell showButton = new ButtonCell();
-		feasibility_result_panel_showColumn = new Column<FeasibilityResult, String>(
-				showButton) {
+		feasibility_result_panel_showColumn = new Column<FeasibilityResult, String>(showButton) {
 			public String getValue(FeasibilityResult object) {
-				if(object.upperLeft == null){
+				if (object.upperLeft == null) {
 					return "no footprint";
-				}else{
+				} else {
 					return hideButtonClicked ? "Show" : "Hide";
 				}
-				
+
 			}
 		};
 
-		feasibility_result_panel_cellTable.addColumn(
-				feasibility_result_panel_showColumn, "Show");
-		feasibility_result_panel_cellTable.setColumnWidth(
-				feasibility_result_panel_showColumn, 40, Unit.PX);
+		feasibility_result_panel_cellTable.addColumn(feasibility_result_panel_showColumn, "Show");
+		feasibility_result_panel_cellTable.setColumnWidth(feasibility_result_panel_showColumn, 40, Unit.PX);
 
 		TextColumn<FeasibilityResult> nameColumn = new TextColumn<FeasibilityResult>() {
 			@Override
@@ -99,12 +91,12 @@ public class FeasibilityResultPanel extends Composite implements HasText {
 		TextColumn<FeasibilityResult> dateColumn = new TextColumn<FeasibilityResult>() {
 			@Override
 			public String getValue(FeasibilityResult object) {
-				if(object.acquisitionDate != null){
+				if (object.acquisitionDate != null) {
 					return object.acquisitionDate;
-				}else{
+				} else {
 					return "not informed";
 				}
-				
+
 			}
 		};
 
@@ -120,8 +112,7 @@ public class FeasibilityResultPanel extends Composite implements HasText {
 				}
 			}
 		};
-		feasibility_result_panel_cellTable.addColumn(cloudColumn,
-				"Cloud coverage");
+		feasibility_result_panel_cellTable.addColumn(cloudColumn, "Cloud coverage");
 
 	}
 

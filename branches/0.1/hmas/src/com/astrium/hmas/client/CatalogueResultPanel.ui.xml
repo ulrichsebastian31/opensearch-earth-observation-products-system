@@ -13,7 +13,7 @@
 		</g:ScrollPanel>
 		<g:AbsolutePanel height="73px">
 			<g:at left="331" top="10">
-				<g:Button text="Add to shopcart" width="119px" height="30px"/>
+				<g:Button ui:field="catalogue_result_panel_add_to_shopcart" text="Add to shopcart" width="119px" height="30px"/>
 			</g:at>
 			<g:at left="10" top="10">
 				<g:Button ui:field="catalogue_result_panel_xml_show_button">See XML file</g:Button>

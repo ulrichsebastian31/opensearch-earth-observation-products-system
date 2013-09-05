@@ -97,6 +97,7 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 	
 	private final CatalogueServiceAsync catalogueService = GWT
 			.create(CatalogueService.class);
+	
 
 	public SpotServiceAsync getGreetingService() {
 		return greetingService;
@@ -105,6 +106,7 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 	public CatalogueServiceAsync getCatalogueService() {
 		return catalogueService;
 	}
+
 
 
 

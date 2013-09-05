@@ -6,10 +6,16 @@
 			font-weight: bold;
 		}
 	</ui:style>
-	<g:HTMLPanel>
-		<g:AbsolutePanel height="300px">
-			<g:at left="23" top="10">
-				<p1:CellTable ui:field="cellTable" width="307px" height="197px"/>
+	<g:HTMLPanel width="450" height="800">
+		<g:AbsolutePanel height="800px" width="356px">
+			<g:at left="10" top="20">
+				<g:TextBox width="215px" height="18px" text="product URI..." ui:field="download_product_panel_product_uri_area"/>
+			</g:at>
+			<g:at left="255" top="20">
+				<g:Button text="Download" ui:field="download_product_panel_download_button"/>
+			</g:at>
+			<g:at left="10" top="109">
+				<g:Label width="404px" height="191px" ui:field="download_product_panel_response"/>
 			</g:at>
 		</g:AbsolutePanel>
 

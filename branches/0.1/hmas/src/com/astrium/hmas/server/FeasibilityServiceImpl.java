@@ -33,7 +33,7 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 @SuppressWarnings("serial")
-public class FeasibilityServiceImpl  extends RemoteServiceServlet implements
+public class FeasibilityServiceImpl extends RemoteServiceServlet implements
 FeasibilityService{
 
 	@Override
@@ -74,7 +74,7 @@ FeasibilityService{
 		}
 		if(feasibilitySearch.parameters.get("geo:box") != null){
 			queryParams.add(feasibilitySearch.parameters.get("geo:box"),
-					feasibilitySearch.getSelat() + "," + feasibilitySearch.getSelon() + "," + feasibilitySearch.getNwlat() + "," + feasibilitySearch.getNwlon());
+					feasibilitySearch.getNwlon() + "," + feasibilitySearch.getSelat() + "," + feasibilitySearch.getSelon() + "," + feasibilitySearch.getNwlat());
 		}
 		if(feasibilitySearch.parameters.get("eosp:acquisitionAngleIncidenceAzimuth") != null){
 			queryParams.add(feasibilitySearch.parameters.get("eosp:acquisitionAngleIncidenceAzimuth"),

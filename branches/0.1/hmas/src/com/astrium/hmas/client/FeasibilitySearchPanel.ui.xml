@@ -64,7 +64,7 @@
 					<g:at left="107" top="159">
 						<g:ListBox height="22px" name="eo:platform" visibleItemCount="1" width="71px" ui:field="feasibility_search_panel_platform"/>
 					</g:at>
-					<g:at left="196" top="162">
+					<g:at left="256" top="162">
 						<g:Label height="19px" styleName="gwt-Label-main" text="Instrument" width="107px"/>
 					</g:at>
 					<g:at left="369" top="162">
@@ -78,9 +78,6 @@
 					</g:at>
 					<g:at left="345" top="35">
 						<g:Button height="30px" text="Stop" width="71px" ui:field="feasibility_search_panel_drawaoiStop"/>
-					</g:at>
-					<g:at left="299" top="200">
-						<g:TextBox height="8px" name="eo:sensorMode" width="131px" ui:field="feasibility_search_panel_sensorMode"/>
 					</g:at>
 					<g:at left="10" top="572">
 						<g:AbsolutePanel height="82px" width="440px">
@@ -138,20 +135,20 @@
 									<g:at left="10" top="135">
 										<g:Label width="175px" height="19px" styleName="gwt-Label-main" text="Polarization Mode"/>
 									</g:at>
-									<g:at left="162" top="135">
-										<g:TextBox width="159px" height="7px" ui:field="feasibility_search_panel_polarization"/>
-									</g:at>
 									<g:at left="10" top="160">
 										<g:Label width="139px" height="19px" styleName="gwt-Label-main" text="Composite Type"/>
 									</g:at>
 									<g:at left="10" top="192">
 										<g:Label width="139px" height="19px" styleName="gwt-Label-main" text="Coverage Type"/>
 									</g:at>
-									<g:at left="260" top="157">
+									<g:at left="260" top="161">
 										<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_compositeType"/>
 									</g:at>
 									<g:at left="260" top="189">
 										<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_coverageType"/>
+									</g:at>
+									<g:at left="260" top="135">
+										<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_polarization"/>
 									</g:at>
 								</g:AbsolutePanel>
 							</g:Tab>
@@ -187,12 +184,6 @@
 									<g:at left="292" top="57">
 										<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_sandwind"/>
 									</g:at>
-									<g:at left="179" top="135">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_resoMin"/>
-									</g:at>
-									<g:at left="274" top="135">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_resoMax"/>
-									</g:at>
 									<g:at left="274" top="85">
 										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_noiseLevel"/>
 									</g:at>
@@ -208,12 +199,18 @@
 									<g:at left="274" top="185">
 										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_snow"/>
 									</g:at>
+									<g:at left="292" top="132">
+										<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_resolution"/>
+									</g:at>
 								</g:AbsolutePanel>
 							</g:Tab>
 						</g:TabPanel>
 					</g:at>
-					<g:at left="184" top="200">
+					<g:at left="256" top="200">
 						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Sensor Mode"/>
+					</g:at>
+					<g:at left="369" top="197">
+						<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_sensorMode"/>
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>

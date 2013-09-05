@@ -14,15 +14,18 @@ import com.google.gwt.user.client.ui.TabPanel;
 
 public class ShopcartPanel extends Composite implements HasText {
 
-	private static OrderSubPanelUiBinder uiBinder = GWT
-			.create(OrderSubPanelUiBinder.class);
+	private static ShopcartPanelUiBinder uiBinder = GWT
+			.create(ShopcartPanelUiBinder.class);
 	@UiField TabPanel shopcart_panel_tab;
+	public ShopcartListPanel shopcartListPanel = new ShopcartListPanel();
 
-	interface OrderSubPanelUiBinder extends UiBinder<Widget, ShopcartPanel> {
+	interface ShopcartPanelUiBinder extends UiBinder<Widget, ShopcartPanel> {
 	}
 
 	public ShopcartPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
+		shopcart_panel_tab.add(shopcartListPanel, "List");
+		shopcartListPanel.setWidth("450px");
 	}
 
 	public ShopcartPanel(String firstName) {
