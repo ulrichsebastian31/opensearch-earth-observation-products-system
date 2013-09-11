@@ -1,11 +1,26 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+package com.astrium.hmas.server.OpenSearchServer;
+
+/**
+ * --------------------------------------------------------------------------------------------------------
+ *   Project                                            :               HMA-S
+ * --------------------------------------------------------------------------------------------------------
+ *   File Name                                          :               OpenSearchCatalogueInterface.java
+ *   File Type                                          :               Source Code
+ *   Description                                        :               This class is a server which handles 
+ *   																	the construction of the XML response
+ *   																	after a Catalogue Search request
+ *
+ * --------------------------------------------------------------------------------------------------------
+ *
+ * =================================================================
+ *             (C) COPYRIGHT EADS ASTRIUM LIMITED 2013. All Rights Reserved
+ *             This software is supplied by EADS Astrium Limited on the express terms
+ *             that it is to be treated as confidential and that it may not be copied,
+ *             used or disclosed to others for any purpose except as authorised in
+ *             writing by this Company.
+ * --------------------------------------------------------------------------------------------------------
  */
 
-package com.astrium.hmas.server;
-
-import com.astrium.hmas.bean.*;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -48,33 +63,19 @@ import com.astrium.hmas.bean.catalogue.EarthObservationEquipment.Sensor.SensorTy
 import com.astrium.hmas.bean.catalogue.EarthObservationEquipment.Sensor.SensorType.WavelengthInformation.WavelengthInformationType;
 import com.astrium.hmas.bean.catalogue.Feed.Entry;
 import com.astrium.hmas.bean.catalogue.Feed.Generator;
-import com.astrium.hmas.bean.catalogue.Feed.Entry.Link;
 import com.astrium.hmas.bean.catalogue.Footprint.MultiExtentOf;
 import com.astrium.hmas.bean.catalogue.MultiSurface.SurfaceMember;
 import com.astrium.hmas.bean.catalogue.MultiSurface.SurfaceMember.Polygon.Exterior;
 import com.astrium.hmas.bean.catalogue.Polygon.Exterior.LinearRing;
 import com.astrium.hmas.bean.catalogue.Polygon.Exterior.LinearRing.PosList;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.core.HttpContext;
 import com.sun.jersey.multipart.FormDataMultiPart;
 
-import java.io.File;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.net.URI;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
@@ -83,16 +84,6 @@ import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.Validator;
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.namespace.QName;
-
-import org.jdom.Document;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
-import org.jdom.output.XMLOutputter;
 
 /**
  * 
@@ -110,11 +101,11 @@ public class OpenSearchCatalogueInterface {
 	@Context
 	volatile HttpContext httpContext;
 
-	// private URI admin =
-	// httpContext.getUriInfo().getBaseUri();//.resolve("fasadmin/");
-
 	@GET
 	public Response getMethodParser() {
+		/*
+		 * Get the parameters from the query
+		 */
 		MultivaluedMap<String, String> conf = ui.getQueryParameters();
 
 		try {
@@ -125,6 +116,9 @@ public class OpenSearchCatalogueInterface {
 			e.printStackTrace();
 		}
 
+		/*
+		 * Connection to the database
+		 */
 		System.out.println("-------- PostgreSQL JDBC Connection Testing ------------");
 		try {
 
@@ -135,133 +129,220 @@ public class OpenSearchCatalogueInterface {
 			ResultSet rs = null;
 
 			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/osresult", "postgres", "fightclub09");
+
 			st = connection.createStatement();
+			/*
+			 * SQL query
+			 */
 			String query = "SELECT * FROM result";
-			// full query according to the different request parameters :
-			// TODO NE MARCHERA PAS A CAUSE DES DATES
+			/*
+			 * full query according to the different request parameters : we
+			 * retrieve the different parameters value from the url query
+			 */
+
 			/*
 			 * if (conf.get("start") != null && conf.get("stop") != null){ query
 			 * += "WHERE archivingDate > " + conf.get("time:start") +
 			 * "AND archivingDate < " + conf.get("time:end"); }
 			 */
 			String box = conf.get("bbox").get(0);
+
 			String[] bbox = box.split(",");
+			/*
+			 * The results have to overlap the AOI (bbox)
+			 */
 			query += " WHERE ST_Contains(st_geomfromtext('POLYGON((" + bbox[1] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[3] + " "
 					+ bbox[2] + ", " + bbox[3] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[0] + "))',4326),\"upperRight\")"
-					+ " OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[1] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[3] + " "
-					+ bbox[2] + ", " + bbox[3] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[0] + "))',4326),\"upperLeft\")"
-					+ " OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[1] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[3] + " "
-					+ bbox[2] + ", " + bbox[3] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[0] + "))',4326),\"lowerLeft\")"
-					+ " OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[1] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[3] + " "
-					+ bbox[2] + ", " + bbox[3] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[0] + "))',4326),\"lowerRight\")";
+					+ " OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[1] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[3] + " " + bbox[2]
+					+ ", " + bbox[3] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[0] + "))',4326),\"upperLeft\")"
+					+ " OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[1] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[3] + " " + bbox[2]
+					+ ", " + bbox[3] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[0] + "))',4326),\"lowerLeft\")"
+					+ " OR ST_Contains(st_geomfromtext('POLYGON((" + bbox[1] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[2] + ", " + bbox[3] + " " + bbox[2]
+					+ ", " + bbox[3] + " " + bbox[0] + ", " + bbox[1] + " " + bbox[0] + "))',4326),\"lowerRight\")";
+
 			if (conf.get("id") != null) {
+
 				query += " AND identifier = '" + conf.get("id").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("acqstation") != null) {
+
 				query += " AND \"acquisitionStation\" = '" + conf.get("acqstation").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("plat") != null) {
+
 				query += " AND platform = '" + conf.get("plat").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("orbittype") != null) {
+
 				query += " AND \"orbitType\" = '" + conf.get("orbittype").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("instrument") != null) {
+
 				query += " AND instrument = '" + conf.get("instrument").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("sensortype") != null) {
+
 				query += " AND \"sensorType\" = '" + conf.get("sensortype").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("sensormode") != null) {
+
 				query += " AND \"sensorMode\" = '" + conf.get("sensormode").get(0) + "'";
+
 			} else {
 			}
+
 			// TODO set or range
 			if (conf.get("resolution") != null) {
+
 				query += " AND resolution = '" + conf.get("resolution").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("swathid") != null) {
+
 				query += " AND \"swathId\" = '" + conf.get("swathid").get(0) + "'";
+
 			} else {
 			}
+
 			// TODO set or range
 			if (conf.get("wavelength") != null) {
+
 				query += " AND \"waveLength\" = '" + conf.get("wavelength").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("spectralrange") != null) {
+
 				query += " AND \"spectralRange\" = '" + conf.get("spectralrange").get(0) + "'";
+
 			} else {
 			}
+
 			// TODO set or range
 			if (conf.get("orbitnumber") != null) {
+
 				query += " AND \"orbitNumber\" = '" + conf.get("orbitnumber").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("orbitdirection") != null) {
+
 				query += " AND \"orbitDirection\" = '" + conf.get("orbitdirection").get(0) + "'";
+
 			} else {
 			}
+
 			// TODO set or range
 			if (conf.get("track") != null) {
+
 				query += " AND track = '" + conf.get("track").get(0) + "'";
+
 			} else {
 			}
+
 			// TODO set or range
 			if (conf.get("frame") != null) {
+
 				query += " AND frame = '" + conf.get("frame").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("type") != null) {
+
 				query += " AND type = '" + conf.get("type").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("acqtype") != null) {
+
 				query += " AND \"acquisitionType\" = '" + conf.get("acqtype").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("archcenter") != null) {
+
 				query += " AND \"archivingCenter\" = '" + conf.get("archcenter").get(0) + "'";
+
 			} else {
 			}
+
 			// TODO DAATES!!! --> process and archiving!!
 			if (conf.get("processcenter") != null) {
+
 				query += " AND \"processingCenter\" = '" + conf.get("processcenter").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("status") != null) {
+
 				query += " AND status = '" + conf.get("status").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("processoft") != null) {
+
 				query += " AND \"processingSoftware\" = '" + conf.get("processoft").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("processlevel") != null) {
+
 				query += " AND \"processingLevel\" = '" + conf.get("processlevel").get(0) + "'";
+
 			} else {
 			}
+
 			if (conf.get("compositetype") != null) {
+
 				query += " AND \"compositeType\" = '" + conf.get("compositetype").get(0) + "'";
+
 			} else {
 			}
+
 			// TODO set or range
 			if (conf.get("cloud") != null) {
+
 				query += " AND \"cloudCover\" = '" + conf.get("cloud").get(0) + "'";
+
 			} else {
 			}
+
 			// TODO set or range
 			if (conf.get("snow") != null) {
+
 				query += " AND \"snowCover\" = '" + conf.get("snow").get(0) + "'";
+
 			} else {
 			}
+
 			rs = st.executeQuery(query);
 			System.out.println(query);
 
@@ -270,26 +351,35 @@ public class OpenSearchCatalogueInterface {
 			else
 				System.out.println("Failed to make connection!");
 
+			/*
+			 * *********** XML RESPONSE CREATION ***********
+			 */
 			ObjectFactory objFactory = new ObjectFactory();
 			Feed feed = (Feed) objFactory.createFeed();
 
-			// feed elements
+			/*
+			 * feed elements
+			 */
 			feed.setTitle("Catalogue Search Feed for ASAR Image Mode source packets Level 0 (ASA_IM__0P)");
 			feed.setId("http://eo-virtual-archive4.esa.int/search/ASA_IM__0P/atom/");
+
 			Generator generator = objFactory.createFeedGenerator();
 			generator.setValue("Astrium Ltd");
 			feed.setGenerator(generator);
 			Feed.Link link = objFactory.createFeedLink();
+
 			// TODO put the query url here
 			link.setHref("query url");
 			link.setType("application/atom+xml");
 			Feed.Link link2 = objFactory.createFeedLink();
+
 			// TODO put the description url here
 			link2.setHref("description url");
 			link2.setType("application/atom+xml");
 			List<com.astrium.hmas.bean.catalogue.Feed.Link> links = feed.getLink();
 			links.add(link2);
 			links.add(link);
+
 			// TODO put the number of results -> count on the sql query
 			feed.setTotalResults((short) 2);
 			feed.setStartIndex((short) 0);
@@ -297,18 +387,24 @@ public class OpenSearchCatalogueInterface {
 
 			// TODO if needed georss:Where and element -> feed query box
 
-			// entries -> part of feed
+			/*
+			 * entries -> part of feed
+			 */
 			while (rs.next()) {
 				List<Entry> entries = feed.getEntry();
 				Entry entry = objFactory.createFeedEntry();
-				// entry elements
+				/*
+				 * entry elements
+				 */
 				entry.setId("http://eo-virtual-archive4.esa.int/search/ASA_IM__0P/ASA_IM__0CNPDE20100122_014441_000000162086_00146_41282_7918.N1/atom");
 				entry.setTitle("ASA_IM__0CNPDE20100122_014441_000000162086_00146_41282_7918.N1");
 				entry.setPublished("2012-03-06T00:10:33.000Z");
 				entry.setUpdated("2013-05-16T22:25:57.124Z");
 				entry.setDate("2010-01-22T01:44:41.316Z/2010-01-22T01:44:57.596Z");
 
-				// georss:Where and element -> entry
+				/*
+				 * georss:Where and element -> entry
+				 */
 				Where where = objFactory.createWhere();
 				Polygon polygon = objFactory.createPolygon();
 				com.astrium.hmas.bean.catalogue.Polygon.Exterior exterior = objFactory.createPolygonExterior();
@@ -322,11 +418,14 @@ public class OpenSearchCatalogueInterface {
 				where.setPolygon(polygon);
 				entry.setWhere(where);
 
-				// earthObservation and element
+				/*
+				 * earthObservation and element
+				 */
 				EarthObservation earthObs = objFactory.createEarthObservation();
 				PhenomenonTime phenomenonTime = objFactory.createPhenomenonTime();
 				TimePeriod timePeriod = objFactory.createTimePeriod();
 				timePeriod.setId("tp_ASA_IM__0CNPDE20100122_014441_000000162086_00146_41282_7918.N1");
+
 				// TODO begin and end position
 				timePeriod.setBeginPosition("2010-01-22T01:44:41.316Z");
 				timePeriod.setEndPosition("2010-01-22T01:44:57.596Z");
@@ -387,7 +486,9 @@ public class OpenSearchCatalogueInterface {
 
 				earthObs.setProcedure(procedure);
 
-				// feature of interest and elements
+				/*
+				 * feature of interest and elements
+				 */
 				FeatureOfInterest featureOfInterest = objFactory.createFeatureOfInterest();
 				Footprint footprint = objFactory.createFootprint();
 				MultiExtentOf multiExtentOf = objFactory.createFootprintMultiExtentOf();
@@ -412,7 +513,9 @@ public class OpenSearchCatalogueInterface {
 
 				earthObs.setFeatureOfInterest(featureOfInterest);
 
-				// earth obs results and elements
+				/*
+				 * earth obs results and elements
+				 */
 				Result result = objFactory.createResult();
 				EarthObservationResult eoResult = objFactory.createEarthObservationResult();
 				eoResult.setCloudCoverPercentage(rs.getString("cloudCover"));
@@ -421,7 +524,9 @@ public class OpenSearchCatalogueInterface {
 
 				earthObs.setResult(result);
 
-				// earth observation metadata properties and elements
+				/*
+				 * earth observation metadata properties and elements
+				 */
 				MetaDataProperty metaDataProperty = objFactory.createEarthObservationMetaDataProperty();
 				EarthObservationMetaData eoMetaData = objFactory.createEarthObservationMetaDataPropertyEarthObservationMetaData();
 				eoMetaData.setIdentifier(rs.getString("identifier"));
@@ -461,12 +566,19 @@ public class OpenSearchCatalogueInterface {
 				entries.add(entry);
 			}
 
+			/*
+			 * XML construction thanks to the JAXB api
+			 */
 			JAXBContext jaxbContext = JAXBContext.newInstance("com.astrium.hmas.bean.catalogue");
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, new Boolean(true));
 
 			marshaller.marshal(feed, System.out);
+			/*
+			 * return the XML to the client
+			 */
 			return Response.ok(feed, "application/atom+xml").build();
+
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

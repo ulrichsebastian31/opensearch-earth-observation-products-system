@@ -1,6 +1,6 @@
 package com.astrium.hmas.test;
 
-import com.astrium.hmas.server.OpenSearchCatalogueInterface;
+import com.astrium.hmas.server.OpenSearchServer.OpenSearchCatalogueInterface;
 
 public class Test {
 
