@@ -1,13 +1,12 @@
-package com.astrium.hmas.bean;
+package com.astrium.hmas.client.ShopcartService;
 
 /**
  * --------------------------------------------------------------------------------------------------------
  *   Project                                            :               HMA-S
  * --------------------------------------------------------------------------------------------------------
- *   File Name                                          :               Point.java
+ *   File Name                                          :               ShopcartService.java
  *   File Type                                          :               Source Code
- *   Description                                        :               Point bean : this class 
- *   																	describes an object Point (lat,lon).
+ *   Description                                        :               Shopcart Service interface
  *
  * --------------------------------------------------------------------------------------------------------
  *
@@ -20,41 +19,16 @@ package com.astrium.hmas.bean;
  * --------------------------------------------------------------------------------------------------------
  */
 
-import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
-public class Point implements Serializable{
+import com.astrium.hmas.bean.CatalogueBean.CatalogueResult;
+import com.astrium.hmas.bean.DownloadBean.DownloadProduct;
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4312803563977148910L;
-	public double latitude;
-	public double longitude;
-	
-	public Point() {
-	}
-
-	public Point(double latitude, double longitude) {
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
-
-	public double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-
-	public double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-	
-	
+@RemoteServiceRelativePath("shopcart")
+public interface ShopcartService extends RemoteService {
+	public Map<String, DownloadProduct> getShopcart(List<CatalogueResult> list_shopcart) throws IllegalArgumentException;
 
 }

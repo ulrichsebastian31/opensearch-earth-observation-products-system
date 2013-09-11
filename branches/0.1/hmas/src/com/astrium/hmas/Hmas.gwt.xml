@@ -26,8 +26,8 @@
   <!--<inherits name='org.apache.commons.validator.UrlValidator'/> -->
   <inherits name='com.sencha.gxt.ui.GXT' />
   <servlet path="/greet" class="com.astrium.hmas.server.SpotServiceImpl"/>
-  <servlet path="/os" class="com.astrium.hmas.server.OpenSearchServiceImpl"/>
-  <servlet path="/result" class="com.astrium.hmas.server.CatalogueServiceImpl"/>
+  <servlet path="/os" class="com.astrium.hmas.server.CatalogueService.OpenSearchServiceImpl"/>
+  <servlet path="/result" class="com.astrium.hmas.server.CatalogueService.CatalogueServiceImpl"/>
   <!--<servlet path="/toto" class="com.astrium.hmas.server.SpotGateway"/>-->
   
 

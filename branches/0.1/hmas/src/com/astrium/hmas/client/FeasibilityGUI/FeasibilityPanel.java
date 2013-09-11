@@ -1,13 +1,14 @@
-package com.astrium.hmas.client;
+package com.astrium.hmas.client.FeasibilityGUI;
 
 /**
  * --------------------------------------------------------------------------------------------------------
  *   Project                                            :               HMA-S
  * --------------------------------------------------------------------------------------------------------
- *   File Name                                          :               MainPanel.java
+ *   File Name                                          :               FeasibilityPanel.java
  *   File Type                                          :               Source Code
- *   Description                                        :               Main Panel which handles all the sub-
- *   																	panels and features of the application
+ *   Description                                        :               This class describes the interface of
+ *   																	the panel which handles the Feasibility
+ *   																	tasking functionality
  *
  * --------------------------------------------------------------------------------------------------------
  *
@@ -20,60 +21,53 @@ package com.astrium.hmas.client;
  * --------------------------------------------------------------------------------------------------------
  */
 
-import com.astrium.hmas.client.CatalogueGUI.CataloguePanel;
-import com.astrium.hmas.client.DownloadGUI.DownloadPanel;
-import com.astrium.hmas.client.FeasibilityGUI.FeasibilityPanel;
-import com.astrium.hmas.client.ShopcartGUI.ShopcartPanel;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.TabPanel;
 
-public class MainPanel extends Composite implements HasText {
+public class FeasibilityPanel extends Composite implements HasText {
 
-	private static MainPanelUiBinder uiBinder = GWT
-			.create(MainPanelUiBinder.class);
-	@UiField TabPanel mainTab;
+	private static FeasSubPanelUiBinder uiBinder = GWT.create(FeasSubPanelUiBinder.class);
+
+	@UiField
+	public TabPanel feasibility_panel_tab;
+
 	/*
-	 * the MainPanel contains all the features panels
+	 * The Feasibility panel contains 3 sub-panels, each handling different
+	 * tasks : search, results display and details of the products
 	 */
-	public CataloguePanel cataloguePanel = new CataloguePanel();
-	public FeasibilityPanel feasibilityPanel = new FeasibilityPanel();
-	public ShopcartPanel shopcartPanel = new ShopcartPanel();
-	public DownloadPanel downloadPanel = new DownloadPanel();
-	
+	public FeasibilitySearchPanel feasibilitySearchPanel = new FeasibilitySearchPanel();
+	public FeasibilityResultPanel feasibilityResultPanel = new FeasibilityResultPanel();
+	public FeasibilityDetailsPanel feasibilityDetailsPanel = new FeasibilityDetailsPanel();
 
-	interface MainPanelUiBinder extends UiBinder<Widget, MainPanel> {
+	interface FeasSubPanelUiBinder extends UiBinder<Widget, FeasibilityPanel> {
 	}
 
 	/*
-	 * MainPanel constructor
+	 * Constructor of the Feasibility panel : adding the sub-panels
 	 */
-	public MainPanel() {
+	public FeasibilityPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
-		/*
-		 * Give the different tabs a name
-		 */
-		mainTab.add(cataloguePanel, "Catalogue Search");
-		mainTab.add(feasibilityPanel, "Tasking Feasibility");
-		mainTab.add(shopcartPanel, "Shopcart");
-		mainTab.add(downloadPanel, "Download");
-		
+		feasibilitySearchPanel.setWidth("450px");
+		feasibilityDetailsPanel.setWidth("450px");
+		feasibility_panel_tab.add(feasibilitySearchPanel, "Search");
+		feasibility_panel_tab.add(feasibilityResultPanel, "Results");
+		feasibility_panel_tab.add(feasibilityDetailsPanel, "Details");
+		feasibility_panel_tab.getTabBar().setTabEnabled(1, false);
+		feasibility_panel_tab.getTabBar().setTabEnabled(2, false);
 	}
 
-
-	public MainPanel(String firstName) {
+	public FeasibilityPanel(String firstName) {
 		initWidget(uiBinder.createAndBindUi(this));
+
 	}
 
 	public void setText(String text) {
+
 	}
 
 	public String getText() {

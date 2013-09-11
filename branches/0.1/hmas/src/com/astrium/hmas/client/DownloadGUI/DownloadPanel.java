@@ -1,13 +1,14 @@
-package com.astrium.hmas.client;
+package com.astrium.hmas.client.DownloadGUI;
 
 /**
  * --------------------------------------------------------------------------------------------------------
  *   Project                                            :               HMA-S
  * --------------------------------------------------------------------------------------------------------
- *   File Name                                          :               MainPanel.java
+ *   File Name                                          :               DownloadPanel.java
  *   File Type                                          :               Source Code
- *   Description                                        :               Main Panel which handles all the sub-
- *   																	panels and features of the application
+ *   Description                                        :               This class describes the interface of
+ *   																	the panel which handles the Download 
+ *   																	functionality
  *
  * --------------------------------------------------------------------------------------------------------
  *
@@ -20,10 +21,6 @@ package com.astrium.hmas.client;
  * --------------------------------------------------------------------------------------------------------
  */
 
-import com.astrium.hmas.client.CatalogueGUI.CataloguePanel;
-import com.astrium.hmas.client.DownloadGUI.DownloadPanel;
-import com.astrium.hmas.client.FeasibilityGUI.FeasibilityPanel;
-import com.astrium.hmas.client.ShopcartGUI.ShopcartPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -36,44 +33,36 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.TabPanel;
 
-public class MainPanel extends Composite implements HasText {
+public class DownloadPanel extends Composite implements HasText {
 
-	private static MainPanelUiBinder uiBinder = GWT
-			.create(MainPanelUiBinder.class);
-	@UiField TabPanel mainTab;
+	private static DownloadSubPanelUiBinder uiBinder = GWT.create(DownloadSubPanelUiBinder.class);
+
+	@UiField
+	public TabPanel download_panel_tab;
 	/*
-	 * the MainPanel contains all the features panels
+	 * The download Panel contains a sub-panel which allows user to download
+	 * desired products
 	 */
-	public CataloguePanel cataloguePanel = new CataloguePanel();
-	public FeasibilityPanel feasibilityPanel = new FeasibilityPanel();
-	public ShopcartPanel shopcartPanel = new ShopcartPanel();
-	public DownloadPanel downloadPanel = new DownloadPanel();
-	
+	public DownloadProductPanel downloadProductPanel = new DownloadProductPanel();
 
-	interface MainPanelUiBinder extends UiBinder<Widget, MainPanel> {
+	interface DownloadSubPanelUiBinder extends UiBinder<Widget, DownloadPanel> {
 	}
 
 	/*
-	 * MainPanel constructor
+	 * DownloadPanel constructor
 	 */
-	public MainPanel() {
+	public DownloadPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
-		/*
-		 * Give the different tabs a name
-		 */
-		mainTab.add(cataloguePanel, "Catalogue Search");
-		mainTab.add(feasibilityPanel, "Tasking Feasibility");
-		mainTab.add(shopcartPanel, "Shopcart");
-		mainTab.add(downloadPanel, "Download");
-		
+		downloadProductPanel.setWidth("580px");
+		download_panel_tab.add(downloadProductPanel, "Products");
 	}
 
-
-	public MainPanel(String firstName) {
+	public DownloadPanel(String firstName) {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
 	public void setText(String text) {
+
 	}
 
 	public String getText() {

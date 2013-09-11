@@ -1,13 +1,13 @@
-package com.astrium.hmas.client;
+package com.astrium.hmas.client.ShopcartGUI;
 
 /**
  * --------------------------------------------------------------------------------------------------------
  *   Project                                            :               HMA-S
  * --------------------------------------------------------------------------------------------------------
- *   File Name                                          :               MainPanel.java
+ *   File Name                                          :               ShopcartPanel.java
  *   File Type                                          :               Source Code
- *   Description                                        :               Main Panel which handles all the sub-
- *   																	panels and features of the application
+ *   Description                                        :               This class describes the panel which
+ *   																	contains the Shopcart feature
  *
  * --------------------------------------------------------------------------------------------------------
  *
@@ -20,56 +20,40 @@ package com.astrium.hmas.client;
  * --------------------------------------------------------------------------------------------------------
  */
 
-import com.astrium.hmas.client.CatalogueGUI.CataloguePanel;
-import com.astrium.hmas.client.DownloadGUI.DownloadPanel;
-import com.astrium.hmas.client.FeasibilityGUI.FeasibilityPanel;
-import com.astrium.hmas.client.ShopcartGUI.ShopcartPanel;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.TabPanel;
 
-public class MainPanel extends Composite implements HasText {
+public class ShopcartPanel extends Composite implements HasText {
 
-	private static MainPanelUiBinder uiBinder = GWT
-			.create(MainPanelUiBinder.class);
-	@UiField TabPanel mainTab;
+	private static ShopcartPanelUiBinder uiBinder = GWT.create(ShopcartPanelUiBinder.class);
+	@UiField
+	public TabPanel shopcart_panel_tab;
 	/*
-	 * the MainPanel contains all the features panels
+	 * ShopcartPanel contains one tab -> ShopcartListPanel
 	 */
-	public CataloguePanel cataloguePanel = new CataloguePanel();
-	public FeasibilityPanel feasibilityPanel = new FeasibilityPanel();
-	public ShopcartPanel shopcartPanel = new ShopcartPanel();
-	public DownloadPanel downloadPanel = new DownloadPanel();
-	
+	public ShopcartListPanel shopcartListPanel = new ShopcartListPanel();
 
-	interface MainPanelUiBinder extends UiBinder<Widget, MainPanel> {
+	interface ShopcartPanelUiBinder extends UiBinder<Widget, ShopcartPanel> {
 	}
 
 	/*
-	 * MainPanel constructor
+	 * Shopcart Panel constructor
 	 */
-	public MainPanel() {
+	public ShopcartPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
 		/*
-		 * Give the different tabs a name
+		 * tab settings
 		 */
-		mainTab.add(cataloguePanel, "Catalogue Search");
-		mainTab.add(feasibilityPanel, "Tasking Feasibility");
-		mainTab.add(shopcartPanel, "Shopcart");
-		mainTab.add(downloadPanel, "Download");
-		
+		shopcart_panel_tab.add(shopcartListPanel, "List");
+		shopcartListPanel.setWidth("450px");
 	}
 
-
-	public MainPanel(String firstName) {
+	public ShopcartPanel(String firstName) {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
