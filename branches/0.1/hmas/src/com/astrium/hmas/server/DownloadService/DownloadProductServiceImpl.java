@@ -195,7 +195,7 @@ public class DownloadProductServiceImpl extends RemoteServiceServlet implements 
 
 					}
 
-					return reponse;
+					return reponse + "&&" + xml;
 
 				} else {
 					/*
@@ -222,7 +222,7 @@ public class DownloadProductServiceImpl extends RemoteServiceServlet implements 
 					/*
 					 * Returned it
 					 */
-					return reponse;
+					return reponse + "&&" + xml;
 
 				}
 			} catch (ParserConfigurationException e) {

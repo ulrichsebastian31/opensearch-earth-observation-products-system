@@ -7,15 +7,18 @@
 		}
 	</ui:style>
 	<g:HTMLPanel width="450" height="800">
-		<g:AbsolutePanel height="800px" width="356px">
+		<g:AbsolutePanel height="800px" width="441px">
 			<g:at left="10" top="20">
 				<g:TextBox width="215px" height="18px" text="product URI..." ui:field="download_product_panel_product_uri_area"/>
 			</g:at>
 			<g:at left="255" top="20">
 				<g:Button text="Download" ui:field="download_product_panel_download_button"/>
 			</g:at>
-			<g:at left="10" top="109">
-				<g:Label width="404px" height="191px" ui:field="download_product_panel_response"/>
+			<g:at left="244" top="684">
+				<g:Button text="See response" ui:field="download_product_panel_show_response_button"/>
+			</g:at>
+			<g:at left="10" top="92">
+				<g:HTML wordWrap="true" width="431px" height="338px" ui:field="download_product_panel_response"/>
 			</g:at>
 		</g:AbsolutePanel>
 

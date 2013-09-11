@@ -25,6 +25,7 @@ import com.astrium.hmas.client.DownloadService.DownloadProductService;
 import com.astrium.hmas.client.DownloadService.DownloadProductServiceAsync;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -35,7 +36,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.HTML;
 
 public class DownloadProductPanel extends Composite implements HasText {
 
@@ -51,13 +52,10 @@ public class DownloadProductPanel extends Composite implements HasText {
 	 */
 	@UiField
 	public Button download_product_panel_download_button;
-
-	/*
-	 * Label which displays the response of the server in the case where the
-	 * product cannot be downloaded directly
-	 */
 	@UiField
-	public Label download_product_panel_response;
+	public Button download_product_panel_show_response_button;
+	@UiField
+	public HTML download_product_panel_response;
 
 	/*
 	 * Download Product service
@@ -112,13 +110,13 @@ public class DownloadProductPanel extends Composite implements HasText {
 				@Override
 				public void onSuccess(String result) {
 					// TODO Auto-generated method stub
-					System.out.println(result);
+					// System.out.println(result);
 					/*
 					 * If the server sends back an download url, the client
 					 * opens it and download the product
 					 */
-					String http = "http";
-					if (result.startsWith(http)) {
+					
+					if (result.startsWith("http")) {
 
 						Window.open(result, "dw", "");
 
@@ -126,13 +124,33 @@ public class DownloadProductPanel extends Composite implements HasText {
 						/*
 						 * Otherwise, the client displays the server message
 						 */
+						String[] rep = result.split("&&");
+						download_product_panel_response.setHTML(rep[0]);
 						download_product_panel_response.setVisible(true);
-						download_product_panel_response.setText(result);
-					}
 
+						/*
+						 * See XML file or server response (url)
+						 */
+						download_product_panel_show_response_button.addClickHandler(new Handler(rep[1]));
+					}
 				}
 			});
 		}
+	}
 
+	private class Handler implements ClickHandler {
+
+		private String messageXML;
+
+		public Handler(String messageXML) {
+			this.messageXML = messageXML;
+		}
+
+		@Override
+		public void onClick(ClickEvent event) {
+			// TODO Auto-generated method stub
+			Window.alert(messageXML);
+
+		}
 	}
 }
