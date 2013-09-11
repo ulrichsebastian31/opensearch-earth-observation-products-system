@@ -61,7 +61,7 @@ public class ShopcartServiceImpl extends RemoteServiceServlet implements Shopcar
 				DownloadProduct downloadProduct = new DownloadProduct();
 
 				downloadProduct.setId(catalogueResult.getIdentifier());
-				downloadProduct.setDate(catalogueResult.getStart() + "-" + catalogueResult.getEnd());
+				downloadProduct.setDate(catalogueResult.getStart() + " - " + catalogueResult.getEnd());
 				downloadProduct.setPlatform(catalogueResult.getPlatform());
 				downloadProduct.setSensor(catalogueResult.getInstrument());
 
