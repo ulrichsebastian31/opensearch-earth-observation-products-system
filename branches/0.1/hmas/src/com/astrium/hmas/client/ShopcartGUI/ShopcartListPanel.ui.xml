@@ -11,6 +11,9 @@
 			<g:at left="25" top="10">
 				<p1:CellTable ui:field="shopcart_list_panel_cellTable" width="375px" height="186px"/>
 			</g:at>
+			<g:at left="357" top="676">
+				<g:Button ui:field="shopcart_list_panel_order_submit_button">Order</g:Button>
+			</g:at>
 		</g:AbsolutePanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

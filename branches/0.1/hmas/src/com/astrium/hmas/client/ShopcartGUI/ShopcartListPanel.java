@@ -24,9 +24,12 @@ import com.astrium.hmas.bean.DownloadBean.DownloadProduct;
 import com.astrium.hmas.client.ShopcartService.OrderService;
 import com.astrium.hmas.client.ShopcartService.OrderServiceAsync;
 import com.google.gwt.cell.client.ButtonCell;
+import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Overflow;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -35,6 +38,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.ui.Button;
 
 public class ShopcartListPanel extends Composite implements HasText {
 
@@ -45,9 +49,18 @@ public class ShopcartListPanel extends Composite implements HasText {
 	 */
 	public CellTable<DownloadProduct> shopcart_list_panel_cellTable = new CellTable<DownloadProduct>();
 	/*
+	 * Button to submit the Order
+	 */
+	@UiField
+	public Button shopcart_list_panel_order_submit_button;
+	/*
 	 * Button column to be able to pass the URI product to the Download panel
 	 */
 	public Column<DownloadProduct, String> shopcart_list_panel_download_column;
+	/*
+	 * Boolean to check if the options to order a produit have been chosen
+	 */
+	public boolean isOptionsChosen = false;
 
 	/*
 	 * Order Service
@@ -71,19 +84,41 @@ public class ShopcartListPanel extends Composite implements HasText {
 		initWidget(uiBinder.createAndBindUi(this));
 
 		shopcart_list_panel_cellTable.getElement().getStyle().setOverflow(Overflow.AUTO);
+		
+		/*
+		 * The Order button is disable as long as the user hasn't choose the options for each produit in his shopcart
+		 */
+		shopcart_list_panel_order_submit_button.setEnabled(false);
+		
+		/*
+		 * Column which tell the user if the options to order the product has been set or not
+		 */
+		Column<DownloadProduct, String> readyToOrderColumn = new Column<DownloadProduct, String>(new ClickableTextCell() {
+			public void render(Context context, SafeHtml value, SafeHtmlBuilder sb) {
+				sb.appendHtmlConstant("<img width=\"50\" src=\"" + value.asString() + "\">");
+			}
+		}) {
+
+			@Override
+			public String getValue(DownloadProduct object) {
+				return isOptionsChosen ? "http://www.clker.com/cliparts/e/2/a/d/1206574733930851359Ryan_Taylor_Green_Tick.svg.hi.png" : "http://www.clker.com/cliparts/d/9/y/V/R/R/red-cross-hi.png";
+			}
+		};
+
+		shopcart_list_panel_cellTable.addColumn(readyToOrderColumn, "Ready");
+		shopcart_list_panel_cellTable.setColumnWidth(readyToOrderColumn, 40, Unit.PX);
 
 		/*
-		 * Button column to send the URI product to the DownloadProduct panel
-		 * and then download it
+		 * Button column to get the available options to order the product
 		 */
-		ButtonCell dwButton = new ButtonCell();
-		shopcart_list_panel_download_column = new Column<DownloadProduct, String>(dwButton) {
+		ButtonCell optionsButton = new ButtonCell();
+		shopcart_list_panel_download_column = new Column<DownloadProduct, String>(optionsButton) {
 
 			public String getValue(DownloadProduct object) {
 				/*
-				 * Start the download
+				 * Get the available options
 				 */
-				return "start";
+				return "Options";
 
 			}
 		};

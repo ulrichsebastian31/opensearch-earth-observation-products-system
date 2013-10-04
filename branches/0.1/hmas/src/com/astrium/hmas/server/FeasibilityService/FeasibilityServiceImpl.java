@@ -65,7 +65,7 @@ public class FeasibilityServiceImpl extends RemoteServiceServlet implements Feas
 		/*
 		 * Call to the server
 		 */
-		WebResource webResource = client.resource("http://127.0.0.1:8080/DreamServices-1.0-SNAPSHOT/dream/os/fas/s1-fas/search");
+		WebResource webResource = client.resource("http://127.0.0.1:8080/HMAS-FAS-1.0-SNAPSHOT/hmas/fas/os/search");
 		/*
 		 * parameters map
 		 */
@@ -347,13 +347,17 @@ public class FeasibilityServiceImpl extends RemoteServiceServlet implements Feas
 											} else {
 												Element platformElmt = (Element) platform.getElementsByTagName("eop:Platform").item(0);
 
-												Element platformName = (Element) platformElmt.getElementsByTagName("eop:shortName").item(0);
-												if (platformName == null) {
-													System.out.println("no platform name");
-												} else {
-													String platformNametxt = platformName.getChildNodes().item(0).getNodeValue();
-													entry.setPlatform(platformNametxt);
-												}
+												
+												
+												
+//												Element platformName = (Element) platformElmt.getElementsByTagName("eop:shortName").item(0);
+//												if (platformName == null) {
+//													System.out.println("no platform name");
+//												} else {
+//													String platformNametxt = platformName.getChildNodes().item(0).getNodeValue();
+//													entry.setPlatform(platformNametxt);
+//												}
+												
 
 												Element orbitType = (Element) platformElmt.getElementsByTagName("eop:orbitType").item(0);
 												if (orbitType == null) {

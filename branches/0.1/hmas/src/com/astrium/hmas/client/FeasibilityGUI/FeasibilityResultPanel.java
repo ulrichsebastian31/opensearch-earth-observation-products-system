@@ -51,6 +51,8 @@ public class FeasibilityResultPanel extends Composite implements HasText {
 	 * Button to show the xml file returned from the server
 	 */
 	public Button feasibility_result_panel_show_xml_button;
+	@UiField
+	public Button feasibility_result_panel_see_request_button;
 	/*
 	 * Selection model to be able to select the desired products in the GWT
 	 * interface

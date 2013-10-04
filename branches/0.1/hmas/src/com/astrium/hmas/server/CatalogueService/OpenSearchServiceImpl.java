@@ -72,6 +72,11 @@ public class OpenSearchServiceImpl extends RemoteServiceServlet implements OpenS
 		 * The object where we will put the results from the XML response
 		 */
 		Map<String, String> parameters = new HashMap<String, String>();
+		
+		/*
+		 * We register the description file for the user to see it if he wants
+		 */
+		parameters.put("description", url);
 
 		String rep = "";
 

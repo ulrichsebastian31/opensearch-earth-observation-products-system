@@ -17,6 +17,9 @@
 			<g:at left="10" top="10">
 				<g:Button ui:field="feasibility_result_panel_show_xml_button">See XML file</g:Button>
 			</g:at>
+			<g:at left="119" top="10">
+				<g:Button text="See search request" ui:field="feasibility_result_panel_see_request_button"/>
+			</g:at>
 		</g:AbsolutePanel>
 
 	</g:HTMLPanel>

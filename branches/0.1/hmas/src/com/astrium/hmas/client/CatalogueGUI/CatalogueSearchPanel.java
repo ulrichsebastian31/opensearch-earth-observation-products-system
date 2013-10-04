@@ -36,6 +36,7 @@ import com.astrium.hmas.shared.UrlValidator;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Overflow;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -160,6 +161,7 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 	public TextBox catalogue_search_panel_acquisitionStation;
 	@UiField
 	public Button catalogue_search_panel_send_request_button;
+	@UiField Button catalogue_search_panel_see_description_button;
 
 	/*
 	 * OpenSearch service : parses the description file and sends back the
@@ -191,6 +193,8 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 		initWidget(uiBinder.createAndBindUi(this));
 		catalogue_search_absolute_panel.getElement().getStyle().setOverflow(Overflow.AUTO);
 		catalogue_search_param_panel.getElement().getStyle().setOverflow(Overflow.AUTO);
+		
+		catalogue_search_panel_see_description_button.setVisible(false);
 
 		/*
 		 * The form is not visible yet
@@ -292,13 +296,27 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 				}
 
 				@Override
-				public void onSuccess(Map<String, String> result) {
+				public void onSuccess(final Map<String, String> result) {
 
 					/*
 					 * Form building according to the available parameters
 					 * (result)
 					 */
 					catalogue_search_param_panel.setVisible(true);
+					
+					catalogue_search_panel_see_description_button.setVisible(true);
+					
+					/*
+					 * Click on this button to see the description file
+					 */
+					catalogue_search_panel_see_description_button.addClickHandler(new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+							// TODO Auto-generated method stub
+							Window.open(result.get("description"), "description", result.get("description"));
+							
+						}});
 
 					/*
 					 * If the map doesn't contain the parameter then the field
@@ -461,6 +479,7 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 
 	}
 
+	@SuppressWarnings("unused")
 	@UiHandler("catalogue_search_datepicker1_button")
 	/*
 	 * Date picker for the acquisition date settings - start date

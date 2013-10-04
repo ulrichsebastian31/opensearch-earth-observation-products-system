@@ -284,6 +284,9 @@
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>
+			<g:at left="272" top="10">
+				<g:Button text="See Description File" ui:field="catalogue_search_panel_see_description_button"/>
+			</g:at>
 		</g:AbsolutePanel>
 
 	</g:HTMLPanel>

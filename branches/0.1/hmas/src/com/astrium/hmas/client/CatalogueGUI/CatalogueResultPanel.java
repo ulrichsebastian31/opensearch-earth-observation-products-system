@@ -70,6 +70,7 @@ public class CatalogueResultPanel extends Composite implements HasText {
 	 * Button which sends the list of selected products to the shopcart
 	 */
 	public Button catalogue_result_panel_add_to_shopcart;
+	@UiField public Button catalogue_result_panel_see_request_button;
 	/*
 	 * Different selection models to be able to select the desired products in
 	 * the GWT interface

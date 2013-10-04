@@ -36,6 +36,7 @@ import com.astrium.hmas.shared.UrlValidator;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Overflow;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -140,6 +141,8 @@ public class FeasibilitySearchPanel extends Composite implements HasText {
 	public ListBox feasibility_search_panel_resolution;
 	@UiField
 	public ListBox feasibility_search_panel_polarization;
+	@UiField
+	public Button feasibility_search_panel_see_description_button;
 
 	/*
 	 * OpenSearch service for the feasibility analysis
@@ -166,7 +169,9 @@ public class FeasibilitySearchPanel extends Composite implements HasText {
 		feasibility_search_panel_absolute_panel.getElement().getStyle().setOverflow(Overflow.AUTO);
 		feasibility_search_panel_param_panel.getElement().getStyle().setOverflow(Overflow.AUTO);
 
-		feasibility_search_panel_osurl.setValue("http://localhost:8080/DreamServices-1.0-SNAPSHOT/dream/os/fas/s1-fas/description");
+		feasibility_search_panel_osurl.setValue("http://localhost:8080/HMAS-FAS-1.0-SNAPSHOT/hmas/fas/os/description");
+		
+		feasibility_search_panel_see_description_button.setVisible(false);
 
 		/*
 		 * The form is not visible yet
@@ -221,7 +226,7 @@ public class FeasibilitySearchPanel extends Composite implements HasText {
 		/*
 		 * We test if the OpenSearch Url is well-formed
 		 */
-		String url = feasibility_search_panel_osurl.getValue();
+		final String url = feasibility_search_panel_osurl.getValue();
 		UrlValidator urlValidator = new UrlValidator();
 		if (!urlValidator.isValidUrl(url, false)) {
 
@@ -246,6 +251,21 @@ public class FeasibilitySearchPanel extends Composite implements HasText {
 					 * parameters (result)
 					 */
 					feasibility_search_panel_param_panel.setVisible(true);
+					
+					feasibility_search_panel_see_description_button.setVisible(true);
+					
+					/*
+					 * Click on this button to see the description file
+					 */
+					feasibility_search_panel_see_description_button.addClickHandler(new ClickHandler() {
+						
+						@Override
+						public void onClick(ClickEvent event) {
+							// TODO Auto-generated method stub
+							Window.open(url, "description file", url);
+							
+						}
+					});
 
 					/*
 					 * If the map doesn't contain the parameter then the field
