@@ -1,14 +1,14 @@
-package com.astrium.hmas.server.OpenSearchServer;
+package com.astrium.hmas.server.OrderService;
 
 /**
  * --------------------------------------------------------------------------------------------------------
  *   Project                                            :               HMA-S
  * --------------------------------------------------------------------------------------------------------
- *   File Name                                          :               OpenSearchInterface.java
+ *   File Name                                          :               GetOptions.java
  *   File Type                                          :               Source Code
- *   Description                                        :               This class is a server which handles 
- *   																	the construction of the XML description
- *   																	file to do a Catalogue Search request
+ *   Description                                        :               Sends back the XML file which describes
+ *   																	all the available options for a 
+ *   																	product
  *
  * --------------------------------------------------------------------------------------------------------
  *
@@ -21,35 +21,32 @@ package com.astrium.hmas.server.OpenSearchServer;
  * --------------------------------------------------------------------------------------------------------
  */
 
-import com.sun.jersey.api.core.HttpContext;
-import com.sun.jersey.multipart.FormDataMultiPart;
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-/**
- * 
- * @author re-cetienne
- */
-@Path("cat/os")
-public class OpenSearchInterface {
+import com.sun.jersey.api.core.HttpContext;
+import com.sun.jersey.multipart.FormDataMultiPart;
+import com.sun.org.apache.xml.internal.serialize.OutputFormat;
+import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
+
+@Path("order/getOptions")
+public class GetOptions {
 
 	/**
 	 * Map containing the URL parameters
@@ -61,7 +58,7 @@ public class OpenSearchInterface {
 	volatile HttpContext httpContext;
 
 	@GET
-	public Response getMethodParser() {
+	public Response getOptions() {
 		/*
 		 * XML file creation
 		 */
@@ -73,9 +70,9 @@ public class OpenSearchInterface {
 
 			dBuilder = dbFactory.newDocumentBuilder();
 			/*
-			 * Retrieve the description file on the computer
+			 * Retrieve the xml options file on the computer
 			 */
-			document = (Document) dBuilder.parse(new File("description.xml"));
+			document = (Document) dBuilder.parse(new File("options.xml"));
 			OutputFormat format = new OutputFormat(document);
 			/*
 			 * The XML can be collect in String format
@@ -107,7 +104,7 @@ public class OpenSearchInterface {
 	@POST
 	@Consumes(MediaType.APPLICATION_ATOM_XML)
 	// @GET
-	public Response postRequestParser(FormDataMultiPart formDataMultiPart /*String xmlrequest*/) {
+	public Response postRequestParser(FormDataMultiPart formDataMultiPart) {
 		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 	}
 }
