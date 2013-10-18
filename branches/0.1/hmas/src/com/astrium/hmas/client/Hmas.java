@@ -23,7 +23,9 @@ package com.astrium.hmas.client;
 
 import java.awt.Checkbox;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import org.gwtopenmaps.openlayers.client.Bounds;
 import org.gwtopenmaps.openlayers.client.LonLat;
@@ -43,6 +45,9 @@ import com.astrium.hmas.bean.CatalogueBean.CatalogueSearch;
 import com.astrium.hmas.bean.DownloadBean.DownloadProduct;
 import com.astrium.hmas.bean.FeasibilityBean.FeasibilityResult;
 import com.astrium.hmas.bean.FeasibilityBean.FeasibilitySearch;
+import com.astrium.hmas.bean.OrderBean.Option;
+import com.astrium.hmas.bean.OrderBean.Order;
+import com.astrium.hmas.bean.OrderBean.OrderItem;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -55,6 +60,7 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
@@ -2416,88 +2422,284 @@ public class Hmas implements EntryPoint {
 		/**************** SHOPCART PANEL ***************/
 
 		/*
+		 * The order to submit
+		 */
+		final Order order = new Order();
+		final List<OrderItem> orderItems = order.getOrderItemList();
+
+		/*
 		 * Download the selected product by clicking on the "start" button ->
 		 * FieldUpdater
 		 */
 		mainPanel.shopcartPanel.shopcartListPanel.shopcart_list_panel_download_column.setFieldUpdater(new FieldUpdater<DownloadProduct, String>() {
 			@Override
-			public void update(final int index, DownloadProduct object, String value) {
+			public void update(final int index, final DownloadProduct object, String value) {
 				// The user clicked on the button for the passed auction.
 
+				mainPanel.shopcartPanel.shopcartListPanel.getGetOptionsService().getOptions(object, new AsyncCallback<Map<String, Option>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						System.out.println("get options failed");
+					}
+
+					@Override
+					public void onSuccess(Map<String, Option> optionsResult) {
+						// TODO Auto-generated method stub
+						System.out.println("get option succeded");
 
 						/*
-						 * Open a dialog box to see the different available options for the product to choose
+						 * Open a dialog box to see the different available
+						 * options for the product to choose
 						 */
 						final DialogBox dialogBox = new DialogBox();
 						dialogBox.ensureDebugId("cwDialogBox");
 						dialogBox.setText("Options");
-						//dialogBox.setPixelSize(250, 250);
+						// dialogBox.setPixelSize(250, 250);
+
+						/*
+						 * Create a table to layout the content
+						 */
+						AbsolutePanel dialogContents = new AbsolutePanel();
+						dialogContents.setWidth("300px");
+						dialogContents.setHeight("300px");
+						dialogBox.setWidget(dialogContents);
+
+						/*
+						 * Add some text to the top of the dialog
+						 */
+						HTML title = new HTML("Available options for this product :");
+						dialogContents.add(title);
+						dialogContents.setWidgetPosition(title, 50, 5);
+
+						/*
+						 * Button to submit the request, register the chosen
+						 * options and
+						 */
+						Button closeDialogBox = new Button();
+						closeDialogBox.setText("Submit");
+						dialogContents.add(closeDialogBox);
+						dialogContents.setWidgetPosition(closeDialogBox, 230, 250);
+
+						/*
+						 * Add checkbox to choose the different options
+						 */
+						Iterator<String> iterator = optionsResult.keySet().iterator();
+
+						int i = 10;
+						int l = 0;
+
+						/*
+						 * map of all the checkboxes
+						 */
+						final Map<String, List<CheckBox>> checkbox_list = new HashMap<String, List<CheckBox>>();
+
+						while (iterator.hasNext()) {
+
+							i = i + l + 20;
+							String key = (String) iterator.next();
+							/*
+							 * Get each object of the response
+							 */
+							Option value = (Option) optionsResult.get(key);
+
+							// label
+							HTML label = new HTML(value.getIdentifier());
+							dialogContents.add(label, 10, i);
+							/*
+							 * list of all the different possible options
+							 */
+							List<String> tokens = value.getAllowedTokens();
+							/*
+							 * transform the map to a list of checkboxes
+							 */
+							List<CheckBox> tokensCheckBox_list = new ArrayList<CheckBox>();
+							l = 0;
+							for (int k = 0; k < tokens.size(); k++) {
+								// checkbox
+								CheckBox opt = new CheckBox(tokens.get(k));
+								tokensCheckBox_list.add(opt);
+								dialogContents.add(opt, 200, i + l);
+								l = l + 20;
+							}
+
+							checkbox_list.put(value.getName(), tokensCheckBox_list);
+
+						}
+
+						// final List<OrderItem> orderItemList = new
+						// ArrayList<OrderItem>();
 						
 						/*
-						 *  Create a table to layout the content
+						 * Add a lister on the button to close the dialog box
 						 */
-					    AbsolutePanel dialogContents = new AbsolutePanel();
-					    dialogContents.setWidth("300px");
-					    dialogContents.setHeight("300px");
-					    dialogBox.setWidget(dialogContents);
-					    
-					    /*
-					     * Add some text to the top of the dialog
-					     */
-					    HTML title = new HTML("Available options for this product :");
-					    dialogContents.add(title);
-					    dialogContents.setWidgetPosition(title, 50, 5);
-					    
-					    /*
-					     * Button to submit the request, register the chosen options and 
-					     */
-					    Button closeDialogBox = new Button();
-					    closeDialogBox.setText("Submit");
-					    dialogContents.add(closeDialogBox);
-					    dialogContents.setWidgetPosition(closeDialogBox, 230, 250);
-					    
-					    /*
-					     * Add checkbox to choose the different options
-					     */
-					    HTML processingLevelLabel = new HTML("Processing Level");
-					    CheckBox processingLevelOptions = new CheckBox("1B");
-					    dialogContents.add(processingLevelOptions, 200,30);
-					    dialogContents.add(processingLevelLabel,10,30);
-					    
-					    HTML productTypeLabel = new HTML("Product Type");
-					    CheckBox productTypeOptions = new CheckBox("ASA_IMG_1P");
-					    dialogContents.add(productTypeOptions, 200,50);
-					    dialogContents.add(productTypeLabel,10,50);
-					    
-					    HTML qualityOfServiceLabel = new HTML("Quality of service");
-					    final CheckBox qualityOfServiceOptions1 = new CheckBox("Standard");
-					    final CheckBox qualityOfServiceOptions2 = new CheckBox("NRT");
-					    final CheckBox qualityOfServiceOptions3 = new CheckBox("RUSH");
-					    dialogContents.add(qualityOfServiceOptions1, 200,70);
-					    dialogContents.add(qualityOfServiceOptions2, 200,90);
-					    dialogContents.add(qualityOfServiceOptions3, 200,110);
-					    dialogContents.add(qualityOfServiceLabel,10,70);
-					    
-					    
-					    /*
-					     * Add a lister on the button to close the dialog box
-					     */
-					    closeDialogBox.addClickHandler(new ClickHandler() {
+						
+						closeDialogBox.addClickHandler(new ClickHandler() {
 							
 							@Override
 							public void onClick(ClickEvent event) {
 								// TODO Auto-generated method stub
+								/*
+								 * Options are chosen for this particular
+								 * product
+								 */
 								mainPanel.shopcartPanel.shopcartListPanel.isOptionsChosen = true;
+
 								dialogBox.hide();
-								System.out.println(qualityOfServiceOptions1.getValue());
+
+								Iterator<String> iterator = checkbox_list.keySet().iterator();
+								int lower = 10;
+								int higher = 1000;
+
+								int m = (int) (Math.random() * (higher - lower)) + lower;
+								/*
+								 * If the options of all the products have been
+								 * set, the user can submit the order
+								 */
+								int nbItem = mainPanel.shopcartPanel.shopcartListPanel.shopcart_list_panel_cellTable.getRowCount();
+
+								if (mainPanel.shopcartPanel.shopcartListPanel.optionSetted == nbItem) {
+									mainPanel.shopcartPanel.shopcartListPanel.shopcart_list_panel_order_submit_button.setEnabled(true);
+								}
+								
+								/*
+								 * Creation of a new order item
+								 */
+								OrderItem item = new OrderItem();
+								item.setItemID("item_" + m);
+								item.setProductID(object.getId());
+
+								/*
+								 * All the options set for this item
+								 */
+								while (iterator.hasNext()) {
+
+									/*
+									 * List of the set options for this
+									 * particular item
+									 */
+									Map<String, String> itemOptions = item.getOptions();
+
+									String options_string = "";
+									String key = (String) iterator.next();
+
+									List<CheckBox> checkList = checkbox_list.get(key);
+
+									for (int i = 0; i < checkList.size(); i++) {
+										/*
+										 * All the chosen options for a
+										 * parameter
+										 */
+										CheckBox opt = checkList.get(i);
+										if (opt.getValue() == true) {
+											options_string += opt.getText();
+
+										}
+
+									}
+									itemOptions.put(key, options_string);
+									item.setOptions(itemOptions);
+
+									
+								}
+								orderItems.add(item);
 								mainPanel.shopcartPanel.shopcartListPanel.shopcart_list_panel_cellTable.redrawRow(index);
+
+								
 							}
+
 						});
+
+						for (OrderItem item : order.orderItemList) {
+							System.out.println(item.productID);
+						}
 
 						dialogBox.center();
 						dialogBox.show();
 
-					
+					}
+
+				});
+
+			}
+		});
+
+		mainPanel.shopcartPanel.shopcartListPanel.shopcart_list_panel_order_submit_button.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				mainPanel.shopcartPanel.shopcartListPanel.getSubmitOrderService().submitOrder(order, new AsyncCallback<String>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						System.out.println("Fail submit order");
+
+					}
+
+					@Override
+					public void onSuccess(String result) {
+						// TODO Auto-generated method stub
+						System.out.println("Success submit order");
+						
+						/*
+						 * Open a dialog box that informs the user
+						 * that his order has been submitted
+						 */
+						final DialogBox dialogBox = new DialogBox();
+						dialogBox.ensureDebugId("cwDialogBox");
+						dialogBox.setText("Submitted Order");
+						
+						/*
+						 * Create a table to layout the content
+						 */
+						AbsolutePanel dialogContents = new AbsolutePanel();
+						dialogContents.setWidth("500px");
+						dialogContents.setHeight("200px");
+						dialogBox.setWidget(dialogContents);
+						/*
+						 * Add some text to the top of the dialog
+						 */
+						HTML orderAccepted = new HTML("Your order has been submitted and accepted");
+						dialogContents.add(orderAccepted);
+						dialogContents.setWidgetPosition(orderAccepted, 50, 5);
+						
+						Label xml = new Label(result);
+						dialogContents.add(xml);
+						dialogContents.setWidgetPosition(xml, 10, 50);
+
+						/*
+						 * Button to submit the request, register the chosen
+						 * options and
+						 */
+						Button closeDialogBox = new Button();
+						closeDialogBox.setText("Submit");
+						dialogContents.add(closeDialogBox);
+						dialogContents.setWidgetPosition(closeDialogBox, 430, 150);
+						
+						/*
+						 * 
+						 */
+						closeDialogBox.addClickHandler(new ClickHandler() {
+
+							@Override
+							public void onClick(ClickEvent event) {
+								// TODO Auto-generated method stub
+								dialogBox.hide();
+								mainPanel.mainTab.getTabBar().selectTab(3);
+								mainPanel.orderPanel.order_panel_tab.getTabBar().selectTab(0);
+								
+								mainPanel.orderPanel.orderListPanel.updateOrderList();
+							}});
+						
+						dialogBox.center();
+						dialogBox.show();
+
+					}
+				});
+
 			}
 		});
 

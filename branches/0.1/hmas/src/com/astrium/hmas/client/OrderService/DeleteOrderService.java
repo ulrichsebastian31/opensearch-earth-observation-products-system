@@ -1,9 +1,6 @@
 package com.astrium.hmas.client.OrderService;
 
-import java.util.Map;
-
-import com.astrium.hmas.bean.DownloadBean.DownloadProduct;
-import com.astrium.hmas.bean.OrderBean.Option;
+import com.astrium.hmas.bean.OrderBean.Order;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -11,9 +8,9 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * --------------------------------------------------------------------------------------------------------
  *   Project                                            :               HMA-S
  * --------------------------------------------------------------------------------------------------------
- *   File Name                                          :               GetOptionsService.java
+ *   File Name                                          :               DeleteOrderService.java
  *   File Type                                          :               Source Code
- *   Description                                        :               GetOptions for ordering Service interface
+ *   Description                                        :               Cancel an Order service interface
  *
  * --------------------------------------------------------------------------------------------------------
  *
@@ -25,8 +22,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  *             writing by this Company.
  * --------------------------------------------------------------------------------------------------------
  */
-@RemoteServiceRelativePath("getOptions")
-public interface GetOptionsService extends RemoteService{
-	public Map<String,Option> getOptions(DownloadProduct downloadProduct) throws IllegalArgumentException;
+@RemoteServiceRelativePath("deleteOrder")
+public interface DeleteOrderService extends RemoteService{
 
+	public void deleteOrder(Order order) throws IllegalArgumentException;
 }

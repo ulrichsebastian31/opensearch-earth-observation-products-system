@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.astrium.hmas.bean.DownloadBean.DownloadProduct;
 import com.astrium.hmas.bean.OrderBean.Option;
+import com.astrium.hmas.bean.OrderBean.Order;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -11,9 +12,10 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * --------------------------------------------------------------------------------------------------------
  *   Project                                            :               HMA-S
  * --------------------------------------------------------------------------------------------------------
- *   File Name                                          :               GetOptionsService.java
+ *   File Name                                          :               SubmitOrderService.java
  *   File Type                                          :               Source Code
- *   Description                                        :               GetOptions for ordering Service interface
+ *   Description                                        :               Submit Order Service for ordering Service
+ *   																	interface
  *
  * --------------------------------------------------------------------------------------------------------
  *
@@ -25,8 +27,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  *             writing by this Company.
  * --------------------------------------------------------------------------------------------------------
  */
-@RemoteServiceRelativePath("getOptions")
-public interface GetOptionsService extends RemoteService{
-	public Map<String,Option> getOptions(DownloadProduct downloadProduct) throws IllegalArgumentException;
 
+@RemoteServiceRelativePath("submitOrder")
+public interface SubmitOrderService extends RemoteService {
+	public String submitOrder(Order order) throws IllegalArgumentException;
 }

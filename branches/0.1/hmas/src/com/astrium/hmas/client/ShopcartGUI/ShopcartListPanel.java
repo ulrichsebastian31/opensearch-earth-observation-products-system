@@ -21,6 +21,10 @@ package com.astrium.hmas.client.ShopcartGUI;
  * --------------------------------------------------------------------------------------------------------
  */
 import com.astrium.hmas.bean.DownloadBean.DownloadProduct;
+import com.astrium.hmas.client.OrderService.GetOptionsService;
+import com.astrium.hmas.client.OrderService.GetOptionsServiceAsync;
+import com.astrium.hmas.client.OrderService.SubmitOrderService;
+import com.astrium.hmas.client.OrderService.SubmitOrderServiceAsync;
 import com.astrium.hmas.client.ShopcartService.OrderService;
 import com.astrium.hmas.client.ShopcartService.OrderServiceAsync;
 import com.google.gwt.cell.client.ButtonCell;
@@ -45,7 +49,7 @@ public class ShopcartListPanel extends Composite implements HasText {
 	private static ShopcartListPanelUiBinder uiBinder = GWT.create(ShopcartListPanelUiBinder.class);
 	@UiField(provided = true)
 	/*
-	 * Table in which the products to dowload will be displayed
+	 * Table in which the products to order will be displayed
 	 */
 	public CellTable<DownloadProduct> shopcart_list_panel_cellTable = new CellTable<DownloadProduct>();
 	/*
@@ -58,14 +62,26 @@ public class ShopcartListPanel extends Composite implements HasText {
 	 */
 	public Column<DownloadProduct, String> shopcart_list_panel_download_column;
 	/*
-	 * Boolean to check if the options to order a produit have been chosen
+	 * Boolean to check if the options to order a product have been chosen
 	 */
 	public boolean isOptionsChosen = false;
+	/*
+	 * Integer to count the products whose options has been set
+	 */
+	public int optionSetted = 1;
 
 	/*
 	 * Order Service
 	 */
 	private final OrderServiceAsync orderService = GWT.create(OrderService.class);
+	/*
+	 * Get Options service
+	 */
+	private final GetOptionsServiceAsync getOptionsService = GWT.create(GetOptionsService.class);
+	/*
+	 * Submit Order service
+	 */
+	private final SubmitOrderServiceAsync submitOrderService = GWT.create(SubmitOrderService.class);
 
 	/*
 	 * and its Getter
@@ -73,6 +89,17 @@ public class ShopcartListPanel extends Composite implements HasText {
 	public OrderServiceAsync getOrderService() {
 		return orderService;
 	}
+
+	public GetOptionsServiceAsync getGetOptionsService() {
+		return getOptionsService;
+	}
+
+	public SubmitOrderServiceAsync getSubmitOrderService() {
+		return submitOrderService;
+	}
+
+
+
 
 	interface ShopcartListPanelUiBinder extends UiBinder<Widget, ShopcartListPanel> {
 	}
@@ -101,7 +128,15 @@ public class ShopcartListPanel extends Composite implements HasText {
 
 			@Override
 			public String getValue(DownloadProduct object) {
-				return isOptionsChosen ? "http://www.clker.com/cliparts/e/2/a/d/1206574733930851359Ryan_Taylor_Green_Tick.svg.hi.png" : "http://www.clker.com/cliparts/d/9/y/V/R/R/red-cross-hi.png";
+				if (isOptionsChosen) {
+					
+					optionSetted = optionSetted + 1;
+					return "http://www.clker.com/cliparts/e/2/a/d/1206574733930851359Ryan_Taylor_Green_Tick.svg.hi.png";
+					
+				} else { 
+					
+					return "http://www.clker.com/cliparts/d/9/y/V/R/R/red-cross-hi.png";
+				}
 			}
 		};
 
@@ -126,12 +161,12 @@ public class ShopcartListPanel extends Composite implements HasText {
 		/*
 		 * Name and size settings
 		 */
-		shopcart_list_panel_cellTable.addColumn(shopcart_list_panel_download_column, "Download");
+		shopcart_list_panel_cellTable.addColumn(shopcart_list_panel_download_column, "Order");
 		shopcart_list_panel_cellTable.setColumnWidth(shopcart_list_panel_download_column, 40, Unit.PX);
 
 		/*
 		 * Column which informs on the name of the platform's product to
-		 * downlaod
+		 * Download
 		 */
 		TextColumn<DownloadProduct> nameColumn = new TextColumn<DownloadProduct>() {
 			@Override
@@ -172,7 +207,7 @@ public class ShopcartListPanel extends Composite implements HasText {
 
 		/*
 		 * Column which informs on the date of the acquisition's product to
-		 * downlaod
+		 * Download
 		 */
 		TextColumn<DownloadProduct> dateColumn = new TextColumn<DownloadProduct>() {
 			@Override

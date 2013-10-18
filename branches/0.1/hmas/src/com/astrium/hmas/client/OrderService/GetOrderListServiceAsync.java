@@ -2,18 +2,17 @@ package com.astrium.hmas.client.OrderService;
 
 import java.util.Map;
 
-import com.astrium.hmas.bean.DownloadBean.DownloadProduct;
-import com.astrium.hmas.bean.OrderBean.Option;
-import com.google.gwt.user.client.rpc.RemoteService;
-import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.astrium.hmas.bean.OrderBean.Order;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
  * --------------------------------------------------------------------------------------------------------
  *   Project                                            :               HMA-S
  * --------------------------------------------------------------------------------------------------------
- *   File Name                                          :               GetOptionsService.java
+ *   File Name                                          :               GetOrderListService.java
  *   File Type                                          :               Source Code
- *   Description                                        :               GetOptions for ordering Service interface
+ *   Description                                        :               Get the list of all Order submitted
+ *   																	Service asynchronous interface
  *
  * --------------------------------------------------------------------------------------------------------
  *
@@ -25,8 +24,9 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  *             writing by this Company.
  * --------------------------------------------------------------------------------------------------------
  */
-@RemoteServiceRelativePath("getOptions")
-public interface GetOptionsService extends RemoteService{
-	public Map<String,Option> getOptions(DownloadProduct downloadProduct) throws IllegalArgumentException;
+
+public interface GetOrderListServiceAsync {
+
+	void getOrders(AsyncCallback<Map<String, Order>> callback);
 
 }

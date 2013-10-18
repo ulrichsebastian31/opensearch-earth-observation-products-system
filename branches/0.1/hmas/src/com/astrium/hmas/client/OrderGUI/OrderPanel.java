@@ -1,13 +1,12 @@
-package com.astrium.hmas.client;
-
+package com.astrium.hmas.client.OrderGUI;
 /**
  * --------------------------------------------------------------------------------------------------------
  *   Project                                            :               HMA-S
  * --------------------------------------------------------------------------------------------------------
- *   File Name                                          :               MainPanel.java
+ *   File Name                                          :               OrderPanel.java
  *   File Type                                          :               Source Code
- *   Description                                        :               Main Panel which handles all the sub-
- *   																	panels and features of the application
+ *   Description                                        :               This class describes the panel which
+ *   																	contains the Ordering feature
  *
  * --------------------------------------------------------------------------------------------------------
  *
@@ -19,12 +18,6 @@ package com.astrium.hmas.client;
  *             writing by this Company.
  * --------------------------------------------------------------------------------------------------------
  */
-
-import com.astrium.hmas.client.CatalogueGUI.CataloguePanel;
-import com.astrium.hmas.client.DownloadGUI.DownloadPanel;
-import com.astrium.hmas.client.FeasibilityGUI.FeasibilityPanel;
-import com.astrium.hmas.client.OrderGUI.OrderPanel;
-import com.astrium.hmas.client.ShopcartGUI.ShopcartPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -37,46 +30,41 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.TabPanel;
 
-public class MainPanel extends Composite implements HasText {
+public class OrderPanel extends Composite implements HasText {
 
-	private static MainPanelUiBinder uiBinder = GWT
-			.create(MainPanelUiBinder.class);
-	@UiField TabPanel mainTab;
-	/*
-	 * the MainPanel contains all the features panels
-	 */
-	public CataloguePanel cataloguePanel = new CataloguePanel();
-	public FeasibilityPanel feasibilityPanel = new FeasibilityPanel();
-	public ShopcartPanel shopcartPanel = new ShopcartPanel();
-	public DownloadPanel downloadPanel = new DownloadPanel();
-	public OrderPanel orderPanel = new OrderPanel();
+	private static OrderPanelUiBinder uiBinder = GWT.create(OrderPanelUiBinder.class);
+	@UiField public TabPanel order_panel_tab;
 	
+	/*
+	 * ShopcartPanel contains one tab -> ShopcartListPanel
+	 */
+	public OrderListPanel orderListPanel = new OrderListPanel();
 
-	interface MainPanelUiBinder extends UiBinder<Widget, MainPanel> {
+	interface OrderPanelUiBinder extends UiBinder<Widget, OrderPanel> {
 	}
 
 	/*
-	 * MainPanel constructor
+	 * Order Panel constructor
 	 */
-	public MainPanel() {
+	public OrderPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
 		/*
-		 * Give the different tabs a name
+		 * tab settings
 		 */
-		mainTab.add(cataloguePanel, "Catalogue Search");
-		mainTab.add(feasibilityPanel, "Tasking Feasibility");
-		mainTab.add(shopcartPanel, "Shopcart");
-		mainTab.add(orderPanel, "Order");
-		mainTab.add(downloadPanel, "Download");
-		
+		order_panel_tab.add(orderListPanel, "List");
+		order_panel_tab.setWidth("450px");
 	}
 
 
-	public MainPanel(String firstName) {
+
+	public OrderPanel(String firstName) {
 		initWidget(uiBinder.createAndBindUi(this));
+
 	}
+
 
 	public void setText(String text) {
+
 	}
 
 	public String getText() {

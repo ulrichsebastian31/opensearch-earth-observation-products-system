@@ -1,9 +1,22 @@
 package com.astrium.hmas.server.OrderService;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.core.MultivaluedMap;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.astrium.hmas.bean.CatalogueBean.CatalogueResult;
 import com.astrium.hmas.bean.DownloadBean.DownloadProduct;
@@ -76,6 +89,85 @@ public class GetOptionsServiceImpl extends RemoteServiceServlet implements GetOp
 		 * The object where we will put the results from the XML response
 		 */
 		Map<String, Option> options = new HashMap<String, Option>();
+
+		try {
+			/*
+			 * ********************** XML RESPONSE PARSING ********************
+			 */
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder;
+			
+			dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(new InputSource(new ByteArrayInputStream(s.getBytes("utf-8"))));
+
+			doc.getDocumentElement().normalize();
+			
+			/*
+			 * Recover the options group
+			 */
+			Element optionsGroup = (Element) doc.getElementsByTagName("roseo:OrderOptionGroup").item(0);
+			
+			NodeList optionsList = optionsGroup.getElementsByTagName("oseo:option");
+			
+			if (optionsList != null && optionsList.getLength() > 0) {
+
+				for (int i = 0; i < optionsList.getLength(); i++) {
+					
+					Option opt = new Option();
+					
+					Element optionElmt = (Element) optionsList.item(i);
+					
+					Element dataRecord = (Element) optionElmt.getElementsByTagName("swe:DataRecord").item(0);
+					Element field = (Element) dataRecord.getElementsByTagName("swe:field").item(0);
+					String name = field.getAttribute("name");
+					
+					opt.setName(name);
+					
+					Element category = (Element) field.getElementsByTagName("swe:Category").item(0);
+					Element identifier = (Element) category.getElementsByTagName("swe:identifier").item(0);
+					String idtxt = identifier.getChildNodes().item(0).getNodeValue();
+					
+					opt.setIdentifier(idtxt);
+					
+					Element constraint = (Element) category.getElementsByTagName("swe:constraint").item(0);
+					Element  allowedTokens = (Element) constraint.getElementsByTagName("swe:AllowedTokens").item(0);
+					NodeList tokenListElement = allowedTokens.getElementsByTagName("swe:value");
+					
+					List<String> tokenList = opt.getAllowedTokens();
+					
+					if (tokenListElement != null && tokenListElement.getLength() > 0) {
+
+						for (int j = 0; j < tokenListElement.getLength(); j++) {
+							
+							Element token = (Element) tokenListElement.item(j);
+							String tokentxt = token.getChildNodes().item(0).getNodeValue();
+							
+							tokenList.add(tokentxt);
+							
+						}
+						
+					}
+					
+					options.put(String.valueOf(i), opt);
+				}
+			}
+			
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+
 		
 		
 		return options;
