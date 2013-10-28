@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
+  xmlns:eo="http://a9.com/-/opensearch/extensions/eo/1.0/"                     
+	xmlns:geo="http://a9.com/-/opensearch/extensions/geo/1.0/"
+  xmlns:time="http://a9.com/-/opensearch/extensions/time/1.0/"                                          
+  xmlns:eosp="http://a9.com/-/opensearch/extensions/eosp/1.0/">
+   <ShortName>EO Feasibility</ShortName>
+   <Description>This search engine permits to retrieve feasibility results for EO Satellites</Description>
+   <Tags>EO, satellite, sensor, feasibility</Tags>
+   <Contact>johndoe@example.com</Contact>
+	   
+   <Url type="application/atom+xml"
+		rel="search"
+		template="http://example.com/eosp/search?q={searchTerms}&amp;platform={eo:platform?}&amp;sensorType={eo:sensorType?}&amp;instrument={eo:instrument?}&amp;resolution={eo:resolution?}&amp;box={geo:box?}&amp;start={time:start?}&amp;end={time:end?}&amp;anglePointAz={eosp:acquisitionAnglePointAzimuth?}&amp;anglePointEl={eosp:acquisitionAnglePointElevation?}&amp;anglePointingAlong={eosp:acquisitionAnglePointingRangeAlongTrack?}&amp;anglePointingAcross={eosp:acquisitionAnglePointingRangeAcrossTrack?}&amp;instrumentMode={eo:instrumentMode?}&amp;compositeType={eosp:compositeType?}&amp;minLum={eosp:acquisitionParametersOPTMinimumLuminosity?}&amp;polMode={eosp:acquisitionParametersSARPolarizationMode?}&amp;cloudCover={eo:CloudCover?}&amp;snowCover={eo:SnowCover?}&amp;maxSunGlint={eosp:validationParametersOPTmaxSunGlint?}&amp;haze={eosp:validationParametersOPTHazeAcepted?}&amp;sandWind={eosp:validationParametersOPTSandWindAccepted?}&amp;maxNoise={eosp:validationParametersSARMaximumNoiseLevel?}&amp;maxAmbiguity={eosp:validationParametersSARMaxAmbiguityLevel?}&amp;pw={startPage?}"
+	/>
+ 
+	<Url xmlns:parameters="http://a9.com/-/spec/opensearch/extensions/parameters/1.0/"
+			type="application/atom+xml"
+			rel="search"
+			template="http://example.com/eosp/search?"
+			parameters:method="POST"
+			parameters:enctype="application/xml" >
+			<parameters:Parameter name="q" value="{searchTerms}"/>
+			<parameters:Parameter name="pw" value="{startPage?}"/>
+			<parameters:Parameter name="platform" value="{eo:platform?}"/>
+			<parameters:Parameter name="sensorType" value="{eo:sensorType?}"/>
+			<parameters:Parameter name="instrument" value="{eo:instrument?}"/>
+			<parameters:Parameter name="resolution" value="{eo:resolution?}"/>
+			<parameters:Parameter name="box" 
+					value="{geo:box?}"/>
+			<parameters:Parameter name="start" value="{time:start?}"/>
+			<parameters:Parameter name="end" value="{time:end?}"/>
+			<parameters:Parameter name="anglePointAz" 
+					value="{eosp:acquisitionAnglePointAzimuth?}"/>
+			<parameters:Parameter name="anglePointEl" 
+					value="{eosp:acquisitionAnglePointElevation?}"/>
+			<parameters:Parameter name="anglePointingAlong" 
+					value="{eosp:acquisitionAnglePointingRangeAlongTrack?}"/>
+			<parameters:Parameter name="anglePointingAcross" 
+					value="{eosp:acquisitionAnglePointingRangeAcrossTrack?}"/>
+			<parameters:Parameter name="instrumentMode" 
+					value="{eo:instrumentMode?}"/>
+	<parameters:Parameter name="compositeType" 
+			value="{eosp:compositeType?}"/>
+			<parameters:Parameter name="minLum" 
+					value="{eosp:acquisitionParametersOPTMinimumLuminosity?}"/>
+			<parameters:Parameter name="polMode" 
+					value="{eosp:acquisitionParametersSARPolarizationMode?}"/>
+			<parameters:Parameter name="cloudCover" 
+					value="{eo:CloudCover?}"/>
+			<parameters:Parameter name="snowCover" 
+					value="{eo:SnowCover?}"/>
+			<parameters:Parameter name="maxSunGlint" 
+				value="{eosp:validationParametersOPTmaxSunGlint?}"/>
+			<parameters:Parameter name="haze" 
+				value="{eosp:validationParametersOPTHazeAcepted?}"/>
+				<parameters:Parameter name="sandWind" 
+					value="{eosp:validationParametersOPTSandWindAccepted?}"/>
+			<parameters:Parameter name="maxNoise" 
+					value="{eosp:validationParametersSARMaximumNoiseLevel?}"/>	
+			<parameters:Parameter name="maxAmbiguity" 
+					value="{eosp:validationParametersSARMaxAmbiguityLevel?}}"/>
+	</Url>
+				 
+   <LongName>EO Satellite Feasibility Open Search</LongName>
+   <Developer>EO Satellite Feasibility Open Search Development Team</Developer>
+   <InputEncoding>UTF-8</InputEncoding>
+   <OutputEncoding>UTF-8</OutputEncoding>
+ </OpenSearchDescription>
