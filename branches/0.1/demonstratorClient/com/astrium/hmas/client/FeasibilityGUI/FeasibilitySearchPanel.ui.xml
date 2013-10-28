@@ -1,0 +1,222 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:AbsolutePanel height="727px" width="450" ui:field="feasibility_search_panel_absolute_panel">
+			<g:at left="10" top="10">
+				<g:TextBox text="OpenLayer url here..." ui:field="feasibility_search_panel_osurl"/>
+			</g:at>
+			<g:at left="183" top="10">
+				<g:Button width="50" ui:field="feasibility_search_panel_send_button">Send</g:Button>
+			</g:at>
+			<g:at left="-10" top="68">
+				<g:AbsolutePanel height="657px" width="450px" ui:field="feasibility_search_panel_param_panel">
+					<g:at left="10" top="10">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Area of Interest" width="107px"/>
+					</g:at>
+					<g:at left="43" top="35">
+						<g:Label height="18px" text="Upper (N/W)" width="71px"/>
+					</g:at>
+					<g:at left="43" top="59">
+						<g:Label height="18px" text="Lower (S/E)" width="68px"/>
+					</g:at>
+					<g:at left="133" top="35">
+						<g:DoubleBox height="16px" name="bbox" width="86px" ui:field="feasibility_search_panel_nwlon"/>
+					</g:at>
+					<g:at left="133" top="59">
+						<g:DoubleBox height="16px" name="bbox" width="86px" ui:field="feasibility_search_panel_selon"/>
+					</g:at>
+					<g:at left="229" top="35">
+						<g:DoubleBox height="16px" name="bbox" width="86px" ui:field="feasibility_search_panel_nwlat"/>
+					</g:at>
+					<g:at left="229" top="59">
+						<g:DoubleBox height="16px" name="bbox" width="86px" ui:field="feasibility_search_panel_selat"/>
+					</g:at>
+					<g:at left="345" top="35">
+						<g:Button height="30px" width="71px" ui:field="feasibility_search_panel_drawaoi">Draw AOI</g:Button>
+					</g:at>
+					<g:at left="10" top="99">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Acquisition Date" width="168px"/>
+					</g:at>
+					<g:at left="43" top="120">
+						<g:Label height="18px" text="Begin/End" width="60px"/>
+					</g:at>
+					<g:at left="130" top="119">
+						<g:TextBox height="7px" name="time:start" width="100px" ui:field="feasibility_search_panel_datestart"/>
+					</g:at>
+					<g:at left="286" top="120">
+						<g:TextBox height="7px" name="time:end" width="100px" ui:field="feasibility_search_panel_dateend"/>
+					</g:at>
+					<g:at left="248" top="119">
+						<g:Button height="19px" width="16px" ui:field="feasibility_search_panel_start_button"/>
+					</g:at>
+					<g:at left="402" top="120">
+						<g:Button height="19px" width="16px" ui:field="feasibility_search_panel_end_button"/>
+					</g:at>
+					<g:at left="10" top="162">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Platform" width="107px"/>
+					</g:at>
+					<g:at left="107" top="159">
+						<g:ListBox height="22px" name="eo:platform" visibleItemCount="1" width="71px" ui:field="feasibility_search_panel_platform"/>
+					</g:at>
+					<g:at left="256" top="162">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Instrument" width="107px"/>
+					</g:at>
+					<g:at left="369" top="162">
+						<g:ListBox height="22px" name="eo:instrument" visibleItemCount="1" width="71px" ui:field="feasibility_search_panel_instrument"/>
+					</g:at>
+					<g:at left="10" top="200">
+						<g:Label height="19px" styleName="gwt-Label-main" text="Sensor Type" width="107px"/>
+					</g:at>
+					<g:at left="107" top="197">
+						<g:ListBox height="22px" name="eo:sensorType" visibleItemCount="1" width="71px" ui:field="feasibility_search_panel_sensorType"/>
+					</g:at>
+					<g:at left="345" top="35">
+						<g:Button height="30px" text="Stop" width="71px" ui:field="feasibility_search_panel_drawaoiStop"/>
+					</g:at>
+					<g:at left="10" top="572">
+						<g:AbsolutePanel height="82px" width="440px">
+					<g:at left="345" top="10">
+						<g:Button height="30px" text="Send request" width="95px" ui:field="feasibility_search_panel_send_request_button">Submit</g:Button>
+					</g:at>
+				</g:AbsolutePanel>
+					</g:at>
+					<g:at left="32" top="245">
+						<g:TabPanel width="384px" height="288px">
+							<g:Tab text="Acquisition Parameters">
+								<g:AbsolutePanel width="366px" height="236px">
+									<g:at left="10" top="10">
+										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Azimuth"/>
+									</g:at>
+									<g:at left="10" top="35">
+										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Elevation"/>
+									</g:at>
+									<g:at left="147" top="10">
+										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_azimuthMin"/>
+									</g:at>
+									<g:at left="242" top="10">
+										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_azimuthMax"/>
+									</g:at>
+									<g:at left="147" top="34">
+										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_elevationMin"/>
+									</g:at>
+									<g:at left="242" top="34">
+										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_elevationMax"/>
+									</g:at>
+									<g:at left="10" top="60">
+										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Track along"/>
+									</g:at>
+									<g:at left="10" top="85">
+										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Track across"/>
+									</g:at>
+									<g:at left="10" top="110">
+										<g:Label width="175px" height="19px" styleName="gwt-Label-main" text="Minimum Luminosity"/>
+									</g:at>
+									<g:at left="147" top="59">
+										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_trackalongMin"/>
+									</g:at>
+									<g:at left="242" top="59">
+										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_trackalongMax"/>
+									</g:at>
+									<g:at left="147" top="84">
+										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_trackacrossMin"/>
+									</g:at>
+									<g:at left="242" top="84">
+										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_trackacrossMax"/>
+									</g:at>
+									<g:at left="242" top="109">
+										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_minLuminosity"/>
+									</g:at>
+									<g:at left="10" top="135">
+										<g:Label width="175px" height="19px" styleName="gwt-Label-main" text="Polarization Mode"/>
+									</g:at>
+									<g:at left="10" top="160">
+										<g:Label width="139px" height="19px" styleName="gwt-Label-main" text="Composite Type"/>
+									</g:at>
+									<g:at left="10" top="192">
+										<g:Label width="139px" height="19px" styleName="gwt-Label-main" text="Coverage Type"/>
+									</g:at>
+									<g:at left="260" top="161">
+										<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_compositeType"/>
+									</g:at>
+									<g:at left="260" top="189">
+										<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_coverageType"/>
+									</g:at>
+									<g:at left="260" top="135">
+										<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_polarization"/>
+									</g:at>
+								</g:AbsolutePanel>
+							</g:Tab>
+							<g:Tab text="Validation Parameters">
+								<g:AbsolutePanel width="373px" height="249px">
+									<g:at left="10" top="10">
+										<g:Label width="152px" height="19px" styleName="gwt-Label-main" text="Maximum Sun Glint"/>
+									</g:at>
+									<g:at left="10" top="35">
+										<g:Label width="152px" height="19px" styleName="gwt-Label-main" text="Haze Accepted"/>
+									</g:at>
+									<g:at left="10" top="60">
+										<g:Label width="152px" height="19px" styleName="gwt-Label-main" text="Sand Wind Accepted"/>
+									</g:at>
+									<g:at left="10" top="85">
+										<g:Label width="152px" height="19px" styleName="gwt-Label-main" text="Maximum Noise Level"/>
+									</g:at>
+									<g:at left="10" top="110">
+										<g:Label width="190px" height="19px" styleName="gwt-Label-main" text="Maximum Ambiguity Level"/>
+									</g:at>
+									<g:at left="10" top="135">
+										<g:Label width="152px" height="19px" styleName="gwt-Label-main" text="Resolution"/>
+									</g:at>
+									<g:at left="10" top="160">
+										<g:Label width="152px" height="19px" styleName="gwt-Label-main" text="Cloud Coverage"/>
+									</g:at>
+									<g:at left="10" top="185">
+										<g:Label width="152px" height="19px" styleName="gwt-Label-main" text="Snow Coverage"/>
+									</g:at>
+									<g:at left="292" top="35">
+										<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_haze"/>
+									</g:at>
+									<g:at left="292" top="57">
+										<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_sandwind"/>
+									</g:at>
+									<g:at left="274" top="85">
+										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_noiseLevel"/>
+									</g:at>
+									<g:at left="274" top="109">
+										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_ambiguityLevel"/>
+									</g:at>
+									<g:at left="274" top="10">
+										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_sunglint"/>
+									</g:at>
+									<g:at left="274" top="160">
+										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_cloud"/>
+									</g:at>
+									<g:at left="274" top="185">
+										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_snow"/>
+									</g:at>
+									<g:at left="292" top="132">
+										<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_resolution"/>
+									</g:at>
+								</g:AbsolutePanel>
+							</g:Tab>
+						</g:TabPanel>
+					</g:at>
+					<g:at left="256" top="200">
+						<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Sensor Mode"/>
+					</g:at>
+					<g:at left="369" top="197">
+						<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_sensorMode"/>
+					</g:at>
+				</g:AbsolutePanel>
+			</g:at>
+			<g:at left="279" top="10">
+				<g:Button ui:field="feasibility_search_panel_see_description_button">See Description File</g:Button>
+			</g:at>
+		</g:AbsolutePanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 
