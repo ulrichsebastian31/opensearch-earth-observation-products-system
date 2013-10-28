@@ -14,6 +14,9 @@
 			<g:at left="357" top="676">
 				<g:Button ui:field="shopcart_list_panel_order_submit_button">Order</g:Button>
 			</g:at>
+			<g:at left="25" top="676">
+				<g:Button ui:field="shopcart_list_panel_getOptions" text="GetOptions"/>
+			</g:at>
 		</g:AbsolutePanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

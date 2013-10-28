@@ -57,6 +57,8 @@ public class ShopcartListPanel extends Composite implements HasText {
 	 */
 	@UiField
 	public Button shopcart_list_panel_order_submit_button;
+	@UiField
+	public Button shopcart_list_panel_getOptions;
 	/*
 	 * Button column to be able to pass the URI product to the Download panel
 	 */
@@ -98,9 +100,6 @@ public class ShopcartListPanel extends Composite implements HasText {
 		return submitOrderService;
 	}
 
-
-
-
 	interface ShopcartListPanelUiBinder extends UiBinder<Widget, ShopcartListPanel> {
 	}
 
@@ -111,14 +110,16 @@ public class ShopcartListPanel extends Composite implements HasText {
 		initWidget(uiBinder.createAndBindUi(this));
 
 		shopcart_list_panel_cellTable.getElement().getStyle().setOverflow(Overflow.AUTO);
-		
+
 		/*
-		 * The Order button is disable as long as the user hasn't choose the options for each produit in his shopcart
+		 * The Order button is disable as long as the user hasn't choose the
+		 * options for each produit in his shopcart
 		 */
 		shopcart_list_panel_order_submit_button.setEnabled(false);
-		
+
 		/*
-		 * Column which tell the user if the options to order the product has been set or not
+		 * Column which tell the user if the options to order the product has
+		 * been set or not
 		 */
 		Column<DownloadProduct, String> readyToOrderColumn = new Column<DownloadProduct, String>(new ClickableTextCell() {
 			public void render(Context context, SafeHtml value, SafeHtmlBuilder sb) {
@@ -129,12 +130,12 @@ public class ShopcartListPanel extends Composite implements HasText {
 			@Override
 			public String getValue(DownloadProduct object) {
 				if (isOptionsChosen) {
-					
+
 					optionSetted = optionSetted + 1;
 					return "http://www.clker.com/cliparts/e/2/a/d/1206574733930851359Ryan_Taylor_Green_Tick.svg.hi.png";
-					
-				} else { 
-					
+
+				} else {
+
 					return "http://www.clker.com/cliparts/d/9/y/V/R/R/red-cross-hi.png";
 				}
 			}

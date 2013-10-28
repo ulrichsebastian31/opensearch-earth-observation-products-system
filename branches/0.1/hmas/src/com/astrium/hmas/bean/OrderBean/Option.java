@@ -34,6 +34,7 @@ public class Option implements Serializable{
 	public String name;
 	public String identifier;
 	public List<String> allowedTokens;
+	public String xml;
 	
 	public Option() {
 		this.allowedTokens = new ArrayList<String>();
@@ -62,6 +63,15 @@ public class Option implements Serializable{
 	public void setAllowedTokens(List<String> allowedTokens) {
 		this.allowedTokens = allowedTokens;
 	}
+
+	public String getXml() {
+		return xml;
+	}
+
+	public void setXml(String xml) {
+		this.xml = xml;
+	}
+	
 	
 	
 	

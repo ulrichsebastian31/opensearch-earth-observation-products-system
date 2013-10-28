@@ -83,8 +83,8 @@ public class GetOptionsServiceImpl extends RemoteServiceServlet implements GetOp
 		/*
 		 * Get the response : the XML file
 		 */
-		String s = webResource.queryParams(queryParams).accept("application/atom+xml").get(String.class);
-		
+		String s = webResource.queryParams(queryParams).accept("text/xml").get(String.class);
+		String url = webResource.queryParams(queryParams).toString();
 		/*
 		 * The object where we will put the results from the XML response
 		 */
@@ -114,6 +114,8 @@ public class GetOptionsServiceImpl extends RemoteServiceServlet implements GetOp
 				for (int i = 0; i < optionsList.getLength(); i++) {
 					
 					Option opt = new Option();
+					
+					opt.setXml(url);
 					
 					Element optionElmt = (Element) optionsList.item(i);
 					

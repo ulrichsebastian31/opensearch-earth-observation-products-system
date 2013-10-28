@@ -2445,9 +2445,18 @@ public class Hmas implements EntryPoint {
 					}
 
 					@Override
-					public void onSuccess(Map<String, Option> optionsResult) {
+					public void onSuccess(final Map<String, Option> optionsResult) {
 						// TODO Auto-generated method stub
 						System.out.println("get option succeded");
+						
+						mainPanel.shopcartPanel.shopcartListPanel.shopcart_list_panel_getOptions.addClickHandler(new ClickHandler() {
+							
+							@Override
+							public void onClick(ClickEvent event) {
+								// TODO Auto-generated method stub
+								Window.open(optionsResult.get("0").getXml(), "xml", "xml");
+							}
+						});
 
 						/*
 						 * Open a dialog box to see the different available
@@ -2702,6 +2711,8 @@ public class Hmas implements EntryPoint {
 
 			}
 		});
+		
+		
 
 		/**************** TEST DISPLAY IMAGE ***************/
 
