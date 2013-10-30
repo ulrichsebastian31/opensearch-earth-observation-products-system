@@ -85,7 +85,7 @@ public class OpenSearchServiceImpl extends RemoteServiceServlet implements OpenS
 		/*
 		 * We register the description file for the user to see it if he wants
 		 */
-		parameters.put("description", url);
+		parameters.put("description", url + "/hmas/cat/os");
 
 		String rep = "";
 
