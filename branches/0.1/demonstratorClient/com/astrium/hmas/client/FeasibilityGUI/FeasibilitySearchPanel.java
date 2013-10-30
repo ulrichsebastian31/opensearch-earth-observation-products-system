@@ -262,7 +262,7 @@ public class FeasibilitySearchPanel extends Composite implements HasText {
 						@Override
 						public void onClick(ClickEvent event) {
 							// TODO Auto-generated method stub
-							Window.open(url, "description file", url);
+							Window.open(url + "/hmas/fas/os/description", "description file", url);
 							
 						}
 					});
