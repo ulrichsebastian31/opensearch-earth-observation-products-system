@@ -23,8 +23,13 @@ package com.astrium.hmas.client.CatalogueGUI;
  * --------------------------------------------------------------------------------------------------------
  */
 
+import java.net.InetAddress;
+import java.net.URI;
+import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.Map;
+
+import javax.ws.rs.core.Context;
 
 //import org.apache.commons.validator.UrlValidator;
 
@@ -56,6 +61,7 @@ import com.google.gwt.user.datepicker.client.DatePicker;
 import com.google.gwt.user.client.ui.DoubleBox;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
+import com.sun.jersey.api.core.HttpContext;
 
 public class CatalogueSearchPanel extends Composite implements HasText {
 
@@ -161,7 +167,8 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 	public TextBox catalogue_search_panel_acquisitionStation;
 	@UiField
 	public Button catalogue_search_panel_send_request_button;
-	@UiField Button catalogue_search_panel_see_description_button;
+	@UiField
+	Button catalogue_search_panel_see_description_button;
 
 	/*
 	 * OpenSearch service : parses the description file and sends back the
@@ -193,7 +200,7 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 		initWidget(uiBinder.createAndBindUi(this));
 		catalogue_search_absolute_panel.getElement().getStyle().setOverflow(Overflow.AUTO);
 		catalogue_search_param_panel.getElement().getStyle().setOverflow(Overflow.AUTO);
-		
+
 		catalogue_search_panel_see_description_button.setVisible(false);
 
 		/*
@@ -201,11 +208,10 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 		 */
 		catalogue_search_param_panel.setVisible(false);
 		catalogue_search_stop_drawing_button.setVisible(false);
-
 		/*
 		 * The server address is already setting in the OpenSearch URL field
 		 */
-		catalogue_search_panel_os_textbox.setValue("http://localhost:8080/hmas_server-1.0-SNAPSHOT/hmas/cat/os");
+		catalogue_search_panel_os_textbox.setValue("http://localhost:8080/hmas_server-1.0-SNAPSHOT");
 
 		/*
 		 * Adding different options to the several list box of the form
@@ -303,9 +309,9 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 					 * (result)
 					 */
 					catalogue_search_param_panel.setVisible(true);
-					
+
 					catalogue_search_panel_see_description_button.setVisible(true);
-					
+
 					/*
 					 * Click on this button to see the description file
 					 */
@@ -315,8 +321,9 @@ public class CatalogueSearchPanel extends Composite implements HasText {
 						public void onClick(ClickEvent event) {
 							// TODO Auto-generated method stub
 							Window.open(result.get("description"), "description", result.get("description"));
-							
-						}});
+
+						}
+					});
 
 					/*
 					 * If the map doesn't contain the parameter then the field

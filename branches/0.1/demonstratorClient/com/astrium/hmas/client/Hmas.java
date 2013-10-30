@@ -72,6 +72,9 @@ import com.google.gwt.view.client.SelectionChangeEvent.Handler;
  */
 public class Hmas implements EntryPoint {
 
+	
+	public static List<String> baseURLCatalogue = new ArrayList<String>();
+	public static List<String> baseURLFeasibility = new ArrayList<String>();
 	/*
 	 * The GUI is divided in 2 parts : the map (MapPanel) and the main panel
 	 * which includes all the features

@@ -169,7 +169,7 @@ public class FeasibilitySearchPanel extends Composite implements HasText {
 		feasibility_search_panel_absolute_panel.getElement().getStyle().setOverflow(Overflow.AUTO);
 		feasibility_search_panel_param_panel.getElement().getStyle().setOverflow(Overflow.AUTO);
 
-		feasibility_search_panel_osurl.setValue("http://localhost:8080/HMAS-FAS-1.0-SNAPSHOT/hmas/fas/os/description");
+		feasibility_search_panel_osurl.setValue("http://localhost:8080/HMAS-FAS-1.0-SNAPSHOT");
 		
 		feasibility_search_panel_see_description_button.setVisible(false);
 
