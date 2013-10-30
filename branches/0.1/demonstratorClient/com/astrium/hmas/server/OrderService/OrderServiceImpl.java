@@ -20,9 +20,13 @@ package com.astrium.hmas.server.OrderService;
  *             writing by this Company.
  * --------------------------------------------------------------------------------------------------------
  */
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import javax.ws.rs.core.MultivaluedMap;
 
 import com.astrium.hmas.bean.DownloadBean.DownloadProduct;
+import com.astrium.hmas.client.Hmas;
 import com.astrium.hmas.client.ShopcartService.OrderService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.sun.jersey.api.client.Client;
@@ -39,10 +43,11 @@ public class OrderServiceImpl extends RemoteServiceServlet implements OrderServi
 		 * Jersey Client creation
 		 */
 		Client client = new Client();
+		
 		/*
 		 * Call to the server
 		 */
-		WebResource webResource = client.resource("http://localhost:8080/hmas_server-1.0-SNAPSHOT/hmas/order");
+		WebResource webResource = client.resource(Hmas.baseURLCatalogue.get(0) + "/hmas/order");
 		/*
 		 * parameters map
 		 */

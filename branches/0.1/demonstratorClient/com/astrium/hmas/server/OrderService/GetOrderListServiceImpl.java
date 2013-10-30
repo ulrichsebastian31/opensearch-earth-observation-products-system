@@ -69,7 +69,7 @@ public class GetOrderListServiceImpl extends RemoteServiceServlet implements Get
 
 		try {
 			
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/osresult", "postgres", "astrium1");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/osresult", "postgres", "password");
 			st = connection.createStatement();
 			stbis = connection.createStatement();
 			

@@ -25,6 +25,8 @@ package com.astrium.hmas.server.CatalogueService;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +44,7 @@ import org.xml.sax.SAXException;
 import com.astrium.hmas.bean.Point;
 import com.astrium.hmas.bean.CatalogueBean.CatalogueResult;
 import com.astrium.hmas.bean.CatalogueBean.CatalogueSearch;
+import com.astrium.hmas.client.Hmas;
 import com.astrium.hmas.client.CatalogueService.CatalogueService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.sun.jersey.api.client.Client;
@@ -63,7 +66,7 @@ public class CatalogueServiceImpl extends RemoteServiceServlet implements Catalo
 		ClientConfig clientConfig = new DefaultClientConfig();
 		clientConfig.getProperties().put(ClientConfig.PROPERTY_READ_TIMEOUT, 30000);
 		clientConfig.getProperties().put(ClientConfig.PROPERTY_CONNECT_TIMEOUT, 30000);
-
+		
 		/*
 		 * Jersey Client creation
 		 */
@@ -71,7 +74,7 @@ public class CatalogueServiceImpl extends RemoteServiceServlet implements Catalo
 		/*
 		 * Call to the server
 		 */
-		WebResource webResource = client.resource("http://localhost:8080/hmas_server-1.0-SNAPSHOT/hmas/os");
+		WebResource webResource = client.resource(Hmas.baseURLCatalogue.get(0) + "/hmas/os");
 		/*
 		 * parameters map
 		 */

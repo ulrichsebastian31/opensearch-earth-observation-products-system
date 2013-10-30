@@ -25,13 +25,18 @@ package com.astrium.hmas.server.CatalogueService;
  */
 
 import java.io.ByteArrayInputStream;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.URI;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.ws.rs.core.Context;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -43,18 +48,22 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.astrium.hmas.client.Hmas;
 import com.astrium.hmas.client.CatalogueService.OpenSearchService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 
+
 @SuppressWarnings("serial")
 public class OpenSearchServiceImpl extends RemoteServiceServlet implements OpenSearchService {
+
 
 	public Map<String, String> getDescriptionFile(String url) throws IllegalArgumentException {
 		// URLConnectionClientHandler ch = new URLConnectionClientHandler(new
 		// ConnectionFactory());
-
+		
+		Hmas.baseURLCatalogue.add(url);
 		/*
 		 * Jersey Client creation
 		 */
@@ -62,7 +71,7 @@ public class OpenSearchServiceImpl extends RemoteServiceServlet implements OpenS
 		/*
 		 * Call to the server
 		 */
-		WebResource webResource = client.resource(url);
+		WebResource webResource = client.resource(url + "/hmas/cat/os");
 		/*
 		 * Get the response : the XML description file
 		 */

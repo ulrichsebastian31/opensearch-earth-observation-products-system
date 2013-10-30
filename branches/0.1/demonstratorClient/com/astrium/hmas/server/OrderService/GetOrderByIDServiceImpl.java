@@ -1,8 +1,12 @@
 package com.astrium.hmas.server.OrderService;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import javax.ws.rs.core.MultivaluedMap;
 
 import com.astrium.hmas.bean.OrderBean.Order;
+import com.astrium.hmas.client.Hmas;
 import com.astrium.hmas.client.OrderService.GetOrderByIDService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.sun.jersey.api.client.Client;
@@ -44,7 +48,7 @@ public class GetOrderByIDServiceImpl extends RemoteServiceServlet implements Get
 		/*
 		 * Call to the server
 		 */
-		WebResource webResource = client.resource("http://localhost:8080/hmas_server-1.0-SNAPSHOT/hmas/order/getOrderByID");
+		WebResource webResource = client.resource(Hmas.baseURLCatalogue.get(0) + "/hmas/order/getOrderByID");
 		/*
 		 * parameters map
 		 */

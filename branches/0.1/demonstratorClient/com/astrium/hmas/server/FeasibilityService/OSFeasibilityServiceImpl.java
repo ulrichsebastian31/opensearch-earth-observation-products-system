@@ -27,6 +27,8 @@ package com.astrium.hmas.server.FeasibilityService;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +45,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.astrium.hmas.bean.FeasibilityBean.Parameter;
+import com.astrium.hmas.client.Hmas;
 import com.astrium.hmas.client.FeasibilityService.OSFeasibilityService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.sun.jersey.api.client.Client;
@@ -58,10 +61,11 @@ public class OSFeasibilityServiceImpl extends RemoteServiceServlet implements OS
 		 * Jersey client creation
 		 */
 		Client client = new Client();
+		Hmas.baseURLFeasibility.add(url);
 		/*
 		 * Call to the server
 		 */
-		WebResource webResource = client.resource(url);
+		WebResource webResource = client.resource(url + "/hmas/fas/os/description");
 		/*
 		 * Get the response : the XML description file
 		 */

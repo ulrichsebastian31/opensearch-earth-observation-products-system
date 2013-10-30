@@ -22,6 +22,8 @@ package com.astrium.hmas.server.OrderService;
  * --------------------------------------------------------------------------------------------------------
  */
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +42,7 @@ import org.apache.xmlbeans.XmlObject;
 
 import com.astrium.hmas.bean.OrderBean.Order;
 import com.astrium.hmas.bean.OrderBean.OrderItem;
+import com.astrium.hmas.client.Hmas;
 import com.astrium.hmas.client.OrderService.SubmitOrderService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.sun.jersey.api.client.Client;
@@ -48,17 +51,21 @@ import com.sun.jersey.api.client.WebResource;
 @SuppressWarnings("serial")
 public class SubmitOrderServiceImpl extends RemoteServiceServlet implements SubmitOrderService {
 	
-	/*
-	 * Jersey Client creation
-	 */
-	Client client = new Client();
-	/*
-	 * Call to the server
-	 */
-	WebResource webResource = client.resource("http://localhost:8080/hmas_server-1.0-SNAPSHOT/hmas/order/submit");
+
 
 	@Override
 	public String submitOrder(Order order) throws IllegalArgumentException {
+		/*
+		 * Jersey Client creation
+		 */
+		Client client = new Client();
+		
+		/*
+		 * Call to the server
+		 */
+		
+		WebResource webResource = client.resource(Hmas.baseURLCatalogue.get(0) + "/hmas/order/submit");
+		
 		// TODO Auto-generated method stub
 		OrderDocument doc = OrderDocument.Factory.newInstance();
 		CommonOrderMonitorSpecification xml_order = doc.addNewOrder();

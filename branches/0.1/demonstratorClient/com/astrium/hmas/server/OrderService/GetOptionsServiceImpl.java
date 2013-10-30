@@ -3,6 +3,8 @@ package com.astrium.hmas.server.OrderService;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,7 @@ import org.xml.sax.SAXException;
 import com.astrium.hmas.bean.CatalogueBean.CatalogueResult;
 import com.astrium.hmas.bean.DownloadBean.DownloadProduct;
 import com.astrium.hmas.bean.OrderBean.Option;
+import com.astrium.hmas.client.Hmas;
 import com.astrium.hmas.client.OrderService.GetOptionsService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.sun.jersey.api.client.Client;
@@ -66,10 +69,11 @@ public class GetOptionsServiceImpl extends RemoteServiceServlet implements GetOp
 		 * Jersey Client creation
 		 */
 		Client client = new Client();
+		
 		/*
 		 * Call to the server
 		 */
-		WebResource webResource = client.resource("http://localhost:8080/hmas_server-1.0-SNAPSHOT/hmas/order/getOptions");
+		WebResource webResource = client.resource(Hmas.baseURLCatalogue.get(0) + "/hmas/order/getOptions");
 		/*
 		 * parameters map
 		 */

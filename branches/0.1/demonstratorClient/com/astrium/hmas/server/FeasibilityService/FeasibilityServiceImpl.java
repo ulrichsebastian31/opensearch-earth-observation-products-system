@@ -26,6 +26,8 @@ package com.astrium.hmas.server.FeasibilityService;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +47,7 @@ import org.xml.sax.SAXException;
 import com.astrium.hmas.bean.Point;
 import com.astrium.hmas.bean.FeasibilityBean.FeasibilityResult;
 import com.astrium.hmas.bean.FeasibilityBean.FeasibilitySearch;
+import com.astrium.hmas.client.Hmas;
 import com.astrium.hmas.client.FeasibilityService.FeasibilityService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.sun.jersey.api.client.Client;
@@ -57,7 +60,6 @@ public class FeasibilityServiceImpl extends RemoteServiceServlet implements Feas
 	@Override
 	public Map<String, FeasibilityResult> getResults(FeasibilitySearch feasibilitySearch) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
-
 		/*
 		 * Jersey Client creation
 		 */
@@ -65,7 +67,7 @@ public class FeasibilityServiceImpl extends RemoteServiceServlet implements Feas
 		/*
 		 * Call to the server
 		 */
-		WebResource webResource = client.resource("http://127.0.0.1:8080/HMAS-FAS-1.0-SNAPSHOT/hmas/fas/os/search");
+		WebResource webResource = client.resource(Hmas.baseURLFeasibility.get(0) + "/hmas/fas/os/search");
 		/*
 		 * parameters map
 		 */

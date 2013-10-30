@@ -28,6 +28,8 @@ package com.astrium.hmas.server.DownloadService;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -43,6 +45,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.astrium.hmas.client.Hmas;
 import com.astrium.hmas.client.DownloadService.DownloadProductService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.sun.jersey.api.client.Client;
@@ -59,10 +62,11 @@ public class DownloadProductServiceImpl extends RemoteServiceServlet implements 
 		 * Jersey Client creation
 		 */
 		Client client = new Client();
+		
 		/*
 		 * Call to the server
 		 */
-		WebResource webResource = client.resource("http://localhost:8080/hmas_server-1.0-SNAPSHOT/hmas/dw");
+		WebResource webResource = client.resource(Hmas.baseURLCatalogue.get(0) + "/hmas/dw");
 		/*
 		 * parameters map
 		 */
