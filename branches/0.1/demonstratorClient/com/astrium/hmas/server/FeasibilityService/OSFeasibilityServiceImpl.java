@@ -61,7 +61,18 @@ public class OSFeasibilityServiceImpl extends RemoteServiceServlet implements OS
 		 * Jersey client creation
 		 */
 		Client client = new Client();
-		Hmas.baseURLFeasibility.add(url);
+		if (Hmas.baseURLFeasibility.size() == 0)
+			Hmas.baseURLFeasibility.add(url);
+		else {
+			String u = Hmas.baseURLFeasibility.get(0);
+			if (u.contains("localhost") || u.contains("127.0.0.1")) {
+				if (!url.contains("localhost") && !url.contains("127.0.0.1")) {
+
+					Hmas.baseURLFeasibility.remove(0);
+					Hmas.baseURLFeasibility.add(url);
+				}
+			}
+		}
 		/*
 		 * Call to the server
 		 */

@@ -63,7 +63,19 @@ public class OpenSearchServiceImpl extends RemoteServiceServlet implements OpenS
 		// URLConnectionClientHandler ch = new URLConnectionClientHandler(new
 		// ConnectionFactory());
 		
-		Hmas.baseURLCatalogue.add(url);
+		if (Hmas.baseURLCatalogue.size() == 0)
+			Hmas.baseURLCatalogue.add(url);
+		else {
+			String u = Hmas.baseURLCatalogue.get(0);
+			if (u.contains("localhost") || u.contains("127.0.0.1")) {
+				if (!url.contains("localhost") && !url.contains("127.0.0.1")) {
+
+					Hmas.baseURLCatalogue.remove(0);
+					Hmas.baseURLCatalogue.add(url);
+				}
+			}
+		}
+
 		/*
 		 * Jersey Client creation
 		 */
