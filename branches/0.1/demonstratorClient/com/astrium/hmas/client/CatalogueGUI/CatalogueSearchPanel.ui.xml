@@ -26,16 +26,16 @@
 						<g:Label width="68px" height="18px" text="Lower (S/E)"/>
 					</g:at>
 					<g:at left="133" top="35">
-						<g:DoubleBox width="86px" height="16px" ui:field="catalogue_search_panel_nwlon" name="bbox"/>
+						<g:DoubleBox width="86px"  height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_nwlon" name="bbox"/>
 					</g:at>
 					<g:at left="133" top="59">
-						<g:DoubleBox width="86px" height="16px" ui:field="catalogue_search_panel_selon" name="bbox"/>
+						<g:DoubleBox width="86px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_selon" name="bbox"/>
 					</g:at>
 					<g:at left="229" top="35">
-						<g:DoubleBox width="86px" height="16px" ui:field="catalogue_search_panel_nwlat" name="bbox"/>
+						<g:DoubleBox width="86px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_nwlat" name="bbox"/>
 					</g:at>
 					<g:at left="229" top="59">
-						<g:DoubleBox width="86px" height="16px" ui:field="catalogue_search_panel_selat" name="bbox"/>
+						<g:DoubleBox width="86px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_selat" name="bbox"/>
 					</g:at>
 					<g:at left="345" top="35">
 						<g:Button width="71px" height="30px" ui:field="catalogue_search_draw_aoi_button">Draw AOI</g:Button>
@@ -99,7 +99,7 @@
 										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Wave Lenght"/>
 									</g:at>
 									<g:at left="265" top="39">
-										<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_waveLenght1" name="eo:wavelength"/>
+										<g:DoubleBox width="67px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_waveLenght1" name="eo:wavelength"/>
 									</g:at>
 									<g:at left="10" top="63">
 										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Spectral Range"/>
@@ -111,10 +111,10 @@
 										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Orbit Number"/>
 									</g:at>
 									<g:at left="265" top="88">
-										<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_orbitMin" name="eo:orbitNumber"/>
+										<g:DoubleBox width="67px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_orbitMin" name="eo:orbitNumber"/>
 									</g:at>
 									<g:at left="342" top="88">
-										<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_orbitMax" name="eo:orbitNumber"/>
+										<g:DoubleBox width="67px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_orbitMax" name="eo:orbitNumber"/>
 									</g:at>
 									<g:at left="10" top="115">
 										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Orbit Type"/>
@@ -132,25 +132,25 @@
 										<g:Label width="71px" height="18px" text="Along"/>
 									</g:at>
 									<g:at left="202" top="165">
-										<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_trackAlong" name="eo:track"/>
+										<g:DoubleBox width="67px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_trackAlong" name="eo:track"/>
 									</g:at>
 									<g:at left="291" top="165">
 										<g:Label width="71px" height="18px" text="Across"/>
 									</g:at>
 									<g:at left="342" top="165">
-										<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_trackAccross" name="eo:track"/>
+										<g:DoubleBox width="67px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_trackAccross" name="eo:track"/>
 									</g:at>
 									<g:at left="10" top="192">
 										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Frame"/>
 									</g:at>
 									<g:at left="262" top="191">
-										<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_frame1" name="eo:frame"/>
+										<g:DoubleBox width="67px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_frame1" name="eo:frame"/>
 									</g:at>
 									<g:at left="339" top="191">
-										<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_frame2" name="eo:frame"/>
+										<g:DoubleBox width="67px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_frame2" name="eo:frame"/>
 									</g:at>
 									<g:at left="342" top="39">
-										<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_waveLenght2" name="eo:wavelength"/>
+										<g:DoubleBox width="67px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_waveLenght2" name="eo:wavelength"/>
 									</g:at>
 									<g:at left="10" top="217">
 										<g:Label width="133px" height="19px" styleName="gwt-Label-main" text="Acquisition Type"/>
@@ -181,10 +181,10 @@
 										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Resolution"/>
 									</g:at>
 									<g:at left="267" top="11">
-										<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_resolutionMin" name="eo:resolution"/>
+										<g:DoubleBox width="67px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_resolutionMin" name="eo:resolution"/>
 									</g:at>
 									<g:at left="344" top="11">
-										<g:DoubleBox width="67px" height="16px" ui:field="catalogue_search_panel_resolutionMax" name="eo:resolution"/>
+										<g:DoubleBox width="67px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_resolutionMax" name="eo:resolution"/>
 									</g:at>
 									<g:at left="10" top="36">
 										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Identifier"/>
@@ -208,13 +208,13 @@
 										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Cloud Coverage"/>
 									</g:at>
 									<g:at left="267" top="136">
-										<g:DoubleBox width="144px" height="16px" ui:field="catalogue_search_panel_cloud" name="eo:cloudCover"/>
+										<g:DoubleBox width="144px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_cloud" name="eo:cloudCover"/>
 									</g:at>
 									<g:at left="10" top="165">
 										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Snow Coverage"/>
 									</g:at>
 									<g:at left="267" top="162">
-										<g:DoubleBox width="144px" height="16px" ui:field="catalogue_search_panel_snow" name="eo:snowCover"/>
+										<g:DoubleBox width="144px" height="16px" styleName = "gwt-DoubleBox" ui:field="catalogue_search_panel_snow" name="eo:snowCover"/>
 									</g:at>
 									<g:at left="10" top="190">
 										<g:Label width="176px" height="19px" styleName="gwt-Label-main" text="Composite Type"/>

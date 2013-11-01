@@ -26,19 +26,19 @@
 						<g:Label height="18px" text="Lower (S/E)" width="68px"/>
 					</g:at>
 					<g:at left="133" top="35">
-						<g:DoubleBox height="16px" name="bbox" width="86px" ui:field="feasibility_search_panel_nwlon"/>
+						<g:DoubleBox height="16px" name="bbox" styleName = "gwt-DoubleBox" width="86px" ui:field="feasibility_search_panel_nwlon"/>
 					</g:at>
 					<g:at left="133" top="59">
-						<g:DoubleBox height="16px" name="bbox" width="86px" ui:field="feasibility_search_panel_selon"/>
+						<g:DoubleBox height="16px" name="bbox" styleName = "gwt-DoubleBox" width="86px" ui:field="feasibility_search_panel_selon"/>
 					</g:at>
 					<g:at left="229" top="35">
-						<g:DoubleBox height="16px" name="bbox" width="86px" ui:field="feasibility_search_panel_nwlat"/>
+						<g:DoubleBox height="16px" name="bbox" styleName = "gwt-DoubleBox" width="86px" ui:field="feasibility_search_panel_nwlat"/>
 					</g:at>
 					<g:at left="229" top="59">
-						<g:DoubleBox height="16px" name="bbox" width="86px" ui:field="feasibility_search_panel_selat"/>
+						<g:DoubleBox height="16px" name="bbox" styleName = "gwt-DoubleBox" width="86px" ui:field="feasibility_search_panel_selat"/>
 					</g:at>
 					<g:at left="345" top="35">
-						<g:Button height="30px" width="71px" ui:field="feasibility_search_panel_drawaoi">Draw AOI</g:Button>
+						<g:Button height="30px" width="71px"  ui:field="feasibility_search_panel_drawaoi">Draw AOI</g:Button>
 					</g:at>
 					<g:at left="10" top="99">
 						<g:Label height="19px" styleName="gwt-Label-main" text="Acquisition Date" width="168px"/>
@@ -97,16 +97,16 @@
 										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Elevation"/>
 									</g:at>
 									<g:at left="147" top="10">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_azimuthMin"/>
+										<g:DoubleBox width="85px" height="16px" styleName = "gwt-DoubleBox" ui:field="feasibility_search_panel_azimuthMin"/>
 									</g:at>
 									<g:at left="242" top="10">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_azimuthMax"/>
+										<g:DoubleBox width="85px" height="16px" styleName = "gwt-DoubleBox" ui:field="feasibility_search_panel_azimuthMax"/>
 									</g:at>
 									<g:at left="147" top="34">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_elevationMin"/>
+										<g:DoubleBox width="85px" height="16px" styleName = "gwt-DoubleBox" ui:field="feasibility_search_panel_elevationMin"/>
 									</g:at>
 									<g:at left="242" top="34">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_elevationMax"/>
+										<g:DoubleBox width="85px" height="16px" styleName = "gwt-DoubleBox" ui:field="feasibility_search_panel_elevationMax"/>
 									</g:at>
 									<g:at left="10" top="60">
 										<g:Label width="107px" height="19px" styleName="gwt-Label-main" text="Track along"/>
@@ -118,19 +118,19 @@
 										<g:Label width="175px" height="19px" styleName="gwt-Label-main" text="Minimum Luminosity"/>
 									</g:at>
 									<g:at left="147" top="59">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_trackalongMin"/>
+										<g:DoubleBox width="85px" height="16px" styleName = "gwt-DoubleBox" ui:field="feasibility_search_panel_trackalongMin"/>
 									</g:at>
 									<g:at left="242" top="59">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_trackalongMax"/>
+										<g:DoubleBox width="85px" height="16px" styleName = "gwt-DoubleBox" ui:field="feasibility_search_panel_trackalongMax"/>
 									</g:at>
 									<g:at left="147" top="84">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_trackacrossMin"/>
+										<g:DoubleBox width="85px" height="16px" styleName = "gwt-DoubleBox" ui:field="feasibility_search_panel_trackacrossMin"/>
 									</g:at>
 									<g:at left="242" top="84">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_trackacrossMax"/>
+										<g:DoubleBox width="85px" height="16px" styleName = "gwt-DoubleBox" ui:field="feasibility_search_panel_trackacrossMax"/>
 									</g:at>
 									<g:at left="242" top="109">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_minLuminosity"/>
+										<g:DoubleBox width="85px" height="16px" styleName = "gwt-DoubleBox" ui:field="feasibility_search_panel_minLuminosity"/>
 									</g:at>
 									<g:at left="10" top="135">
 										<g:Label width="175px" height="19px" styleName="gwt-Label-main" text="Polarization Mode"/>
@@ -185,19 +185,19 @@
 										<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_sandwind"/>
 									</g:at>
 									<g:at left="274" top="85">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_noiseLevel"/>
+										<g:DoubleBox width="85px" height="16px" styleName = "gwt-DoubleBox" ui:field="feasibility_search_panel_noiseLevel"/>
 									</g:at>
 									<g:at left="274" top="109">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_ambiguityLevel"/>
+										<g:DoubleBox width="85px" height="16px" styleName = "gwt-DoubleBox" ui:field="feasibility_search_panel_ambiguityLevel"/>
 									</g:at>
 									<g:at left="274" top="10">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_sunglint"/>
+										<g:DoubleBox width="85px" height="16px" styleName = "gwt-DoubleBox" ui:field="feasibility_search_panel_sunglint"/>
 									</g:at>
 									<g:at left="274" top="160">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_cloud"/>
+										<g:DoubleBox width="85px" height="16px" styleName = "gwt-DoubleBox" ui:field="feasibility_search_panel_cloud"/>
 									</g:at>
 									<g:at left="274" top="185">
-										<g:DoubleBox width="85px" height="16px" ui:field="feasibility_search_panel_snow"/>
+										<g:DoubleBox width="85px" height="16px" styleName = "gwt-DoubleBox" ui:field="feasibility_search_panel_snow"/>
 									</g:at>
 									<g:at left="292" top="132">
 										<g:ListBox width="71px" height="22px" name="eo:sensorType" visibleItemCount="1" ui:field="feasibility_search_panel_resolution"/>
