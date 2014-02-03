@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio Developer Edition (Trial) 9.0.11.3078 (http://www.liquid-technologies.com)-->
+<xs:schema xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alt="http://www.opengis.net/alt/2.0" xmlns:geo="http://a9.com/-/opensearch/extensions/geo/1.0/" xmlns:opt="http://www.opengis.net/opt/2.0" xmlns:swe="http://www.opengis.net/swe/1.0" xmlns:om="http://www.opengis.net/om/2.0" xmlns:os="http://a9.com/-/spec/opensearch/1.1/" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:time="http://a9.com/-/opensearch/extensions/time/1.0/" xmlns:eop="http://www.opengis.net/eop/2.0" xmlns:georss="http://www.georss.org/georss" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.w3.org/2005/Atom" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:import schemaLocation="C:\tomcat\response0.xsd" namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:import schemaLocation="C:\tomcat\response2.xsd" namespace="http://a9.com/-/spec/opensearch/1.1/" />
+    <xs:import schemaLocation="C:\tomcat\response5.xsd" namespace="http://www.georss.org/georss" />
+    <xs:import schemaLocation="C:\tomcat\response7.xsd" namespace="http://purl.org/dc/elements/1.1/" />
+    <xs:import schemaLocation="C:\tomcat\response8.xsd" namespace="http://www.opengis.net/eop/2.0" />
+    <xs:element name="feed">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="title" type="xs:string" minOccurs="0" />
+                <xs:element name="subtitle" minOccurs="0">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="type" type="xs:string" use="optional" />
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="generator" minOccurs="0">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="uri" type="xs:string" use="optional" />
+                                <xs:attribute name="version" type="xs:string" use="optional" />
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="updated" type="xs:string" minOccurs="0" />
+                <xs:element name="id" type="xs:string" minOccurs="0" />
+                <xs:element name="link" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:attribute name="rel" type="xs:string" use="optional" />
+                        <xs:attribute name="type" type="xs:string" use="optional" />
+                        <xs:attribute name="href" type="xs:string" use="optional" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="os:totalResults" minOccurs="0" />
+                <xs:element ref="os:startIndex" minOccurs="0" />
+                <xs:element ref="os:itemsPerPage" minOccurs="0" />
+                <xs:element ref="os:Query" minOccurs="0" />
+                <xs:element ref="georss:where" minOccurs="0" />
+                <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="id" type="xs:string" minOccurs="0" />
+                            <xs:element name="title" type="xs:string" minOccurs="0" />
+                            <xs:element name="published" type="xs:string" minOccurs="0" />
+                            <xs:element name="updated" type="xs:string" minOccurs="0" />
+                            <xs:element ref="dc:date" minOccurs="0" />
+                            <xs:element ref="georss:where" minOccurs="0" />
+                            <xs:element name="link" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="rel" type="xs:string" use="optional" />
+                                    <xs:attribute name="type" type="xs:string" use="optional" />
+                                    <xs:attribute name="title" type="xs:string" use="optional" />
+                                    <xs:attribute name="href" type="xs:string" use="optional" />
+                                    <xs:attribute name="length" type="xs:unsignedInt" use="optional" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="content" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute name="type" type="xs:string" use="optional" />
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element ref="eop:EarthObservation" minOccurs="0" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute ref="xml:lang" use="optional" />
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
