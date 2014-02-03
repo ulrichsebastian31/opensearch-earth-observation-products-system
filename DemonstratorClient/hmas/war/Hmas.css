@@ -1,0 +1,149 @@
+/** Add css rules here for your application. */
+
+
+/** Example rules used by the template application (remove for your app) */
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+  color: #777777;
+  margin: 40px 0px 70px;
+  text-align: center;
+}
+
+.gwt-Button { 
+	background: linear-gradient(to bottom,#f3742f ,#9d5e28) !important ; 
+	}
+	
+
+
+.sendButton {
+  display: block;
+  font-size: 10pt;
+
+}
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox .Caption {
+  background: #fef5ee !important;
+  padding: 4px 8px 4px 4px;
+  cursor: default;
+  font-family: Arial Unicode MS, Arial, sans-serif;
+  font-weight: bold;
+  border-bottom: 1px solid #fbcead !important;
+  border-top: 1px solid #fbcead !important;
+}
+
+.gwt-DialogBox .dialogMiddleCenter {
+  padding: 3px;
+  background: #fef5ee !important;
+}
+
+.dialogVPanel {
+  margin: 5px;
+}
+
+.serverResponseLabelError {
+  color: red;
+}
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+#closeButton {
+  margin: 15px 6px 6px;
+}
+
+.coord4 {
+	margin-top: 30%;
+	margin-right: 30%;
+}
+.gwt-Label-main {
+	color: #9d5e28;
+	font-size: 16px;
+	font-style: normal;
+	font-family: calibri;
+	font-weight: bold;
+
+
+}
+.gwt-Label-sub {
+	color: Black;
+
+	font-size: 12pt;
+	font-family: Calibri;
+	font-weight: bolder;
+}
+.coord1 {
+	position:fixed;
+	margin-top: 30px;
+	margin-left: 100px;
+	table-layout: fixed;
+}
+
+.olMap{
+	width: 100%;
+	height: 100%;
+}
+
+.gwt-TabPanel {
+  margin-top: 4px;
+}
+
+.gwt-TabBarItem-wrapper .gwt-TabBarItem-wrapper-selected{
+    background-color: fef5ee;
+}
+
+.gwt-TabPanelBottom {
+  background-color: #fef5ee;
+}
+
+.gwt-TabBar {
+  padding-top: 2px;
+  border-bottom: 4px solid #ef752c !important;
+  background-color: #fbcead !important;
+}
+
+.gwt-TabBar .gwt-TabBarItem {
+  margin-left: 4px;
+  padding: 4px 8px 4px 8px;
+  cursor: pointer;
+  cursor: hand;
+  color: white;
+  font-weight: normal;
+  text-align: center;
+  background: #ef752c !important;
+  -moz-border-radius: 3px 3px 0px 0px;
+  border-radius: 3px 3px 0px 0px;
+}
+
+.gwt-TabBar .gwt-TabBarItem-selected {
+  padding: 4px;
+  font-weight: bold;
+  background-color: #fef5ee !important;
+  cursor: default;
+
+/*   background-color: #ef752c; */
+/*   border-bottom: 2px solid #87ffff; */
+  margin-right: 2px;
+}
+        
+
+.gwt-TextBox {
+  padding: 5px 4px;
+  border: 1px solid #fbcead !important;
+  border-top: 1px solid #fbcead !important;
+  font-size: small;
+  font-family: Arial Unicode MS, Arial, sans-serif;
+}
+
+.gwt-DoubleBox {
+  border: 1px solid #fbcead !important;
+  border-top: 1px solid #fbcead !important;
+  font-size: small;
+  font-family: Arial Unicode MS, Arial, sans-serif;
+}
+
+.gwt-ListBox {
+  border: 1px solid #fbcead !important;
+  border-top: 1px solid #fbcead !important;
+  font-size: small;
+  font-family: Arial Unicode MS, Arial, sans-serif;
+}

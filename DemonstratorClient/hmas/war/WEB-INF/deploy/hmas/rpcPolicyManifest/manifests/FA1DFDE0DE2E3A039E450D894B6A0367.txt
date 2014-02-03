@@ -1,0 +1,2 @@
+serviceClass: com.astrium.hmas.client.OrderService.GetOptionsService
+path: 5FEEC0BF8BE00C36418113FF0BC04019.gwt.rpc

@@ -1,0 +1,2 @@
+serviceClass: com.astrium.hmas.client.OrderService.GetOrderByIDService
+path: 32CB8BB95EABA9DFF0620D0B6FDCFF4B.gwt.rpc
