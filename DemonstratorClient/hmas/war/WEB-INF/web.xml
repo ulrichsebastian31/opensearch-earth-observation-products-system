@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee">
+
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>osServlet</servlet-name>
+    <servlet-class>com.astrium.hmas.server.CatalogueService.OpenSearchServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>osServlet</servlet-name>
+    <url-pattern>/hmas/os</url-pattern>
+  </servlet-mapping> 
+  
+   <servlet>
+    <servlet-name>resultServlet</servlet-name>
+    <servlet-class>com.astrium.hmas.server.CatalogueService.CatalogueServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>resultServlet</servlet-name>
+    <url-pattern>/hmas/result</url-pattern>
+  </servlet-mapping> 
+  
+  <servlet>
+    <servlet-name>osServletFeas</servlet-name>
+    <servlet-class>com.astrium.hmas.server.FeasibilityService.OSFeasibilityServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>osServletFeas</servlet-name>
+    <url-pattern>/hmas/osfeasibility</url-pattern>
+  </servlet-mapping> 
+  
+  <servlet>
+    <servlet-name>resultServletFeas</servlet-name>
+    <servlet-class>com.astrium.hmas.server.FeasibilityService.FeasibilityServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>resultServletFeas</servlet-name>
+    <url-pattern>/hmas/feasibilityResult</url-pattern>
+  </servlet-mapping> 
+  
+    <servlet>
+    <servlet-name>downloadServlet</servlet-name>
+    <servlet-class>com.astrium.hmas.server.DownloadService.DownloadProductServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>downloadServlet</servlet-name>
+    <url-pattern>/hmas/Download</url-pattern>
+  </servlet-mapping> 
+
+<servlet>
+    <servlet-name>shopcartServlet</servlet-name>
+    <servlet-class>com.astrium.hmas.server.OrderService.ShopcartServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>shopcartServlet</servlet-name>
+    <url-pattern>/hmas/shopcart</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+    <servlet-name>orderServlet</servlet-name>
+    <servlet-class>com.astrium.hmas.server.OrderService.OrderServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>orderServlet</servlet-name>
+    <url-pattern>/hmas/order</url-pattern>
+  </servlet-mapping> 
+  
+    <servlet>
+    <servlet-name>optionsServlet</servlet-name>
+    <servlet-class>com.astrium.hmas.server.OrderService.GetOptionsServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>optionsServlet</servlet-name>
+    <url-pattern>/hmas/getOptions</url-pattern>
+  </servlet-mapping>  
+  
+      <servlet>
+    <servlet-name>submitServlet</servlet-name>
+    <servlet-class>com.astrium.hmas.server.OrderService.SubmitOrderServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>submitServlet</servlet-name>
+    <url-pattern>/hmas/submitOrder</url-pattern>
+  </servlet-mapping> 
+  
+  <servlet>
+    <servlet-name>getOrdersServlet</servlet-name>
+    <servlet-class>com.astrium.hmas.server.OrderService.GetOrderListServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>getOrdersServlet</servlet-name>
+    <url-pattern>/hmas/getOrders</url-pattern>
+  </servlet-mapping>  
+  
+   <servlet>
+    <servlet-name>getOrderbyIDServlet</servlet-name>
+    <servlet-class>com.astrium.hmas.server.OrderService.GetOrderByIDServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>getOrderbyIDServlet</servlet-name>
+    <url-pattern>/hmas/getOrderByID</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+    <servlet-name>deleteOrderServlet</servlet-name>
+    <servlet-class>com.astrium.hmas.server.OrderService.DeleteOrderServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>deleteOrderServlet</servlet-name>
+    <url-pattern>/hmas/deleteOrder</url-pattern>
+  </servlet-mapping>  
+   
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>Hmas.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>

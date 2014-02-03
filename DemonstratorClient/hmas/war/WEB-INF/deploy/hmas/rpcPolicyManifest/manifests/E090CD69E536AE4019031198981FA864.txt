@@ -1,0 +1,2 @@
+serviceClass: com.astrium.hmas.client.ShopcartService.OrderService
+path: F341201B890B329FD620B83EA04E8584.gwt.rpc

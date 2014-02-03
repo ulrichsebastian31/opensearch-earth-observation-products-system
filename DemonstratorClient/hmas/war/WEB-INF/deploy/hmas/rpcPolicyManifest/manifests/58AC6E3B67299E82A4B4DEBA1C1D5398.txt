@@ -1,0 +1,2 @@
+serviceClass: com.astrium.hmas.client.OrderService.DeleteOrderService
+path: 2DECD6D14D6A2C80C366474A81CB6F41.gwt.rpc

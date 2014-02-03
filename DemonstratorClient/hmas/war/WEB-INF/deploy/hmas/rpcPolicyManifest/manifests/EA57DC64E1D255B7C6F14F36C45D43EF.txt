@@ -1,0 +1,2 @@
+serviceClass: com.astrium.hmas.client.OrderService.SubmitOrderService
+path: D77387D6D6CDB6ADB2933CE7D79FB265.gwt.rpc

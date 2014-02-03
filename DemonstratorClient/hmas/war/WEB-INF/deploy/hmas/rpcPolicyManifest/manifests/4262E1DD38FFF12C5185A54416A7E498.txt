@@ -1,0 +1,2 @@
+serviceClass: com.astrium.hmas.client.CatalogueService.CatalogueService
+path: D9E0674FE7A12BEDC1BF11AFD6E26C7B.gwt.rpc

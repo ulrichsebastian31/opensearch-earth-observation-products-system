@@ -1,0 +1,2 @@
+serviceClass: com.astrium.hmas.client.FeasibilityService.FeasibilityService
+path: 43ABB1EF2BECCE7213993E8070D21F55.gwt.rpc

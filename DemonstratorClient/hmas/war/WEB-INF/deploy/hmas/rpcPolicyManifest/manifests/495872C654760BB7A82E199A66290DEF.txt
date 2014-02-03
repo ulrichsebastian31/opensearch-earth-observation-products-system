@@ -1,0 +1,2 @@
+serviceClass: com.astrium.hmas.client.CatalogueService.OpenSearchService
+path: 30010D719807D359F82DBEC3E66F1B33.gwt.rpc
