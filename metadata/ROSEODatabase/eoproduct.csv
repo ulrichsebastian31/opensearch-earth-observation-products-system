@@ -1,0 +1,266 @@
+productid,collectionid,options,lastupdate
+e8fb3edf039b2b2253ea265b200b15e7,null,"""{
+    ""oseo:option"": {
+        ""productOrderOptionsId"": ""Level 1,Product SLC (ASA_IMS)"",
+        ""options"": [
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""processingLevel"",
+      ""templateParameter"":""prclv"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/processingLevel"",
+                            ""swe:identifier"": ""processing Level"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [""1B""]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""productType"",
+      ""templateParameter"":""prdt"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/productType"",
+                            ""swe:identifier"": ""Product Type"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [""ASA_IMS_1P""]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""qualityOfService"",
+      ""templateParameter"":""qos"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/qualityOfService"",
+                            ""swe:identifier"": ""qualityOfService"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [
+                                        ""STANDARD"",
+                                        ""NRT"",
+                                        ""RUSH""
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            }
+        ]
+    }
+}""",11/12/2013 00:00
+e8fb3edf039b2b2253ea265b200b15e8,null,"""{
+    ""oseo:option"": {
+        ""productOrderOptionsId"": ""Level 2,Product SLC (ASA_IMS)"",
+        ""options"": [
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""processingLevel"",
+      ""templateParameter"":""prclv"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/processingLevel"",
+                            ""swe:identifier"": ""processing Level"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [
+                                        ""1B"",
+                                        ""1A"",
+                                        ""2B""
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""productType"",
+      ""templateParameter"":""prdt"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/productType"",
+                            ""swe:identifier"": ""Product Type"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [
+                                        ""ASA_IMM_1P"",
+                                        ""ASA_IMS_1P"",
+                                        ""ASA_IMP_1P""
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""qualityOfService"",
+      ""templateParameter"":""qos"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/qualityOfService"",
+                            ""swe:identifier"": ""qualityOfService"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [
+                                        ""STANDARD"",
+                                        ""NRT""
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""radioCorrection"",
+      ""templateParameter"":""rcorr"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/radioCorrection"",
+                            ""swe:identifier"": ""radioCorrection"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [""pre-flight""]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""resampling"",
+      ""templateParameter"":""resamp"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/resampling"",
+                            ""swe:identifier"": ""resampling"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [""cubic convolution""]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            }
+        ]
+    }
+}""",11/09/2013 00:00
+e8fb3edf039b2b2253ea265b200b15e9,ESA.EECF.ENVISAT_ASA_IMx_xS,null,12/08/2013 00:00
+e8fb3edf039b2b2253ea265b200b15z7,ESA.EECF.ENVISAT_ASA_IMx_xS,null,12/08/2013 00:00
+f9565cf6dba885bf5e25150f936fd9c1,ESA.EECF.ENVISAT_ASA_IMx_xF,null,23/10/2013 00:00
+f9565cf6dba885cf5e25150f936fd9c1,null,"""{
+    ""oseo:option"": {
+        ""productOrderOptionsId"": ""Level 1,Product SLC (ASA_IMS)"",
+        ""options"": [
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""processingLevel"",
+      ""templateParameter"":""prclv"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/processingLevel"",
+                            ""swe:identifier"": ""processing Level"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [""1B""]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""productType"",
+      ""templateParameter"":""prdt"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/productType"",
+                            ""swe:identifier"": ""Product Type"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [""ASA_IMS_1P""]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""qualityOfService"",
+      ""templateParameter"":""qos"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/qualityOfService"",
+                            ""swe:identifier"": ""qualityOfService"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [
+                                        ""STANDARD"",
+                                        ""NRT"",
+                                        ""RUSH""
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            }
+        ]
+    }
+}""",13/08/2013 00:00
+f9565cf6dba885cf5e25150f936fd9c2,ESA.EECF.ENVISAT_ASA_IMx_xF,null,26/10/2013 00:00
+f9565cf6dba885cf5e25150f936zd9c1,ESA.EECF.ENVISAT_ASA_IMx_xF,null,13/10/2013 00:00

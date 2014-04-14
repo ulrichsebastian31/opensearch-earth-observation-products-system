@@ -1,0 +1,240 @@
+collectionid,options
+ESA.EECF.ENVISAT_ASA_IMx_xS,"""{
+    ""oseo:option"": {
+        ""productOrderOptionsId"": ""Level 3"",
+        ""options"": [
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""processingLevel"",
+      ""templateParameter"":""prclv"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/processingLevel"",
+                            ""swe:identifier"": ""processing Level"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [
+                                        ""1B"",
+                                        ""1A"",
+                                        ""2B""
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""productType"",
+      ""templateParameter"":""prdt"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/productType"",
+                            ""swe:identifier"": ""Product Type"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [
+                                        ""ASA_IMM_1P"",
+                                        ""ASA_IMS_1P"",
+                                        ""ASA_IMP_1P""
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""qualityOfService"",
+      ""templateParameter"":""qos"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/qualityOfService"",
+                            ""swe:identifier"": ""qualityOfService"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [
+                                        ""STANDARD"",
+                                        ""NRT"",
+                                        ""RUSH""
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""radioCorrection"",
+      ""templateParameter"":""rcorr"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/radioCorrection"",
+                            ""swe:identifier"": ""radioCorrection"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [""pre-flight""]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""resampling"",
+      ""templateParameter"":""resamp"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/resampling"",
+                            ""swe:identifier"": ""resampling"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [""cubic convolution""]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""format"",
+      ""templateParameter"":""frm"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/format"",
+                            ""swe:identifier"": ""format"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [
+                                        ""DIMAP"",
+                                        ""GEOTIFF""
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            }
+        ]
+    }
+}"""
+ESA.EECF.ENVISAT_ASA_IMx_xS,"""{
+    ""oseo:option"": {
+        ""productOrderOptionsId"": ""Level 3"",
+        ""options"": [
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""processingLevel"",
+      ""templateParameter"":""prclv"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/processingLevel"",
+                            ""swe:identifier"": ""processing Level"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [
+                                        ""1B"",
+                                        ""1A""
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""productType"",
+      ""templateParameter"":""prdt"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/productType"",
+                            ""swe:identifier"": ""Product Type"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [
+                                        ""ASA_IMM_1P"",
+                                        ""ASA_IMS_1P""
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""qualityOfService"",
+      ""templateParameter"":""qos"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/qualityOfService"",
+                            ""swe:identifier"": ""qualityOfService"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [
+                                        ""STANDARD"",
+                                        ""NRT"",
+                                        ""RUSH""
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            },
+            {
+                ""swe:DataRecord"": {
+                    ""swe:field"": {
+                        ""-name"": ""radioCorrection"",
+      ""templateParameter"":""rocorr"",
+                        ""swe:Category"": {
+                            ""-updatable"": ""false"",
+                            ""-optional"": ""true"",
+                            ""-definition"": ""http://www.opengis.net/def/parameter/ESA/1.0/radioCorrection"",
+                            ""swe:identifier"": ""radioCorrection"",
+                            ""swe:constraint"": {
+                                ""swe:AllowedTokens"": {
+                                    ""swe:value"": [""pre-flight""]
+                                }
+                            }
+                        }
+                    }
+                },
+                ""oseo:grouping"": ""Processing Option""
+            }
+        ]
+    }
+}"""
